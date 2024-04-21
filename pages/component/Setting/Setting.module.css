@@ -1,0 +1,231 @@
+.Setting_box_heading {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1.5fr;
+}
+
+.Setting_box_heading_img {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.Setting_box_heading_img_icon {
+    color: #7f7f7f;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+
+}
+
+.Setting_box_heading_img:hover 
+.Setting_box_heading_img_icon{
+    color: #cbcedc;
+}
+
+.Setting_box_heading_title {
+    display: flex;
+    /* justify-content: center; */
+}
+
+.Setting_box_body_theme {
+    width: 100%;
+    display: grid;
+    padding: 0px;
+    align-items: center;    
+    justify-content: unset;
+    grid-template-columns: 1fr 1.5fr;
+}
+
+.Setting_box_body_theme_value {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 16px;
+    gap: 4px;
+    padding: 4px 0px;
+    outline: rgba(34, 34, 34, 0.07) solid 1px;
+    outline-offset: -1px;
+}
+
+.Setting_box_body_theme_value p {
+    display: flex;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    justify-content: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    border-radius: 12px;
+    padding: 6px;
+    gap: 4px;
+    transition: all 250ms ease 0s;
+    margin: 0;
+}
+
+.Setting_box_body_theme_value :nth-child(2){
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    padding: 6px;
+    gap: 4px;
+    transition: all 250ms ease 0s;
+}
+
+.Setting_box_body_theme_value :nth-child(3) {
+    display: flex;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    justify-content: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    padding: 6px;
+    gap: 4px;
+    transition: all 250ms ease 0s;
+}
+
+.active {
+    background-color: rgb(255, 239, 255);
+    color: rgb(252, 114, 255);
+}
+
+.Setting_box_body_balance button {
+    -webkit-box-align: center;
+    align-items: center;
+    background: transparent;
+    border: 1px solid rgba(34, 34, 34, 0.07);
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    outline: none;
+    padding: 4px;
+    width: fit-content;
+}
+/* button switch  */
+.Switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.Switch input {
+  display: none; /* Hide the checkbox */
+}
+
+.Slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.Slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .Slider {
+  background-color: rgb(252, 114, 255);;
+}
+
+input:focus + .Slider {
+  box-shadow: 0 0 1px rgb(252, 114, 255);;
+}
+
+input:checked + .Slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+ /* end switch buton  */
+.Setting_box_body_balance {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+.Setting_box_body_balance_title {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    font-weight: 485;
+    font-size: 14px;
+}
+
+.Setting_box_body_unknown {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Setting_box_body_unknown_title {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    font-weight: 485;
+    font-size: 14px;
+}
+.Setting_box_body_unknown_content {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    font-weight: 485;
+    font-size: 14px;
+    line-height: 16px;
+    color: #7f7f7f;
+}
+.Setting_box_body_analytic {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+
+.Setting_box_body_testnet {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.Setting_box_body_testnet_title {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    font-weight: 485;
+    font-size: 14px;
+}
+
+.Setting_box_body_language {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

@@ -4,13 +4,13 @@ import Link from 'next/link'
 // INTERNAL IMPORT
 import Style from './Navbar.module.css'
 import image from '../../../assets/index'
+import Model from '../Model/Model'
 
 // REACT ICON
 import { CiSearch } from "react-icons/ci";
 import { PiCaretDownLight } from "react-icons/pi";
 import { FaApple } from "react-icons/fa6";
 import { BsGooglePlay } from "react-icons/bs";
-import Model from '../Model/Model'
 const Navbar = () => {
   const MenuItems = [
     {

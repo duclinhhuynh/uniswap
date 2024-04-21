@@ -1,10 +1,32 @@
 .Model {
     position: fixed;
+    display: flex;
     top: 5px;
     right: 15px;
     height: auto;
     bottom: 10px;
-    overflow: hidden;
+    
+}
+
+.Model_close {
+    text-decoration: none;
+    cursor: pointer;
+    height: 100%;
+    color: #7f7f7f;
+    padding: 24px calc(28px) 24px 14px;
+    border-radius: 20px 0px 0px 20px;
+    transition: background-color 250ms ease 0s, margin 250ms ease 0s;
+}
+
+.Model_close:hover {
+    background-color: #fcfcfc;
+    margin-right: -10px;
+}
+
+.Model_box {
+    padding: 0 16px;
+    height: auto;
+
     border-radius: 12px;
     width: 320px;
     max-width: 320px;
@@ -15,15 +37,8 @@
     transition: margin-right 250ms ease 0s;
     overflow: hidden auto;
 }
-.Model_box {
-    display: flex;
-    flex-direction: column;
-    -webkit-box-pack: start;
-    justify-content: flex-start;
-    padding: 0 16px;
-    height: auto;
-}
 
+ /* heading  */
 .Model_box_heading {
     width: 100%;
     flex-wrap: wrap;
@@ -34,7 +49,21 @@
     -webkit-box-align: center;
     align-items: center;
 }
+.Model_box_heading_img {
+    padding: 8px;
+    cursor: pointer;
+}
 
+.Model_box_heading_img:hover {
+    background-color: #fcfcfc;
+    border-radius: 10px;
+}
+.Model_box_heading_img_icon {
+    display: flex;
+    color: #7f7f7f;
+    width: 24px;
+    height: 24px;
+}
 /* body */
 .Model_box_wallet {
     display: grid;

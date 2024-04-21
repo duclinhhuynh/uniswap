@@ -4,9 +4,11 @@ import Image from 'next/image'
 //INTERNAL IMPORT
 import Style from './Model.module.css';
 import images from '../../../assets/index';
+import Setting from '../Setting/Setting';
 
 //REACT ICON IMPORT 
-import { IoMdClose } from "react-icons/io";
+import { IoMdSettings } from "react-icons/io";
+import { FaAnglesRight } from "react-icons/fa6";
 
 const Model = ({setOpenModel, connectWallet}) => {
   // USE STATE 
@@ -28,14 +30,24 @@ const Model = ({setOpenModel, connectWallet}) => {
       image: images.coinbase
     },
   ];
+  const [setting, setOpenSetting] = useState(false);
+  const openSeting = () => {
+    setOpenSetting(true);
+  }
   return (
+    <>
     <div className={Style.Model}>
+      <div className={Style.Model_close} onClick={() => setOpenModel(false)}><FaAnglesRight/></div>
       <div className={Style.Model_box}>
         <div className={Style.Model_box_heading}>
           <p>Connect a wallet</p>
           <div className={Style.Model_box_heading_img}>
-            <IoMdClose onClick={() => setOpenModel(false)}/>
+            <IoMdSettings className={Style.Model_box_heading_img_icon} onClick={() => openSeting()}/>
           </div>
+          {setting && (
+              <Setting setOpenSetting={setOpenSetting} 
+              setOpenModel ={setOpenModel}/>
+            )}
         </div>
         <div className={Style.Model_box_wallet}>
           {walletMenu.map((el, i) => (
@@ -46,13 +58,15 @@ const Model = ({setOpenModel, connectWallet}) => {
             </div>
           ))}
         </div>
+        {!setting && (
         <p className={Style.Model_box_para}>
         By connecting a wallet, you agree to <br/>
         Uniswap Labs' Terms of Service <br/>
         and consent to its Privacy Policy.
-        </p>
+        </p>)}
       </div>
     </div>
+    </>
   )
 }
 
