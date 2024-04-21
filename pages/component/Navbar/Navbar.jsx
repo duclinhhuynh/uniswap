@@ -82,7 +82,7 @@ const Navbar = () => {
                   <BsGooglePlay/>
                 </div>
               </div>
-              <button onClick={() => {}}>
+              <button onClick={() => setOpenModel(true)}>
                 Connect
               </button>
             </div>

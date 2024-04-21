@@ -1,0 +1,93 @@
+.Model {
+    position: fixed;
+    top: 5px;
+    right: 15px;
+    height: auto;
+    bottom: 10px;
+    overflow: hidden;
+    border-radius: 12px;
+    width: 320px;
+    max-width: 320px;
+    font-size: 16px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgba(34, 34, 34, 0.07);
+    box-shadow: rgba(51, 53, 72, 0.04) 8px 12px 20px, rgba(51, 53, 72, 0.02) 4px 6px 12px, rgba(51, 53, 72, 0.04) 4px 4px 8px;
+    transition: margin-right 250ms ease 0s;
+    overflow: hidden auto;
+}
+.Model_box {
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    padding: 0 16px;
+    height: auto;
+}
+
+.Model_box_heading {
+    width: 100%;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    display: flex;
+    padding-right: 16px;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+/* body */
+.Model_box_wallet {
+    display: grid;
+    flex: 1 1 0%;
+    gap: 2px;
+    margin-right: 16px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+.Model_box_wallet div {
+    -webkit-box-align: center;
+    align-items: center;
+    background-color: #f9f9f9;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    /* justify-content: space-between; */
+    opacity: 1;
+    padding: 10px;
+    /* height: 100px; */
+    transition: all 125ms ease 0s;
+}
+.Model_box_wallet div:hover {   
+    background-color: var(--rgw6ezr);
+}
+.Model_box_wallet_img {
+    display: flex;
+    width:40px;
+    height: 40px;
+    align-items: center;
+}
+.Model_box_wallet div p {
+    display: flex;
+    flex-flow: row;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    color: rgb(34, 34, 34);
+    font-size: 16px;
+    font-weight: 535;
+    padding: 0px 8px;
+}
+/* footer */
+.Model_box_para {
+    position: absolute;
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    font-size: 14px;
+    bottom: 10px;
+} 
+
