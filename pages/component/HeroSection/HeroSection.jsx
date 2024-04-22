@@ -3,6 +3,7 @@ import Image from 'next/image';
 // INTERNAL IMPORT 
 import Style from './HeroSection.module.css'
 import images from '../../../assets/index'
+import Toggle from '../Toggle/Toggle';
 import {Token , SearchToken} from "../index";
 
 // REACT ICON
@@ -14,7 +15,14 @@ const HeroSection = ({accounts, tokenData}) => {
   const [openSetting, setOpenSetting] = useState(false);
   const [openToken, setOpenToken] = useState(false);
   const [openTokenTwo, setOpenTokenTwo] = useState(false);
-
+  const openSettingModal = () => {
+    if(!openSetting){
+      setOpenSetting(true);
+    }
+    else {
+      setOpenSetting(false);
+    }
+  }
   // TOKEN 1 
   const [tokenOne, setTokenOne] = useState({
     name: "",
@@ -38,8 +46,11 @@ const HeroSection = ({accounts, tokenData}) => {
           </div>
           <div className={Style.HeroSection_box_heading_img}>
             <IoMdSettings className={Style.HeroSection_box_heading_img_icon}
-            onClick={() => setOpenSetting(true)}/>
+            onClick={() => openSettingModal()}/>
           </div>
+          {openSetting && (
+            <Toggle setOpenSetting= {setOpenSetting}/>
+          )}
         </div>
         {/* BODY  */}
         <div className={Style.HeroSection_box_input_box}>
@@ -98,7 +109,7 @@ const HeroSection = ({accounts, tokenData}) => {
             </div>
         )}
       </div>
-        {openSetting && <Token openSetting={openSetting}/>}
+        {/* {openSetting && <Token openSetting={openSetting}/>}
         {openToken && (
           <SearchToken 
           openToken = {openToken}
@@ -112,9 +123,9 @@ const HeroSection = ({accounts, tokenData}) => {
           tokens = {setTokenTwo}
           tokenData = {tokenData}
           />
-        )}
+        )} */}
     </div>
   )
 }
 
-export default HeroSection
+export default HeroSection;

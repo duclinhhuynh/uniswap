@@ -5,7 +5,7 @@
     right: 15px;
     height: auto;
     bottom: 10px;
-    
+    z-index: 9999;
 }
 
 .Model_close {

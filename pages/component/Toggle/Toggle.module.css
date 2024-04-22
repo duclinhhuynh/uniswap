@@ -1,0 +1,203 @@
+
+.Toggle {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgba(34, 34, 34, 0.07);
+    box-shadow: rgba(0, 0, 0, 0.01) 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 4px 8px, rgba(0, 0, 0, 0.04) 0px 16px 24px, rgba(0, 0, 0, 0.01) 0px 24px 32px;
+    border-radius: 12px;
+    position: absolute;
+    top: 25%;
+    margin-top: 10px;
+    width: 300px;
+    right: 0;
+    z-index: 100;
+    color: rgb(34, 34, 34);
+    user-select: none;
+    padding: 16px;
+    overflow: hidden;
+}
+/* header */
+.Toggle_head_title {
+    color: rgb(136 96 250);
+    font-weight: 400;
+}
+
+.Toggle_head_content_para {
+    color: rgb(136 96 250);
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1.1;
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+}
+
+.Toggle_head_content_para_detail {
+    text-decoration: none;
+    font-weight: 400;
+    color: rgb(253 139 255);
+}
+.Toggle_head_content {
+    width: 100%;
+    display: flex;
+    padding: 0px;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    gap: 8px;
+}
+/* button switch  */
+.Switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .Switch input {
+    display: none; /* Hide the checkbox */
+  }
+  
+  .Slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+  }
+  
+  .Slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .Slider {
+    background-color: rgb(252, 114, 255);
+  }
+  
+  input:focus + .Slider {
+    box-shadow: 0 0 1px rgb(252, 114, 255);
+  }
+  
+  input:checked + .Slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+   /* end switch buton  */
+
+/* body  */
+.Toggle_body {
+    display: grid;
+    gap: 16px;
+    padding-top: 16px;
+    flex: 1;
+}
+.Toggle_body_slippage {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid #ccc;
+}
+
+.Toggle_body_slippage_title {
+    display: flex;
+    align-items: center;
+    color: rgb(252, 114, 255);
+    font-weight: 300;
+}
+
+.Toggle_body_slippage_value {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 300;
+}
+
+.Toggle_body_slippage_value_row {
+    width: 100%;
+    display: flex;
+    padding: 0px;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    gap: 12px;
+    animation: slideInFromBottom 1s ease forwards;
+}
+.Toggle_body_slippage_value_name {
+    display: flex;
+    justify-content: space-between;
+}
+.Toggle_body_slippage_value_name div{
+    width: auto;
+    cursor: pointer;
+    padding: 6px 12px;
+    text-align: center;
+    gap: 4px;
+    border-radius: 12px;
+    background: transparent;
+}
+
+.Toggle_body_slippage_value_name div:hover{
+    background-color: #ccc;
+}
+
+.Toggle_body_slippage_value_name {
+    width: auto;
+    padding: 4px;
+    border: 1px solid rgba(34, 34, 34, 0.07);
+    border-radius: 16px;
+}
+.Toggle_body_slippage_value_input{
+    display: flex;
+    padding: 8px 16px;
+    border-radius: 12px;
+    width: 100px;
+    gap: .5rem;
+    min-width: 100px;
+    flex: 1 1 0%;
+    border: 1px solid rgba(34, 34, 34, 0.07);
+}
+.Toggle_body_slippage_value_input input {
+    width: 100%;
+    display: flex;
+    flex: 1 1 0%;
+    font-size: 16px;
+    border: 0px;
+    outline: none;
+    background: transparent;
+    text-align: right;
+}
+
+@media screen and (min-width:320px) and (max-width:768px) {
+    .Toggle {
+        top: 15%;
+    }
+}
+
+@keyframes slideInFromBottom {
+    0% {
+        max-height: 0;
+        opacity: 0;
+    }
+    100% {
+        max-height: 100px;
+        opacity: 1;
+    }
+}
