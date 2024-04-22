@@ -1,0 +1,181 @@
+.HeroSection {
+    padding: 68px 8px 0px;
+    max-width: 480px;
+    width: 100%;
+    position: relative;
+    margin: auto;
+}
+
+.HeroSection_box {
+    /* background-color: #f9f9f9; */
+    transition: transform 250ms ease 0s;
+    border-radius: 24px;
+}
+ /* HEADER  */
+.HeroSection_box_heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.HeroSection_box_heading_tab {
+    display: flex;
+}
+.HeroSection_box_heading_tab p {
+    border-radius: 2rem;
+    padding: 8px 16px;
+    margin: 8px 0px;
+    cursor: pointer;
+}
+
+.HeroSection_box_heading_tab p:first-child {
+    background-color:#efefef;
+    font-weight: 400;
+}
+
+.HeroSection_box_heading_tab p:hover {
+    background-color:#efefef;
+}
+
+.HeroSection_box_heading_img {
+    display: flex;
+    padding: 8px;
+}
+.HeroSection_box_heading_img_icon {
+    height: 24px;
+    width: 24px;
+}
+
+/* Body  */
+
+.HeroSection_box_input {
+    background-color: rgb(249, 249, 249);
+    border-radius: 16px;
+    color: rgb(125, 125, 125);
+    font-size: 14px;
+    font-weight: 500;
+    height: 120px;
+    line-height: 20px;
+    padding: 16px;
+    position: relative;
+}
+
+.HeroSection_box_input_container {
+    min-height: 44px;
+    border-radius: 20px;
+    width: initial;
+}
+
+.HeroSection_box_input_body {
+    display: flex;
+    flex-flow: row;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-top: 4px;
+}
+
+.HeroSection_box_input_body input{
+    width: 100%;
+    border: none;
+    background-color: rgb(249, 249, 249);
+    filter: none;
+    opacity: 1;
+    transition: opacity 250ms ease-in-out 0s;
+    text-align: left;
+    font-size: 36px;
+    font-weight: 485;
+    max-height: 44px;
+}
+.HeroSection_box_input_body div::before {
+    background-size: 100%;
+    border-radius: inherit;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    content: "";
+}
+
+.HeroSection_box_input_body div {
+    -webkit-box-align: center;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    opacity: 1;
+    color: rgb(34, 34, 34);
+    cursor: pointer;
+    height: 36px;
+    border-radius: 18px;
+    outline: none;
+    user-select: none;
+    border: 1px solid rgba(34, 34, 34, 0.07);
+    font-size: 24px;
+    font-weight: 485;
+    width: initial;
+    padding: 4px 8px 4px 4px;
+    gap: 8px;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-left: 12px;
+    box-shadow: rgba(34, 34, 34, 0.04) 0px 0px 10px 0px;
+    visibility: visible;
+    animation: auto ease 0s 1 normal none running none;
+}
+.HeroSection_box_input_body_tokenlist {
+    display: flex;
+    align-items: center;
+}
+
+.HeroSection_box_input_body_tokenlist_icondown {
+    display: flex;
+    align-items: center;
+    width: 12px;
+    height: 15px;
+}
+.HeroSection_box_input_arrow {
+    border-radius: 12px;
+    height: 40px;
+    width: 40px;
+    position: relative;
+    margin: -18px auto;
+    background-color: rgb(249, 249, 249);
+    border: 4px solid rgb(255, 255, 255);
+    z-index: 2;
+}
+
+.HeroSection_box_input_down {
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+ /* footer  */
+.HeroSection_box_footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    margin-top: 4px;
+    border-radius: 1rem;
+    background-color: rgb(255, 239, 255);
+    color: rgb(252, 114, 255);
+    font-size: 20px;
+    font-weight: 535;
+    cursor: pointer;
+}
+
+.HeroSection_box_btn {
+    align-items: center;
+    font-size: 1.3rem;
+    font-weight: 400;
+    width: 100%;
+    color: #FC72FF;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}

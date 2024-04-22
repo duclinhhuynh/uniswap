@@ -11,6 +11,7 @@ import { CiSearch } from "react-icons/ci";
 import { PiCaretDownLight } from "react-icons/pi";
 import { FaApple } from "react-icons/fa6";
 import { BsGooglePlay } from "react-icons/bs";
+import { IoIosArrowUp } from "react-icons/io";
 const Navbar = () => {
   const MenuItems = [
     {
@@ -49,6 +50,16 @@ const Navbar = () => {
                   <p className={Style.Navbar_box_left_menu_item}>{el.name}</p>
                   </Link>
                 ))}
+              </div>
+              <div className={Style.Navbar_box_left_menu_mobile}> 
+                {MenuItems.map((el, i) => (
+                  <Link key={i + 1}
+                    href={{pathname: `${el.name}`, query: `${el.link}`}}
+                  >
+                  <p className={Style.Navbar_box_left_menu_item}>{el.name}</p>
+                  </Link>
+                ))}
+                <p><IoIosArrowUp Navbar_box_left_down/></p>
               </div>
               <div className={Style.Navbar_box_left_down}>
                 <PiCaretDownLight/>

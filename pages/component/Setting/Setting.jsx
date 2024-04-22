@@ -4,7 +4,6 @@ import Image from 'next/image'
 //INTERNAL IMPORT
 import Style from '../Model/Model.module.css';
 import StyleSetting from './Setting.module.css';
-import images from '../../../assets/index';
 
 //REACT ICON IMPORT 
 import { HiOutlineArrowLeft } from "react-icons/hi";

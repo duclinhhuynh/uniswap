@@ -1,8 +1,13 @@
+import React, {useState, useContext, useEffect} from 'react'
 
-export default function Home() {
+// INTERNAL IMPORT 
+import HeroSection from './component/HeroSection/HeroSection'
+const index = () => {
   return (
-    <>
-      <div>Hello</div>
-    </>
-  );
+    <div>
+      <HeroSection accounts = "key" tokenData = "Data"/>
+    </div>
+  )
 }
+
+export default index
