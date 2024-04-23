@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
 import Image from 'next/image';
 // INTERNAL IMPORT 
 import Style from './HeroSection.module.css'
 import images from '../../../assets/index'
 import Toggle from '../Toggle/Toggle';
-import {Token , SearchToken} from "../index";
+import Token from '../Token/Token';
+import SearchToken from '../SearchToken/SearchToken';
 
 // REACT ICON
 import { IoMdSettings } from "react-icons/io";
 import { FaArrowDown } from "react-icons/fa";
 import { FaAngleDown } from "react-icons/fa6";
+import NetWork from '../NetWork/NetWork';
 const HeroSection = ({accounts, tokenData}) => {
   // USESTATE 
   const [openSetting, setOpenSetting] = useState(false);
@@ -32,7 +34,7 @@ const HeroSection = ({accounts, tokenData}) => {
     name: "",
     image: "",
   });
-  
+
   return (
     <div className={Style.HeroSection}>
       <div className={Style.HeroSection_box}>
@@ -59,16 +61,16 @@ const HeroSection = ({accounts, tokenData}) => {
                 <span className={Style.HeroSection_box_input_title}>You pay</span>
                 <div className={Style.HeroSection_box_input_body}> 
                   <input type="text" placeholder='0'/>
-                  <div className={Style.HeroSection_box_input_body_tokenlist} onClick={() => openToken(true)}>
-                    <Image src={images.eth || images.uniswap}
-                      width={20}
-                      height={20}
-                      alt='ether'
-                    />
-                    {
-                      tokenOne.name || "ETH"
-                    }
-                    <FaAngleDown className={Style.HeroSection_box_input_body_tokenlist_icondown}/>
+                  <div className={Style.HeroSection_box_input_body_tokenlist} onClick={() => setOpenToken(true)}>                 
+                      <Image src={images.eth || images.uniswap}
+                        width={20}
+                        height={20}
+                        alt='ether'
+                      />
+                      {
+                        tokenOne.name || "ETH"
+                      }
+                      <FaAngleDown className={Style.HeroSection_box_input_body_tokenlist_icondown} />                
                   </div>
                 </div>
               </div>
@@ -83,14 +85,14 @@ const HeroSection = ({accounts, tokenData}) => {
               <span className={Style.HeroSection_box_input_title}>You pay</span>
               <div className={Style.HeroSection_box_input_body}> 
                 <input type="text" placeholder='0'/>
-                <div className={Style.HeroSection_box_input_body_tokenlist} onClick={() => openToken(true)}>
-                  <Image src={images.eth || images.uniswap}
+                <div className={Style.HeroSection_box_input_body_tokenlist} onClick={() => setOpenToken(true)}>
+                  <Image src={images.uniswap || images.uniswap}
                     width={20}
                     height={20}
                     alt='ether'
                   />
                   {
-                    tokenOne.name || "ETH"
+                    tokenOne.name || "UNI"
                   }
                   <FaAngleDown className={Style.HeroSection_box_input_body_tokenlist_icondown}/>
                 </div>
@@ -109,21 +111,23 @@ const HeroSection = ({accounts, tokenData}) => {
             </div>
         )}
       </div>
-        {/* {openSetting && <Token openSetting={openSetting}/>}
+       {openSetting && <Token openSetting={openSetting}/>}
         {openToken && (
           <SearchToken 
-          openToken = {openToken}
+          setOpenToken = {setOpenToken}
           tokens = {setTokenOne}
           tokenData = {tokenData}
+          openToken={openToken}
           />
         )}
-         {openToken && (
+  
+         {openTokenTwo && (
           <SearchToken 
-          openToken = {openTokenTwo}
+          setOpenToken = {setOpenTokenTwo}
           tokens = {setTokenTwo}
           tokenData = {tokenData}
           />
-        )} */}
+        )}
     </div>
   )
 }

@@ -1,0 +1,50 @@
+.NetWork {
+    min-width: 150px;
+    overflow: auto;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(51, 53, 72, 0.04) 8px 12px 20px, rgba(51, 53, 72, 0.02) 4px 6px 12px, rgba(51, 53, 72, 0.04) 4px 4px 8px;
+    border: 0.5px solid rgba(34, 34, 34, 0.07);
+    border-radius: 12px;
+    padding: 8px;
+    font-size: 16px;
+    position: absolute;
+    top: 48px;
+    animation: 125ms ease-in-out 0s 1 normal none running hYPVna;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(34, 34, 34, 0.07) transparent;
+    right: 0;
+    z-index: 111;
+}
+
+.NetWork_box_item {
+    -webkit-box-align: center;
+    align-items: center;
+    background: none;
+    border: none;
+    border-radius: 12px;
+    color: rgb(34, 34, 34);
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: min-content 1fr min-content;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    line-height: 20px;
+    opacity: 1;
+    padding: 10px 8px;
+    text-align: left;
+    transition: background-color 250ms ease 0s;
+    width: 240px;
+}
+.NetWork_box_item:hover {
+    background-color: #efefef;
+}
+.NetWork_box_item_img {
+    margin-right: 12px;
+    border-radius: 1rem;
+}
+
+.NetWork_box_item_name {
+    grid-area: 1 / 2;
+    font-size: 16px;
+    font-weight: 485;
+}

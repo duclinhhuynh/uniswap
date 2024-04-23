@@ -4,6 +4,7 @@
     width: 100%;
     height: 72px;
     z-index: 1020;
+    /* position: relative; */
 }
 .Navbar_box {
     display: grid;
@@ -119,14 +120,20 @@
 .Navbar_box_right_box_box {
     display: flex;
     align-items: center;
-    padding: 8px 12px;
-    border-radius: 15px;
     gap: .6rem;
+    background-color: rgb(249 249 249); 
+    padding: 10px 12px;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+}
+.Navbar_box_right_box_icon{
+    background-color: transparent;
 }
 .Navbar_box_right_box_img,.Navbar_box_right_down {
     display: flex;
 }
-.Navbar_box_right_box div:hover{
+.Navbar_box_right_box_box:hover{
     background-color:rgb(245 245 245);
 }
 .Navbar_box_right_getApp {

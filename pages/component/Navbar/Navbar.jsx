@@ -1,10 +1,11 @@
-import React,{useContext, useEffect, useState} from 'react'
+import React,{useContext, useEffect, useState, useRef} from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 // INTERNAL IMPORT
 import Style from './Navbar.module.css'
 import image from '../../../assets/index'
 import Model from '../Model/Model'
+import NetWork from '../NetWork/NetWork'
 
 // REACT ICON
 import { CiSearch } from "react-icons/ci";
@@ -12,6 +13,8 @@ import { PiCaretDownLight } from "react-icons/pi";
 import { FaApple } from "react-icons/fa6";
 import { BsGooglePlay } from "react-icons/bs";
 import { IoIosArrowUp } from "react-icons/io";
+import { IoChevronDown } from "react-icons/io5";
+import HeroSection from '../HeroSection/HeroSection'
 const Navbar = () => {
   const MenuItems = [
     {
@@ -33,9 +36,41 @@ const Navbar = () => {
   ];
   const [openModel, setOpenModel] = useState(false);
   const [openTokenBox, setOpenTokenBox] = useState(false);
+  const [openNetWork, setOpenNetWork] = useState(false);
+  const [accounts, setAccounts] = useState(true);
+  const navbarRef = useRef(null);
+
+  const handleOpenNetwork = () => {
+    setOpenNetWork((prev) => !prev);
+  };
+
+  const handleDocumentClick = (e) => {
+    if (navbarRef.current && !navbarRef.current.contains(e.target)) {
+      setOpenNetWork(false);
+      setOpenModel(false);
+      setOpenTokenBox(false);
+    }
+  };
+
+  const toggleNetwork = () => {
+    if (openNetWork) {
+      setOpenNetWork(false);
+    } else {
+      setOpenModel(false);
+      setOpenTokenBox(false);
+      setOpenNetWork(true);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener('click', handleDocumentClick);
+    return () => {
+      document.removeEventListener('click', handleDocumentClick);
+    };
+  }, [handleDocumentClick]);
+
   return (
     <div>
-        <div className={Style.Navbar}>
+        <div ref={navbarRef}  className={Style.Navbar}> 
           <div className={Style.Navbar_box}>
             {/* Navbar left */}
             <div className={Style.Navbar_box_left}>
@@ -62,7 +97,7 @@ const Navbar = () => {
                 <p><IoIosArrowUp Navbar_box_left_down/></p>
               </div>
               <div className={Style.Navbar_box_left_down}>
-                <PiCaretDownLight/>
+                <IoChevronDown/>
               </div>
             </div>
             {/* Navbar Middle */}
@@ -79,13 +114,16 @@ const Navbar = () => {
             {/* Navbar right */}
             <div className={Style.Navbar_box_right}>
               <div className={Style.Navbar_box_right_box}>
-                <div className={Style.Navbar_box_right_box_box}>
-                  <div className={Style.Navbar_box_right_box_img}>
-                    <Image width={20} height={20} src={image.eth}/>
-                  </div>
-                  <div className={Style.Navbar_box_right_down}>
-                    <PiCaretDownLight/>
-                  </div>
+                <div className={Style.Navbar_box_right_box_box} onClick={toggleNetwork}>
+                    <Image width={20} height={20} src={image.eth} className={Style.Navbar_box_right_box_img}/>
+                    <div className={Style.Navbar_box_right_box_icon}>
+                      {openNetWork === true ? <IoIosArrowUp /> 
+                    : <IoChevronDown />}
+                    </div>
+                    {/* open network */}
+                    {/* important bug */}
+                    {openNetWork && 
+                    <NetWork setOpenNetWork={setOpenNetWork}/>} 
                 </div>
                 <div className={Style.Navbar_box_right_getApp}>
                   <p> Get the app</p>
@@ -93,10 +131,11 @@ const Navbar = () => {
                   <BsGooglePlay/>
                 </div>
               </div>
-              <button onClick={() => setOpenModel(true)}>
-                Connect
-              </button>
-            </div>
+              {accounts ? (
+                  <button onClick={() => setOpenModel(true)}>0x9adsfa2324x</button>
+                ) : <button onClick={() => setOpenModel(true)}>Connect</button>
+            }
+            </div>  
             {openModel && (
               <Model setOpenModel={setOpenModel} connectWallet = "connect"/>
             )}

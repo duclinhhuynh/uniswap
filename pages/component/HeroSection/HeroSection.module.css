@@ -4,7 +4,7 @@
     width: 100%;
     position: relative;
     margin: auto;
-    z-index: 9;
+    z-index: 1;
 }
 
 .HeroSection_box {
@@ -41,12 +41,13 @@
 
 .HeroSection_box_heading_img {
     display: flex;
-    padding: 8px;
+    padding: 8px 12px;
     cursor: pointer;
 }
 .HeroSection_box_heading_img_icon {
     height: 24px;
     width: 24px;
+    color: rgb(125 125 125);
 }
 
 /* Body  */
@@ -80,16 +81,22 @@
 }
 
 .HeroSection_box_input_body input{
-    width: 100%;
-    border: none;
-    background-color: rgb(249, 249, 249);
-    filter: none;
-    opacity: 1;
-    transition: opacity 250ms ease-in-out 0s;
-    text-align: left;
-    font-size: 36px;
+    color: rgb(34, 34, 34);
+    pointer-events: auto;
+    width: 0px;
+    position: relative;
     font-weight: 485;
-    max-height: 44px;
+    outline: none;
+    border: none;
+    flex: 1 1 auto;
+    background-color: transparent;
+    font-size: 28px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0px;
+    appearance: textfield;
+    z-index: 1;
 }
 .HeroSection_box_input_body div::before {
     background-size: 100%;
@@ -100,6 +107,7 @@
     width: 100%;
     height: 100%;
     content: "";
+    z-index: -1;
 }
 
 .HeroSection_box_input_body div {
