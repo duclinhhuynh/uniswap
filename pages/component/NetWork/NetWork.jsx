@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useContext} from 'react'
 import Image from 'next/image'
 // INTERNAL IMPORT
 import Style from './NetWork.module.css'
@@ -7,10 +7,12 @@ import images from '../../../assets'
 //REACT ICON
 import { IoMdCheckmark } from "react-icons/io";
 
-const NetWork = ({setOpenNetWork }) => {
+const NetWork = ({isMobile}) => {
+  // setIsMobile = useContext(setIsMobile);
   const closeNetWork = () =>  {
     setOpenNetWork(false);
   }
+  const isMobileClass = isMobile ? Style.mobile_Network : Style.NetWork;
   const NetWork = [
     {
         img: images.eth,
@@ -52,12 +54,8 @@ const NetWork = ({setOpenNetWork }) => {
 
   ]
   return (
-    <div className={Style.NetWork}
-    // id="modal" onClick={(e) => 
-    //   {if(e.target.id === "modal"){
-    //     closeNetWork()}}}
-    >
-        <div className={Style.NetWork_box}>
+    <div className={`${isMobileClass}`}>
+        <div>
           {NetWork.map((el, i) => (
             <div className={Style.NetWork_box_item} key={i + 1}>
               <Image

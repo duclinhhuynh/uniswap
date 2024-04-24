@@ -99,7 +99,7 @@ const SearchToken = ({openToken, tokens, tokenData, setOpenToken}) => {
                         <Image className={Style.StyleSearchToken_box_header_box_network_image} src={images.eth} width={20} height={20}/>
                         {openNetWork ? <IoIosArrowUp/> : <IoChevronDown className={Style.SearchToken_box_header_box_network_down}/> }
                         {openNetWork && 
-                        <NetWork setOpenNetWork={setOpenNetWork}/>}
+                        <NetWork/>}
                     </div>
                 </div>
                 {/* List token */}

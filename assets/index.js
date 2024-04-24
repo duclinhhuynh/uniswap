@@ -25,6 +25,7 @@ import achema from './achema.jpg'
 import optimism from './optimism.png'
 import celo from './celo.jpg'
 import polygon from './polygon.png'
+import popular from './popular.webp'
 
 export default {
     uniswap,
@@ -47,5 +48,6 @@ export default {
     base,
     achema,
     polygon,
-    celo
+    celo,
+    popular
 }
