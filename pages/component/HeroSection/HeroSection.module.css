@@ -3,8 +3,18 @@
     max-width: 480px;
     width: 100%;
     position: relative;
-    margin: auto;
-    z-index: 1;
+    margin: 100px auto;
+    margin-bottom: 220px;
+    z-index: 9;
+}
+.HeroSection_new {
+    padding: 68px 8px 0px;
+    max-width: 480px;
+    width: 100%;
+    position: relative;
+    margin: 100px auto;
+    margin-bottom: 220px;
+    z-index: 11;
 }
 
 .HeroSection_box {
@@ -61,7 +71,6 @@
     height: 120px;
     line-height: 20px;
     padding: 16px;
-    position: relative;
 }
 
 .HeroSection_box_input_container {

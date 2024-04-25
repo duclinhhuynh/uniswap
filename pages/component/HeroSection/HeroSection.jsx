@@ -17,6 +17,7 @@ const HeroSection = ({accounts, tokenData}) => {
   const [openSetting, setOpenSetting] = useState(false);
   const [openToken, setOpenToken] = useState(false);
   const [openTokenTwo, setOpenTokenTwo] = useState(false);
+  const zindex =  openToken ? Style.HeroSection_new : Style.HeroSection;
   const openSettingModal = () => {
     if(!openSetting){
       setOpenSetting(true);
@@ -36,7 +37,7 @@ const HeroSection = ({accounts, tokenData}) => {
   });
 
   return (
-    <div className={Style.HeroSection}>
+    <div className={`${zindex}`}>
       <div className={Style.HeroSection_box}>
         {/* Header */}
         <div className={Style.HeroSection_box_heading}>

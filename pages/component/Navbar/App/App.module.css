@@ -1,0 +1,124 @@
+.App {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1040;
+    overflow: hidden;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.App_box {
+    position: relative;
+    border-radius: 1rem;
+    padding: 60px 32px 32px;
+    width: 500px;
+    user-select: none;
+    background-color: #fff;
+    margin: auto;
+    display: grid;
+    gap: 32px;
+}
+
+.App_box_close {
+    position: absolute;
+    display: flex;
+    top: 20px;
+    right: 20px;
+    padding: 12px;
+    border-radius: 2rem;
+    color: rgb(132 132 132);
+    background-color: rgb(233 233 233);
+}
+
+.App_box_header_title{
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    gap: 8px;
+}    
+.App_box_header_title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.App_box_header_title_title {
+    font-size: 25px;
+    font-weight: 800;
+    margin: 0;
+}
+.App_box_header_content {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    font-weight: 485;
+    font-size: 16px;
+    text-align: center;
+    max-width: 400px;
+}
+
+.App_box_body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.App_box_body_img{
+    border: 1px solid #ccc;
+    padding: .2rem;
+    border-radius: 1rem;
+}
+.App_box_footer {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+.App_box_footer_ios_img{
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    display: flex;
+}
+.App_box_footer_google_img {
+    width: 40px;
+    height: 40px;
+    display: flex;
+}
+.App_box_footer_google {
+    display: flex;
+    padding: .2rem;
+    background-color: black;
+    border-radius: 5px;
+    align-items: center;
+    padding: 5px .5rem;
+}
+.App_box_footer_google div{
+    color: #fff;
+}
+.App_box_footer_ios {
+    display: flex;
+    padding: 5px;
+    background-color: black;
+    border-radius: 5px;
+    align-items: center;
+    padding: 5px .7rem;
+}
+
+.App_box_footer_ios div {
+    color: #fff;
+}
+
+.App_box_footer_google_des {
+    font-size: 20px;
+}
+
+.App_box_footer_google_name{
+    font-size: 10px;
+    margin: 0;
+}

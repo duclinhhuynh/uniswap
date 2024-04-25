@@ -7,6 +7,8 @@ import image from '../../../assets/index'
 import Model from '../Model/Model'
 import NetWork from '../NetWork/NetWork'
 import Search from './Search/Search'
+import More from './More/More'
+import App from './App/App'
 
 // REACT ICON
 import { IoSearchOutline } from "react-icons/io5";
@@ -16,6 +18,7 @@ import { BsGooglePlay } from "react-icons/bs";
 import { IoIosArrowUp } from "react-icons/io";
 import { IoChevronDown } from "react-icons/io5";
 import { IoSearch } from "react-icons/io5";
+
 
 const Navbar = () => {
   const MenuItems = [
@@ -35,11 +38,21 @@ const Navbar = () => {
   const [openModel, setOpenModel] = useState(false);
   const [openTokenBox, setOpenTokenBox] = useState(false);
   const [openNetWork, setOpenNetWork] = useState(false);
+  const [openMore, setOpenMore] = useState(false);
+  const [openApp, setOpenApp] = useState(false);
   // const [activeBtn, setActiveBtn] = useState(1);
   const [accounts, setAccounts] = useState(true);
   const [isMobile, setIsMobile] = useState(false); 
   const [search, setSearch] = useState(false);
   const isOpensearchClass = search ? Style.Navbar_box_middle_search_fillter : Style.Navbar_box_middle_search;
+  // open App 
+  const handleOpenApp = () => {
+    setOpenApp(!openApp)
+  }
+  // open more 
+  const handleOpenMore = () => {
+    setOpenMore(!openMore);
+  }
   // open search
   const openSearch =() => {
     if(!search)
@@ -57,6 +70,7 @@ const Navbar = () => {
       setOpenModel(false);
       setOpenTokenBox(false);
       setSearch(false);
+      setOpenMore(false);
     }
   };
 
@@ -118,8 +132,9 @@ const Navbar = () => {
                 ))}
                 <p><IoIosArrowUp Navbar_box_left_down/></p>
               </div>
-              <div className={Style.Navbar_box_left_down}>
+              <div className={Style.Navbar_box_left_down} onClick={handleOpenMore}>
                 <IoChevronDown/>
+                {openMore && <More/>}
               </div>
               {/* mobile */}
               <div className={Style.Navbar_box_right_box_box_mobile} onClick={toggleNetworkMobile}>
@@ -165,10 +180,11 @@ const Navbar = () => {
                     {openNetWork && 
                     <NetWork setOpenNetWork={setOpenNetWork}/>} 
                 </div>
-                <div className={Style.Navbar_box_right_getApp}>
+                <div className={Style.Navbar_box_right_getApp} onClick={handleOpenApp}>
                   <p> Get the app</p>
                   <FaApple/>
                   <BsGooglePlay/>
+                  {openApp && <App/>}
                 </div>
               </div>
               {accounts ? (

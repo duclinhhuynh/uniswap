@@ -11,7 +11,7 @@
     -webkit-box-pack: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.6);
-    z-index: 9;
+    z-index: 4;
 }
 
 .SearchToken_box {
@@ -28,6 +28,7 @@
     min-height: 80vh;
     border-radius: 20px;
     overflow: hidden;
+    z-index: 4;
 }
 
 .SearchToken_box_header {
