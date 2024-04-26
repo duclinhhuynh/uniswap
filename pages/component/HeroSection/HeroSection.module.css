@@ -107,7 +107,7 @@
     appearance: textfield;
     z-index: 1;
 }
-.HeroSection_box_input_body div::before {
+/* .HeroSection_box_input_body div::before {
     background-size: 100%;
     border-radius: inherit;
     position: absolute;
@@ -117,7 +117,7 @@
     height: 100%;
     content: "";
     z-index: -1;
-}
+} */
 
 .HeroSection_box_input_body div {
     -webkit-box-align: center;

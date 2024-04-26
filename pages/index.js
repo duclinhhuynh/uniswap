@@ -8,7 +8,6 @@ const index = () => {
   return (
     <div>
       <HeroSection accounts = "key" tokenData = "Data"/>
-      <Title heading={"Go direct to DeFi"}/>
       <Defi/>
     </div>
   )
