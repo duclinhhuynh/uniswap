@@ -5,10 +5,11 @@ import "@uniswap/v3-periphery/contracts/libraries/TransferHelper.sol";
 import "@uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol";
 
 contract SingleSwapToken {
-    ISwapRouter public constant swapRouter = ISwapRouter();
-    address public constant DAI = "";
-    address public constant WETH9 = "";
-    address public constant USDC = "";
+    ISwapRouter public constant swapRouter = ISwapRouter
+    (0xe592427a0aece92de3edee1f18e0157c05861564);
+    address public constant DAI = "0x6b175474e89094c44da98b954eedeac495271d0f";
+    address public constant WETH9 = "0xdd13E55209Fd76AfE204dBda4007C227904f0a81";
+    address public constant USDC = "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d";
 
     function swapEtractInputString(uint amountIn) external returns (uint amountOut){
         TransferHelper.safeTransferFrom(WETH9, msg.sender, address.this, amountOut);

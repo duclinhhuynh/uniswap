@@ -1,0 +1,130 @@
+.Footer {
+    display: flex;
+    position: relative;
+    inset: auto;
+    flex-flow: column;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    align-items: center;
+    gap: 0px;
+    flex: 0 1 auto;
+    max-width: none;
+    width: 95%;
+    height: auto;
+    padding: 0px 40px;
+    margin: 0 auto;
+    border-radius: 0px;
+    pointer-events: auto;
+    overflow: visible;
+    transform: none;
+    height: auto;
+    flex-shrink: 1;
+}
+.Footer_box {
+    display: flex;
+    position: relative;
+    inset: auto;
+    flex-flow: row;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 32px;
+    flex: 0 1 auto;
+    max-width: none;
+    width: 100%;
+    height: auto;
+    padding: 0px;
+    margin: 0px;
+    border-radius: 0px;
+    pointer-events: auto;
+    overflow: visible;
+    transform: none;
+}
+
+.Footer_box_left_title {
+    display: flex;
+    flex-direction: column;
+}
+
+.Footer_box_left_title h2 {
+    margin: .5rem;
+}
+
+.Footer_box_left {
+    display: flex;
+    position: relative;
+    inset: auto;
+    flex-flow: column;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 32px;
+    flex: 0 1 auto;
+    max-width: none;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    border-radius: 0px;
+    pointer-events: auto;
+    overflow: visible;
+    transform: none;
+    
+}
+
+.Footer_box_left_connect {
+    display: flex;
+    position: relative;
+    inset: auto;
+    flex-flow: row;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 24px;
+    flex: 0 1 auto;
+    max-width: none;
+    width: 100%;
+    height: auto;
+    padding: 0px;
+    margin: 0px;
+    border-radius: 0px;
+    pointer-events: auto;
+    overflow: visible;
+}
+.Footer_box_left_connect_icon{
+    font-size: 30px;
+}
+.Footer_box_right{
+    display: flex;
+    position: relative;
+    inset: auto;
+    flex-flow: row;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+    flex: 0 1 auto;
+    max-width: none;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    border-radius: 0px;
+    pointer-events: auto;
+    overflow: visible;
+    transform: none;
+}
+
+.Footer_box_right_title {
+    display: flex;
+    flex-direction: column;
+    font-weight: 400;
+    gap: 1rem;
+    padding-right:2rem;
+}
+.Footer_box_right_title div {
+    display: flex;
+    font-weight: 400;
+    color: #7d7d7d;
+}
