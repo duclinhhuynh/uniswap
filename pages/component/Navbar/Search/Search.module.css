@@ -16,13 +16,18 @@
     border-top: none;
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
-    box-sizing: border-box;
+    border-top-width: 0;
     background-color: #fff;
-    box-shadow: rgba(51, 53, 72, 0.04) 8px 12px 20px, rgba(51, 53, 72, 0.02) 4px 6px 12px, rgba(51, 53, 72, 0.04) 4px 4px 8px;
+    box-shadow: 0px 4px 6px rgba(51,53,72,0.04), 0px 4px 6px rgba(51,53,72,0.02), 0px 4px 6px rgba(51,53,72,0.04);
     z-index: 2;
     overflow: hidden;
     display: grid;
     gap: 1rem;
+    -webkit-backdrop-filter: blur(60px);
+    backdrop-filter: blur(60px);
+    box-sizing: border-box;
+    vertical-align: baseline;
+    visibility: visible;
 }
 .Search_box_recent_search_title {
     display: flex;

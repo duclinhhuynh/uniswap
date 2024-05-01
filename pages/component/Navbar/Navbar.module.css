@@ -118,10 +118,14 @@
     background-color: #FFFFFF;
     width: 100%;
     height: auto;
-    box-shadow: rgba(51, 53, 72, 0.04) 8px 12px 20px, rgba(51, 53, 72, 0.02) 4px 6px 12px, rgba(51, 53, 72, 0.04) 4px 4px 8px;
+    box-shadow: 0px 4px 6px rgba(51,53,72,0.04), 0px 4px 6px rgba(51,53,72,0.02), 0px 4px 6px rgba(51,53,72,0.04);
     border-bottom: none;
     box-sizing: border-box;
     z-index: 2;
+    -webkit-backdrop-filter: blur(60px);
+    backdrop-filter: blur(60px);
+    box-sizing: border-box;
+    vertical-align: baseline;
 }
 .Navbar_box_middle_search_fillter .Navbar_box_middle_search_input_tag {
     display: none;

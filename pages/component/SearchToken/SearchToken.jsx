@@ -74,6 +74,16 @@ const SearchToken = ({openToken, tokens, tokenData, setOpenToken}) => {
             name: "AUDIO",
             network: "AUDIO "
         },
+        {
+            img: images.token1,
+            name: "APE",
+            network: "ApeCoin"
+        },
+        {
+            img: images.token2,
+            name: "ARB",
+            network: "Arbitrum"
+        },
 
     ]
   return (
