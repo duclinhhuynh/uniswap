@@ -6,11 +6,13 @@ import Defi from './component/Defi/Defi'
 import Title from './component/Title/Title'
 import Footer from './component/Footer/Footer'
 import Connect from './component/Connect/Connect'
+import Trust from './component/Trust/Trust'
 const index = () => {
   return (
     <div>
       <HeroSection accounts = "key" tokenData = "Data"/>
       <Defi/>
+      <Trust/>
       <Connect/>
       <Footer/>
     </div>

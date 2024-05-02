@@ -10,7 +10,7 @@ const Footer = () => {
         <div className={Style.Footer_box}>
             <div className={Style.Footer_box_left}>
                 <div className={Style.Footer_box_left_title}>
-                    <h2>@2024</h2>
+                    <h2>@ 2024</h2>
                     <h2>Uniswap lab</h2>
                 </div>
                 <div className={Style.Footer_box_left_connect}>

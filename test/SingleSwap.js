@@ -1,45 +1,57 @@
 const { expect } = require("chai");
-const { ethers } = require("hardhat");
+const { ethers } = require("hardhat")
 
-const DAI = "0x6b175474e89094c44da98b954eedeac495271d0f";
-const WETH9 = "0xdd13E55209Fd76AfE204dBda4007C227904f0a81";
-const USDC = "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d";
+const DAI = "0x6B175474E89094C44Da98b954EedeAC495271d0F";
+const WETH9 = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2";
+const USDC = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
 
 describe("SingleSwapToken", function () {
-  it("Should return the new greeting once it's changed", async function () {
-    let SingleSwapToken;
-    let accounts;
-    let weth;
-    let dai;
-    let usdc;
+  let accounts;
+  let singleSwapToken;
+  let weth;
+  let dai;
+  let usdc;
 
-    before(async() => {
-      accounts = await ethers.getSigners(1);
+  before(async () => {
+    accounts = await ethers.getSigners(1);
+    const SingleSwapToken = await ethers.getContractFactory("SingleSwapToken");
+    singleSwapToken = await SingleSwapToken.deploy();
+    await singleSwapToken.deployed();
 
-      const SingleSwapToken = await ethers.getContractFactory("SingSwapToken");
-      singleSwapToken = await SingleSwapToken.deploy();
-      
-      await singleSwapToken.deployed();
+    weth = await ethers.getContractAt("IWETH", WETH9);
+    dai = await ethers.getContractAt("IERC20", DAI);
+    usdc = await ethers.getContractAt("IERC20", USDC);
 
-      weth = await ethers.getContractAt("IWETH", WETH9());
-      weth = await ethers.getContractAt("IERC20", DAI());
-      weth = await ethers.getContractAt("IERC20", USDC());
-
-      console.log(weth);
-      console.log(dai);
-      console.log(usdc);
-      console.log(accounts);
-      console.log(singleSwapToken);
-    })
-    await greeter.deployed();
-
-    expect(await greeter.greet()).to.equal("Hello, world!");
-
-    const setGreetingTx = await greeter.setGreeting("Hola, mundo!");
-
-    // wait until the transaction is mined
-    await setGreetingTx.wait();
-
-    expect(await greeter.greet()).to.equal("Hola, mundo!");
+    // console.log(weth);
+    // console.log(dai);
+    // console.log(usdc);
+    // console.log("accounts", accounts);
+    // console.log("singleSwapToken",singleSwapToken);
   });
+  it("swapExactInputSingle", async () => {
+    // const amoutIn = 10n ** 18n;
+    const amoutIn = ethers.utils.parseEther("100");
+    // deposit weth
+    await weth.deposit({value: amoutIn});
+    await weth.approve(singleSwapToken.address, amoutIn);
+
+    // swap
+    await singleSwapToken.swapExactInputSingle(amoutIn);
+    console.log("Dai balance", await dai.balanceOf(accounts[0].address));
+  })
+
+  // it("swapExactOutputSingle", async() => {
+  //   const wethAmountInMax = 10n ** 18n;
+  //   const daiAmounOut = 100n * 10n ** 18n;
+  //   // Deposit weth
+  //   await weth.deposit({value: wethAmountInMax});
+  //   await weth.approve(singleSwapToken.address, wethAmountInMax);
+
+  //   // swap
+  //   await singleSwapToken.swapExactOutputSingle(daiAmounOut, wethAmountInMax)
+  //   console.log(accounts[0].address);
+  //   console.log(accounts[1].address);
+  //   console.log("Dai balance", await dai.balanceOf(accounts[0].address));
+  //   console.log("Dai balance", await dai.balanceOf(accounts[1].address));
+  // });
 });

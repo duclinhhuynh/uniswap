@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "hardhat test"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.2",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "@nomiclabs/hardhat-waffle": "^2.0.0",
-    "hardhat": "^2.8.2"
+    "chai": "^4.3.4",
+    "hardhat": "^2.22.3"
   }
 }

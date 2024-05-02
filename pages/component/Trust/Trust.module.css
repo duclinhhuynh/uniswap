@@ -1,0 +1,158 @@
+.Trust {
+    width: 95%;
+    max-width: 1360px;
+    display: grid;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 0px 40px;
+    margin: 0 auto;
+}
+
+.Trust_box {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 434px);
+    gap: 16px 24px;
+}
+
+.Trust_box_left {
+    display: flex;
+    position: relative;
+    inset: auto;
+    flex-flow: column;
+    -webkit-box-pack: start;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0px;
+    flex: 0 1 auto;
+    max-width: none;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    border-radius: 0px;
+    pointer-events: auto;
+    overflow: visible;
+    transform: none;
+}
+
+.Trust_box_left_des {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    unicode-bidi: isolate;
+}
+
+.Trust_box_left_des button {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 24px;
+    border: 0px;
+    background-color: rgb(249, 249, 249);
+    font-family: Basel;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 535;
+    line-height: 24px;
+    color: rgb(34, 34, 34);
+    text-decoration: none;
+    cursor: pointer;
+    transition-duration: 125ms;
+}
+
+.Trust_box_left_des button:hover {
+    opacity: .7;
+}
+
+.Trust_box_left_title {
+    padding: 0px;
+    margin: 0px;
+    color: rgb(34, 34, 34);
+    font-family: Basel;
+    font-size: 52px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 60px;
+}
+
+.Trust_box_right {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 16px;
+    overflow: hidden;
+}
+
+.Trust_box_right_all_item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+    max-height: 230px;
+    padding: 32px;
+    background-color: rgb(249, 249, 249);
+    overflow: hidden;
+    background-image: radial-gradient(rgba(125, 125, 125, 0.25) 0.5px, transparent 0px);
+    background-size: 12px 12px;
+    background-position: -8.5px -8.5px;
+}
+
+.Trust_box_right_all_item div{
+    position: relative;
+    display: flex;
+    flex: 0 1 0%;
+    min-height: 52px;
+    width: 100%;
+    font-size: 50px;
+    font-weight: 400;
+    overflow: hidden;
+    /* margin-top: 80px; */
+}
+
+.Trust_box_right_all_item h3 {
+    padding: 0px;
+    margin: 0px;
+    font-family: Basel;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 535;
+    line-height: 32px;
+    color: rgb(125, 125, 125);
+}
+
+.Trust_box_right_all_item:nth-child(4){
+    color: rgb(64, 182, 107);
+}
+
+@media screen and (min-width:687px) and (max-width:968px){
+    .Trust_box {
+        grid-template-columns: 1fr;
+    }
+    .Trust_box_right_all_item div{
+        font-size: 40px;
+    }
+}
+    
+@media screen and (min-width:320px) and (max-width:687px){
+    .Trust_box {
+        grid-template-columns: 1fr;
+    }
+    .Trust_box_right_all_item h3 {
+        font-size: 15px;
+    }
+    .Trust_box_right_all_item div{
+        font-size: 20px;
+    }
+}

@@ -31,6 +31,7 @@
     max-width: 1328px;
     gap: 24px;
 }
+
 .Connect_box_title h2{
     font-size: 40px;
     font-weight: 400;
@@ -88,7 +89,7 @@
 
 .Connect_box_connect_btn {
     display: flex;
-    padding: 12px 16px;
+    padding: 12px 10px;
     border-radius: 24px;
     gap: 8px;
     -webkit-box-align: center;
@@ -102,6 +103,31 @@
     flex: 0 0 auto;
 }
 
+.Connect_box_connect_btn div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    /* transform: translateX(); */
+}
+
+.Connect_box_connect_btn:hover  div{
+    transition: all .3s ease-in;
+    transform: translateX(-10%);
+}
+.Connect_box_connect_btn_right {
+    transform: translateX(20%);
+    opacity: 0;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+.Connect_box_connect_btn:hover .Connect_box_connect_btn_right {
+    opacity: 1;
+}
+.Connect_box_connect_btn:hover .Connect_box_connect_btn_hidden{
+    transition: all 0.3s ease-in-out;
+    transform: translateX(-100%);
+    opacity: 0;
+}
 .Connect_box_connect_help button {
     color: rgb(255, 77, 0);
     font-family: Basel;

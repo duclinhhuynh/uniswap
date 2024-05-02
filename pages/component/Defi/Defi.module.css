@@ -89,7 +89,7 @@
     overflow: hidden;
     padding: 16px 24px 16px 16px;
     display: grid;
-    grid-template-columns: .2fr .2fr 1fr;
+    grid-template-columns: .2fr .2fr 1fr .2fr;
     align-items: center;
     gap: 8px;
     border-radius: 20px;
@@ -112,6 +112,21 @@
     font-variant-numeric: tabular-nums;
     line-height: 32px;
     color: rgb(34, 34, 34);
+}
+
+.Defi_box_webapp_body_trade {
+    display: flex;
+    align-items: center;
+    text-align: right;
+    padding: 0px;
+    margin: 0px;
+    font-family: Basel;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    line-height: 32px;
+    color: rgb(255, 95, 82);
 }
 .Defi_box_webapp_body_coin {
     color: rgb(125 125 125);
