@@ -13,7 +13,7 @@ describe("SingleSwapToken", function () {
   let usdc;
 
   before(async () => {
-    accounts = await ethers.getSigners(1);
+    accounts = await ethers.getSigners(2); // Increased to 2 signers for better testing
     const SingleSwapToken = await ethers.getContractFactory("SingleSwapToken");
     singleSwapToken = await SingleSwapToken.deploy();
     await singleSwapToken.deployed();
@@ -22,6 +22,8 @@ describe("SingleSwapToken", function () {
     dai = await ethers.getContractAt("IERC20", DAI);
     usdc = await ethers.getContractAt("IERC20", USDC);
 
+    console.log("Contract deployed to:", singleSwapToken.address);
+
     // console.log(weth);
     // console.log(dai);
     // console.log(usdc);
@@ -29,16 +31,31 @@ describe("SingleSwapToken", function () {
     // console.log("singleSwapToken",singleSwapToken);
   });
   it("swapExactInputSingle", async () => {
-    // const amoutIn = 10n ** 18n;
-    const amoutIn = ethers.utils.parseEther("100");
-    // deposit weth
-    await weth.deposit({value: amoutIn});
-    await weth.approve(singleSwapToken.address, amoutIn);
+    const amountIn = ethers.BigNumber.from(10); // Use ethers.BigNumber for consistency
 
-    // swap
-    await singleSwapToken.swapExactInputSingle(amoutIn);
-    console.log("Dai balance", await dai.balanceOf(accounts[0].address));
-  })
+    // Deposit WETH into the contract
+    console.log("Depositing WETH into the contract...");
+    await weth.deposit({ value: amountIn });
+    console.log("WETH deposited.");
+
+    // Approve the contract to spend WETH
+    console.log("Approving contract to spend WETH...");
+    await weth.approve(singleSwapToken.address, amountIn);
+    console.log("Approval granted.");
+
+    try {
+        // Swap WETH for DAI
+        console.log("Swapping WETH for DAI...");
+        await singleSwapToken.swapExactInputSingle(amountIn);
+        console.log("WETH swapped for DAI.");
+
+        // Check DAI balance
+        const daiBalance = await dai.balanceOf(accounts[1].address);
+        console.log("Dai balance:", ethers.utils.formatEther(daiBalance));
+    } catch (error) {
+        console.error("Swap failed:", error.message);
+    }
+});
 
   // it("swapExactOutputSingle", async() => {
   //   const wethAmountInMax = 10n ** 18n;

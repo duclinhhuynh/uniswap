@@ -15,7 +15,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 
 /**
  * @type import('hardhat/config').HardhatUserConfig
- */
+ */ 
 module.exports = {
   solidity: {
     version: "0.8.20", // Update this to the desired Solidity compiler version
@@ -26,12 +26,12 @@ module.exports = {
       },
     },
   },
-
-  // networks:{
-  //   hardhat:{
-  //     forking:{
-  //       url: "https://eth-mainnet.g.alchemy.com/v2/G620jCKVEA5SJSth08jgKl-sgtQ2Lw6_"
-  //     }
-  //   }
-  // }
+  networks: {
+    hardhat: {
+      chainId: 1337 // Hardhat default network chain ID
+    },
+    localhost: {
+      url: "https://eth-mainnet.g.alchemy.com/v2/G620jCKVEA5SJSth08jgKl-sgtQ2Lw6_"// URL of your local Ethereum node
+    }
+  },
 };
