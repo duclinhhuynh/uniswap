@@ -4,16 +4,35 @@ const { ethers } = require("hardhat");
 async function main() {
   try {
     // Load the Greeter contract factory
-    const Greeter = await ethers.getContractFactory("Greeter");
+    const BooToken = await ethers.getContractFactory("BooToken");
 
     // Deploy the Greeter contract
-    console.log("Deploying Greeter...");
-    const greeter = await Greeter.deploy("Hello, Hardhat!");
-    await greeter.deployed();
+    const booToken = await BooToken.deploy();
+    await booToken.deployed();
 
-    console.log("Greeter deployed to:", greeter.address);
+    console.log("BooToken deployed to:", booToken.address);
+
+    // life
+    const LifeToken = await ethers.getContractFactory("LifeToken");
+    const life = await LifeToken.deploy();
+    await life.deployed();
+
+    console.log("Greeter LifeToken to:", life.address);
+
+    const UniswapV3SingleHopSwap = await ethers.getContractFactory("UniswapV3SingleHopSwap");
+    const Single = await UniswapV3SingleHopSwap.deploy();
+    await Single.deployed();
+
+    console.log("Single deployed to:", Single.address);
+
+
+    const UniswapV3MultiHopSwap = await ethers.getContractFactory("UniswapV3MultiHopSwap");
+    const swapMultiHop = await UniswapV3MultiHopSwap.deploy();
+    await swapMultiHop.deployed();
+
+    console.log("Single deployed to:", swapMultiHop.address);
   } catch (error) {
-    console.error("Error deploying Greeter:", error);
+    console.error("Error deploying Single:", error);
     process.exit(1); // Exit with error code 1 if there's an error
   }
 }

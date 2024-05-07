@@ -1,5 +1,6 @@
 const { ethers } = require("hardhat");
 const { expect } = require("chai");
+const { BigNumber } = require("ethers");
 
 const WETH = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2";
 const USDC = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
@@ -23,37 +24,37 @@ describe("UniswapV3", function () {
       await uniswapV3SingleHopSwap.deployed();
     });
 
-    it("swapExactInputSingle", async function () {
-      const amountIn = ethers.utils.parseUnits("20");
+    // it("swapExactInputSingle", async function () {
+    //   const amountIn = BigNumber.from("3");
 
-      await weth.deposit({ value: amountIn });
+    //   await weth.deposit({ value: amountIn });
 
-      await weth.approve(uniswapV3SingleHopSwap.address, amountIn);
+    //   await weth.approve(uniswapV3SingleHopSwap.address, amountIn);
 
-      await uniswapV3SingleHopSwap.swapExactInputSingleHop(amountIn, 1);
-
-      const daiBalance = await dai.balanceOf(accounts[0].address);
-      console.log("DAI balance after", daiBalance);
-    });
-    // it("swapExactOutputSingle", async function () {
-    //   //swapExactOutputSingle
-    //   // 1ETH will be sent and we will try to get 1000DAI
-    //   const wethAmountInMax = 10n ** 18n;
-    //   const daiAmountOut = 100n * 10n ** 18n;
-
-    //   await weth.deposit({ value: wethAmountInMax });
-
-    //   await weth.approve(uniswapV3SingleHopSwap.address, wethAmountInMax);
-
-    //   await uniswapV3SingleHopSwap.swapExactOutputSingleHop(
-    //     daiAmountOut,
-    //     wethAmountInMax
-    //   );
+    //   await uniswapV3SingleHopSwap.swapExactInputSingleHop(amountIn, 1);
 
     //   const daiBalance = await dai.balanceOf(accounts[0].address);
-    //   // We se should have 100 dai
     //   console.log("DAI balance after", daiBalance);
     // });
+    it("swapExactOutputSingle", async function () {
+      //swapExactOutputSingle
+      // 1ETH will be sent and we will try to get 1000DAI
+      const wethAmountInMax = BigNumber.from("0.1");
+      const daiAmountOut = BigNumber.from("1.1");
+
+      await weth.deposit({ value: wethAmountInMax });
+
+      await weth.approve(uniswapV3SingleHopSwap.address, wethAmountInMax);
+
+      await uniswapV3SingleHopSwap.swapExactOutputSingleHop(
+        daiAmountOut,
+        wethAmountInMax
+      );
+
+      const daiBalance = await dai.balanceOf(accounts[0].address);
+      // We se should have 100 dai
+      console.log("DAI balance after", daiBalance);
+    });
   });
 
   // describe("UniswapV3MultiHopSwap", function () {
