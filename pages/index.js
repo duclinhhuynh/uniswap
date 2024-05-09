@@ -1,13 +1,14 @@
 import React, {useState, useContext, useEffect} from 'react'
 
 // INTERNAL IMPORT 
-import HeroSection from './component/HeroSection/HeroSection'
-import Defi from './component/Defi/Defi'
-import Title from './component/Title/Title'
-import Footer from './component/Footer/Footer'
-import Connect from './component/Connect/Connect'
-import Trust from './component/Trust/Trust'
+import {HeroSection, Defi, Trust, Connect, Footer} from '../component/index';
+import {SwapTokenContext} from '../context/SwapTokenContext';
+
 const index = () => {
+  const {fetchingData} = useContext(SwapTokenContext)
+  // useEffect(() => {
+  //   fetchingData();
+  // },[])
   return (
     <div>
       <HeroSection accounts = "key" tokenData = "Data"/>

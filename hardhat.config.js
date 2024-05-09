@@ -6,10 +6,9 @@ module.exports = {
       {
         version: "0.7.6",
         settings: {
-          evmVersion: "istanbul",
           optimizer: {
             enabled: true,
-            runs: 1000,
+            runs: 200,
           },
         },
       },
@@ -18,6 +17,7 @@ module.exports = {
       { version: "0.8.17" },
     ],
   },
+  defaultNetwork: 'hardhat',
   networks: {
     hardhat: {
       forking: {
@@ -25,4 +25,11 @@ module.exports = {
       },
     },
   },
+  // networks: {
+  //   hardhat: {
+  //     forking: {
+  //       url: `http://localhost:8545`,
+  //     },
+  //   },
+  // },
 };
