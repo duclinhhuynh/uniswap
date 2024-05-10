@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Style from './Search.module.css'
 import images from '../../../assets'
 // REACT ICON 
-import { BsClock } from "react-icons/bs";
+import { FaRegClock } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
 import { IoIosTrendingUp } from "react-icons/io";
 import { FaCaretDown } from "react-icons/fa";
@@ -25,7 +25,7 @@ const Search = () => {
           {/* recent  */}
           <div className={Style.Search_box_recent_search}>
             <div className={Style.Search_box_recent_search_title}>
-              <BsClock/> Recent searches
+              <FaRegClock className={Style.Search_box_recent_search_title_icon}/> Recent searches
             </div>
             <div className={Style.Search_box_recent_search_item}>
               <div className={Style.Search_box_recent_search_item_box}>

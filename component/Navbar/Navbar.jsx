@@ -9,6 +9,8 @@ import NetWork from '../NetWork/NetWork'
 import Search from './Search/Search'
 import More from './More/More'
 import App from './App/App'
+import TokenList from '../TokenList/TokenList'
+import Wallet from '../Model/Wallet/Wallet'
 
 // REACT ICON
 import { IoSearchOutline } from "react-icons/io5";
@@ -18,6 +20,7 @@ import { BsGooglePlay } from "react-icons/bs";
 import { IoIosArrowUp } from "react-icons/io";
 import { IoChevronDown } from "react-icons/io5";
 import { IoSearch } from "react-icons/io5";
+import {SwapTokenContext} from '../../context/SwapTokenContext'
 
 
 const Navbar = () => {
@@ -36,6 +39,7 @@ const Navbar = () => {
     }
   ];
   const [openModel, setOpenModel] = useState(false);
+  const [openWalet, setOpenWalet] = useState(false);
   const [openTokenBox, setOpenTokenBox] = useState(false);
   const [openNetWork, setOpenNetWork] = useState(false);
   const [openMore, setOpenMore] = useState(false);
@@ -45,6 +49,7 @@ const Navbar = () => {
   const [isMobile, setIsMobile] = useState(false); 
   const [search, setSearch] = useState(false);
   const isOpensearchClass = search ? Style.Navbar_box_middle_search_fillter : Style.Navbar_box_middle_search;
+  const {ether , currentAccount, networkConnnect,connectWallet, tokenData} = useContext(SwapTokenContext)
   // open App 
   const handleOpenApp = () => {
     setOpenApp(!openApp)
@@ -57,6 +62,7 @@ const Navbar = () => {
   const openSearch =() => {
     if(!search)
     setSearch(true);
+  console.log(currentAccount);
   }
   const navbarRef = useRef(null);
 
@@ -187,19 +193,26 @@ const Navbar = () => {
                   {openApp && <App/>}
                 </div>
               </div>
-              {accounts ? (
-                  <button onClick={() => setOpenModel(true)}>0x9..324x</button>
-                ) : <button onClick={() => setOpenModel(true)}>Connect</button>
+              {currentAccount ? (
+                  <button onClick={() => setOpenWalet(true)}>
+                  {currentAccount && currentAccount.length > 10 ?
+                    currentAccount.slice(0, 7) + "..." + currentAccount.slice(-3) :
+                    currentAccount}
+                  </button>
+                ) : <button onClick={() => setOpenModel(true)}>connect</button>
             }
             </div>  
+            {openWalet && (
+              <Wallet currentAccount={currentAccount} setOpenWalet={setOpenWalet}/>
+            )}
             {openModel && (
-              <Model setOpenModel={setOpenModel} connectWallet = "connect"/>
+              <Model setOpenModel={setOpenModel} connectWallet = {connectWallet}/>
             )}
           </div>
         </div>
         {/* Token List  */}
           {openTokenBox && (
-            <TokenList tokenDate = "hey" setOpenTokenBox = {setOpenTokenBox}/>  
+            <TokenList tokenData = {tokenData} setOpenTokenBox = {setOpenTokenBox}/>  
           )
         }
     </div>

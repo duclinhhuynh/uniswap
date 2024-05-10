@@ -2,20 +2,25 @@ import React, {useState} from 'react'
 import Image from 'next/image'
 
 //INTERNAL IMPORT
-import Style from '../Model/Model.module.css';
+import Style from '../Model.module.css';
 import StyleSetting from './Setting.module.css';
 
 //REACT ICON IMPORT 
 import { HiOutlineArrowLeft } from "react-icons/hi";
-import { FaAnglesRight } from "react-icons/fa6";
+import { FaAnglesRight, FaSleigh } from "react-icons/fa6";
 import { GoSun } from "react-icons/go";
 import { CiDark } from "react-icons/ci";
 import { FaChevronRight } from "react-icons/fa";
-const Setting = ({setOpenSetting, setOpenModel}) => {
+import Model from '../Model';
+const Setting = ({setOpenSetting, setOpenModel, openSeting}) => {
     const [activeBtn, setActiveBtn] = useState(1);
     const [Auto, setAuto] = useState(true);
     const [Light, setLight] = useState(false);
     const [Dark, setDark] = useState(false);
+    const closeSetting = (event) => {
+      event.stopPropagation(); // Ngăn chặn sự kiện click từ lan ra phần tử cha
+      setOpenSetting(false); // Đóng modal setting
+    };
     const openAuto = () => {
         if(!Auto){
           setAuto(true)
@@ -46,7 +51,7 @@ const Setting = ({setOpenSetting, setOpenModel}) => {
       <div className={Style.Model_box}>
         <div className={StyleSetting.Setting_box_heading}>
           <div className={StyleSetting.Setting_box_heading_img}>
-            <HiOutlineArrowLeft className={StyleSetting.Setting_box_heading_img_icon} onClick={() => setOpenSetting(false)}/>
+            <HiOutlineArrowLeft className={StyleSetting.Setting_box_heading_img_icon} onClick={closeSetting}/>
           </div>
           <p className={StyleSetting.Setting_box_heading_title}>Setting</p>
         </div>

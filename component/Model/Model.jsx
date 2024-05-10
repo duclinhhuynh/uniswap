@@ -4,11 +4,12 @@ import Image from 'next/image'
 //INTERNAL IMPORT
 import Style from './Model.module.css';
 import images from '../../assets';
-import Setting from '../Setting/Setting';
+import Setting from './Setting/Setting';
 
 //REACT ICON IMPORT 
 import { IoMdSettings } from "react-icons/io";
 import { FaAnglesRight } from "react-icons/fa6";
+
 
 const Model = ({setOpenModel, connectWallet}) => {
   // USE STATE 
@@ -45,7 +46,9 @@ const Model = ({setOpenModel, connectWallet}) => {
             <IoMdSettings className={Style.Model_box_heading_img_icon} onClick={() => openSeting()}/>
           </div>
           {setting && (
-              <Setting setOpenSetting={setOpenSetting} 
+              <Setting 
+              openSeting = {openSeting}
+              setOpenSetting={setOpenSetting} 
               setOpenModel ={setOpenModel}/>
             )}
         </div>

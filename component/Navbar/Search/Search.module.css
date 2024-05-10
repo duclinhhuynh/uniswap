@@ -35,7 +35,12 @@
     font-size: 14px;
     font-weight: 500;
     color: #8e8e8e;
-    padding: 1rem ;
+    padding: .2rem 1rem 1rem ;
+}
+.Search_box_recent_search_title_icon {
+    width: 24px;
+    height: 18px;
+    font-weight: 700;
 }
 .Search_box_search{
     display: none;
@@ -53,7 +58,7 @@
     align-items: center;
 }
 .Search_box_search_input input{
-    width: 250px;
+    width: 100%;
     display: flex;
     background-color: transparent;
     outline: none;
@@ -61,6 +66,9 @@
     font-size: 1rem;
     -webkit-text-stroke-width: thin;
     box-sizing: border-box;
+    transform: translateX(0);
+    transition: transform var(--rgw6ez3m);
+    transition-timing-function: ease-in;
 }
 .Search_box_recent_search {
     -webkit-tap-highlight-color: transparent;
