@@ -5,6 +5,6 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract LifeToken is ERC20{
     constructor()ERC20("LF", "LIFE"){
-    _mint(msg.sender, 100000 * 10 * decimals());
+    _mint(msg.sender, 100000 * (10 ** 18));
     }  
 }

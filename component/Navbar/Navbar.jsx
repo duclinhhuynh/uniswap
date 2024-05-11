@@ -49,7 +49,7 @@ const Navbar = () => {
   const [isMobile, setIsMobile] = useState(false); 
   const [search, setSearch] = useState(false);
   const isOpensearchClass = search ? Style.Navbar_box_middle_search_fillter : Style.Navbar_box_middle_search;
-  const {ether , currentAccount, networkConnnect,connectWallet, tokenData} = useContext(SwapTokenContext)
+  const {ether , currentAccount, networkConnect,connectWallet, tokenData} = useContext(SwapTokenContext)
   // open App 
   const handleOpenApp = () => {
     setOpenApp(!openApp)
@@ -62,7 +62,8 @@ const Navbar = () => {
   const openSearch =() => {
     if(!search)
     setSearch(true);
-  console.log(currentAccount);
+    console.log(tokenData);
+    console.log(networkConnect);
   }
   const navbarRef = useRef(null);
 
@@ -144,7 +145,10 @@ const Navbar = () => {
               </div>
               {/* mobile */}
               <div className={Style.Navbar_box_right_box_box_mobile} onClick={toggleNetworkMobile}>
-                    <Image width={20} height={20} src={image.eth} className={Style.Navbar_box_right_box_img__mobile}/>
+                    {networkConnect !== 'unknown' ? 
+                    <Image width={20} height={20} src={image.eth} className={Style.Navbar_box_right_box_img}/> : 
+                    <Image width={20} height={20} src={image.unknown} className={Style.Navbar_box_right_box_img}/>
+                    }
                     <div className={Style.Navbar_box_right_box_icon_mobile}>
                       {openNetWork === true ? <IoIosArrowUp /> 
                     : <IoChevronDown />}
@@ -176,7 +180,11 @@ const Navbar = () => {
                     <IoSearch className={Style.Navbar_box_middle_search_img_search_mobile}/>
                 </div>
                 <div className={Style.Navbar_box_right_box_box} onClick={toggleNetwork}>
-                    <Image width={20} height={20} src={image.eth} className={Style.Navbar_box_right_box_img}/>
+                    {/* {networkConnect} */}
+                    {networkConnect !== 'unknown' ? 
+                    <Image width={20} height={20} src={image.eth} className={Style.Navbar_box_right_box_img}/> : 
+                    <Image width={20} height={20} src={image.unknown} className={Style.Navbar_box_right_box_img}/>
+                    }
                     <div className={Style.Navbar_box_right_box_icon}>
                       {openNetWork === true ? <IoIosArrowUp /> 
                     : <IoChevronDown />}
@@ -203,7 +211,7 @@ const Navbar = () => {
             }
             </div>  
             {openWalet && (
-              <Wallet currentAccount={currentAccount} setOpenWalet={setOpenWalet}/>
+              <Wallet currentAccount={currentAccount} setOpenWalet={setOpenWalet} tokenData={tokenData}/>
             )}
             {openModel && (
               <Model setOpenModel={setOpenModel} connectWallet = {connectWallet}/>
@@ -214,7 +222,7 @@ const Navbar = () => {
           {openTokenBox && (
             <TokenList tokenData = {tokenData} setOpenTokenBox = {setOpenTokenBox}/>  
           )
-        }
+          }
     </div>
   )
 }

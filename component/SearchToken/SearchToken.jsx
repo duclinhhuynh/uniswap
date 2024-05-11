@@ -1,9 +1,10 @@
-import React, { useState,useEffect} from 'react'
+import React, { useState,useEffect, useContext} from 'react'
 import Image from 'next/image'
 
 // INTERNAL IMPORT 
 import Style from './SearchToken.module.css'
 import images from '../../assets'
+import {SwapTokenContext} from '../../context/SwapTokenContext'
 
 // REACT ICON
 import { IoMdClose } from "react-icons/io";
@@ -11,7 +12,8 @@ import { CiSearch } from "react-icons/ci";
 import { IoChevronDown } from "react-icons/io5";
 import { IoIosArrowUp } from "react-icons/io";
 import NetWork from '../NetWork/NetWork';
-const SearchToken = ({openToken, tokens, tokenData, setOpenToken}) => {
+const SearchToken = ({openToken, tokens, setOpenToken}) => {
+    const {ether , currentAccount, networkConnect,connectWallet, tokenData} = useContext(SwapTokenContext)
     const [active, setActive] = useState(1);
     const [openNetWork, setOpenNetWork] = useState(false);
     const closeModalToken = () => {
@@ -106,7 +108,11 @@ const SearchToken = ({openToken, tokens, tokenData, setOpenToken}) => {
                     </div>
                     <div className={Style.SearchToken_box_header_box_network} onClick={() => handleOpenNetwork()} 
                     >
-                        <Image className={Style.StyleSearchToken_box_header_box_network_image} src={images.eth} width={20} height={20}/>
+                        {networkConnect !== 'unknown' ? 
+                        <Image className={Style.StyleSearchToken_box_header_box_network_image} src={images.eth} width={20} height={20}/>:
+                        <Image className={Style.StyleSearchToken_box_header_box_network_image} src={images.unknown} width={20} height={20}/>
+                        }
+                        
                         {openNetWork ? <IoIosArrowUp/> : <IoChevronDown className={Style.SearchToken_box_header_box_network_down}/> }
                         {openNetWork && 
                         <NetWork/>}

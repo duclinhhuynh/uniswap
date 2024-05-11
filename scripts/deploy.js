@@ -30,7 +30,7 @@ async function main() {
     const swapMultiHop = await UniswapV3MultiHopSwap.deploy();
     await swapMultiHop.deployed();
 
-    console.log("Single deployed to:", swapMultiHop.address);
+    console.log("Muitilple deployed to:", swapMultiHop.address);
   } catch (error) {
     console.error("Error deploying Single:", error);
     process.exit(1); // Exit with error code 1 if there's an error

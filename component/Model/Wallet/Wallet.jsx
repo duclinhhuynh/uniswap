@@ -14,7 +14,7 @@ import { IoImagesOutline } from "react-icons/io5";
 
 // IMAGE
 import images from '../../../assets'
-const Wallet = ({setOpenWalet,currentAccount}) => {
+const Wallet = ({setOpenWalet,currentAccount,tokenData}) => {
     const [active, setActive] = useState(1);
     const tokenDataTitle = [
         {
@@ -103,6 +103,25 @@ const Wallet = ({setOpenWalet,currentAccount}) => {
             network: "Arbitrum"
         },
     ]
+
+    let tokentlist = [];
+    for(let i = 0; i < tokenData.length; i++) {
+        tokentlist.push(tokenData[i]);
+    }
+    const sumTokenBalance = (tokenData) => {
+        if (!Array.isArray(tokenData) || tokenData.length === 0) {
+            return "0.00"; // Trả về "0.00" nếu không có dữ liệu hoặc mảng rỗng
+        }
+    
+        const totalBalance = tokenData.reduce((acc, token) => {
+            return acc + parseFloat(token.tokenBalance);
+        }, 0);
+    
+        // Làm tròn tổng balance đến 2 số thập phân và chuyển đổi thành chuỗi
+        const roundedTotal = totalBalance.toFixed(2);
+    
+        return roundedTotal;
+    };
     const copyAddress = () => {
         const copyText = document.getElementById("myInput")
 
@@ -154,7 +173,7 @@ const Wallet = ({setOpenWalet,currentAccount}) => {
             </div>
         </div>
         <div className={StyleWallet.Model_box_balance}>
-            <p>$0.00</p>
+            <p>${sumTokenBalance(tokenData)}</p>
         </div>
         <div className={StyleWallet.Model_box_body}>
             <div className={StyleWallet.Model_box_body_buy}>
@@ -182,20 +201,20 @@ const Wallet = ({setOpenWalet,currentAccount}) => {
                     ))}
                 </div>
                 <div className={StyleWallet.SearchToken_box_body_list}>
-                    {altCoin.map((el,i) => (
+                    {tokentlist.map((el,i) => (
                         <div key={i + 1} 
                         className={active == i + 1 ? `${Style.active}` : ""}
                         onClick={() => (setActive(i + 1), tokens({name:el.img, image: el.name}))}
                         >
                             <div className={StyleWallet.SearchToken_box_body_list_box}>
-                                <Image className={StyleWallet.SearchToken_box_body_list_img} src={el.img || images.eth}
+                                <Image className={StyleWallet.SearchToken_box_body_list_img} src={el.img || images.token2}
                                 alt='image'
                                 width={36}
                                 height={36}
                                 />    
                                 <div className={StyleWallet.SearchToken_box_body_list_name}>
-                                    <div>{el.network}</div>
-                                    <div className={StyleWallet.SearchToken_box_body_list_name_token}>{el.name}</div>
+                                    <div>{el.name}</div>
+                                    <div className={StyleWallet.SearchToken_box_body_list_name_token}>${el.tokenBalance}</div>
                                 </div>
                             </div>
                         </div>

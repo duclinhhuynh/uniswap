@@ -30,8 +30,8 @@ export const SwapTokenContextProvider = ({ children }) => {
 
     const addToken = [
         "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-        "0x8Aed6FE10dF3d6d981B101496C9c7245AE65cAEc",
-        "0x3Af511B1bdD6A0377e23796aD6B7391d8De68636"
+        "0x3Af511B1bdD6A0377e23796aD6B7391d8De68636",
+        "0x10537D7bD661C9c34F547b38EC662D6FD482Ae95"
     ];
 
 
@@ -51,7 +51,6 @@ const fetchingData = async () => {
         // CHECK BALANCE
         const balance = await provider.getBalance(userAccount);
         const ethValue = ethers.utils.formatEther(balance);
-        // console.log("Your balance:", ethValue);
         setEther(ethValue);
 
         // GET NETWORK
@@ -60,33 +59,35 @@ const fetchingData = async () => {
         setnetWorkConnect(networks.name);
 
         // FETCH TOKEN DATA
-        const tempTokenData = [];
-        await Promise.all(addToken.map(async (el, i) => {
-            const contract = new ethers.Contract(el, IWETHABI, provider);
-            // console.log("contract", contract);
+        const tempTokenData = await Promise.all(addToken.map(async (el, i) => {
+            const contract = new ethers.Contract(el, ERC20.abi, provider);
+            const symbol = await contract.symbol();
+            const name = await contract.name();
             const userBalance = await contract.balanceOf(userAccount);
-            const tokenTokenBal = ethers.utils.formatEther(userBalance);
-
-            const symbol = contract.address;
-            const name = contract.name;
-
-            tempTokenData.push({
+            const TokenLeft = BigNumber.from(userBalance).toString();
+            const tokenTokenBal = ethers.utils.formatEther(TokenLeft);
+            return {
                 name: name,
                 symbol: symbol,
                 tokenBalance: tokenTokenBal
-            });
+            };
         }));
+        
         setTokenData(tempTokenData);
+        console.log(tempTokenData);
 
         // DAI TOKEN 
         const dai = await connectingWithDAIToken();
         const daiBal = await dai.balanceOf(userAccount);
-        const convertTotkendai = ethers.utils.formatEther(daiBal);
+        const TokenDai = BigNumber.from(daiBal).toString();
+        const convertTotkendai = ethers.utils.formatEther(TokenDai);
         setDai(convertTotkendai);
+        console.log(convertTotkendai);
 
         // WETH token 
         const weth9 = await connectingWithIWETHToken();
         const ethBal = await weth9.balanceOf(userAccount);
+        
         const convertTotkeneth = ethers.utils.formatEther(ethBal);
         setWeth9(convertTotkeneth);
 
@@ -94,6 +95,7 @@ const fetchingData = async () => {
         console.error("Error fetching data:", error);
     }
 }
+
  
     useEffect(() => {
         fetchingData();

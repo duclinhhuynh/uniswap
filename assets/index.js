@@ -26,10 +26,12 @@ import optimism from './optimism.png'
 import celo from './celo.jpg'
 import polygon from './polygon.png'
 import popular from './popular.webp'
+import unknown from './unknown.png'
 // dowload
 import dowload from './download.png'
 
 export default {
+    unknown,
     uniswap,
     eth,
     metamask,
