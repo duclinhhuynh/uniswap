@@ -1,8 +1,8 @@
 
 import booToken from './BooToken.json'
 import lifeToken from './LifeToken.json'
-import signleswap from './UniswapV3MultiHopSwap'
-import MutilHopSwap from './UniswapV3MultiHopSwap'
+import signleswap from './UniswapV3SingleHopSwap.json'
+import MutilHopSwap from './UniswapV3MultiHopSwap.json'
 import IWETH from "./IWETH.json"
 // import ERC20 from "./ERC20.json"
 

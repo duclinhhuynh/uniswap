@@ -79,6 +79,13 @@
     width: initial;
 }
 
+.HeroSection_box_input_container_balance {
+    display: flex;
+    justify-content: flex-end;
+    min-height: 24px;
+    padding: 8px 0px 0px;
+}
+
 .HeroSection_box_input_body {
     display: flex;
     flex-flow: row;

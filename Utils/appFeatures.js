@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import Web3Modal from 'web3modal';
+import Web3Modal from 'web3modal'; 
 
 import {
     BooTokenAddress, 
@@ -51,9 +51,9 @@ export const fetchBooContract = (singerOrProvider) => new ethers.Contract(BooTok
 
 export const connectingWithBooToken = async() => {
     try {
-        const Web3Modal = new Web3Modal();
-        const connection = await Web3Modal.connect();
-        const provider = new ethers.provider.Web3Provider(connection);
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
         const contract = fetchBooContract(signer); 
         return contract;
@@ -71,9 +71,9 @@ export const fetchLifeContract = (singerOrProvider) => new ethers.Contract(LifeT
 
 export const connectingWithLifeToken = async() => {
     try {
-        const Web3Modal = new Web3Modal();
-        const connection = await Web3Modal.connect();
-        const provider = new ethers.provider.Web3Provider(connection);
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
         const contract = fetchLifeContract(signer)
         return contract; 
@@ -91,14 +91,15 @@ export const fetchSingleSwapContract = (singerOrProvider) => new ethers.Contract
 
 export const connectingSingleSwapToken = async() => {
     try {
-        const Web3Modal = new Web3Modal();
-        const connection = await Web3Modal.connect();
-        const provider = new ethers.provider.Web3Provider(connection);
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
         const contract = fetchSingleSwapContract(signer); 
+        console.log(contract);
         return contract;
     } catch (error) {
-        
+        console.log("singleswap", error);
     }
 }
 
@@ -110,9 +111,9 @@ export const fetchMutipleSwapContract = (singerOrProvider) => new ethers.Contrac
 
 export const connectingMutipleSwapToken = async() => {
     try {
-        const Web3Modal = new Web3Modal();
-        const connection = await Web3Modal.connect();
-        const provider = new ethers.provider.Web3Provider(connection);
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
         const contract = fetchMutipleSwapContract(signer)
         return contract; 
@@ -130,14 +131,14 @@ export const fetchIWETHContract = (singerOrProvider) => new ethers.Contract(IWET
 
 export const connectingWithIWETHToken = async() => {
     try {
-        const Web3Modal = new Web3Modal();
-        const connection = await Web3Modal.connect();
-        const provider = new ethers.provider.Web3Provider(connection);
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
         const contract = fetchIWETHContract(signer); 
         return contract;
     } catch (error) {
-        
+        console.log("ieth token", error);
     }
 }
 
@@ -149,13 +150,13 @@ export const fetchDAIContract = (singerOrProvider) => new ethers.Contract(DAIadd
 
 export const connectingWithDAIToken = async() => {
     try {
-        const Web3Modal = new Web3Modal();
-        const connection = await Web3Modal.connect();
-        const provider = new ethers.provider.Web3Provider(connection);
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
-        const contract = fetchIWETHContract(signer); 
+        const contract = fetchDAIContract(signer); 
         return contract;
     } catch (error) {
-        
+        console.log("dai Token", error);
     }
 }

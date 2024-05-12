@@ -28,7 +28,7 @@ module.exports = {
   // networks: {
   //   hardhat: {
   //     forking: {
-  //       url: `http://localhost:8545`,
+  //       url: `http://localhost:8545`, // Địa chỉ URL của nút Ethereum địa phương
   //     },
   //   },
   // },

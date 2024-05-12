@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect, useContext} from 'react'
 import Image from 'next/image';
 // INTERNAL IMPORT 
 import Style from './HeroSection.module.css'
@@ -12,11 +12,14 @@ import { IoMdSettings } from "react-icons/io";
 import { FaArrowDown } from "react-icons/fa";
 import { FaAngleDown } from "react-icons/fa6";
 import NetWork from '../NetWork/NetWork';
-const HeroSection = ({accounts, tokenData}) => {
+// CONTEXT 
+import { SwapTokenContext} from '../../context/SwapTokenContext';
+const HeroSection = ({tokenData}) => {
   // USESTATE 
   const [openSetting, setOpenSetting] = useState(false);
   const [openToken, setOpenToken] = useState(false);
   const [openTokenTwo, setOpenTokenTwo] = useState(false);
+  const {singleSwapToken, connectWallet, currentAccount, ether, dai} = useContext(SwapTokenContext);
   const zindex =  openToken ? Style.HeroSection_new : Style.HeroSection;
   const openSettingModal = () => {
     if(!openSetting){
@@ -74,8 +77,10 @@ const HeroSection = ({accounts, tokenData}) => {
                       <FaAngleDown className={Style.HeroSection_box_input_body_tokenlist_icondown} />                
                   </div>
                 </div>
+                {currentAccount ? <div className={Style.HeroSection_box_input_container_balance}>Balance: {ether.slice(0,7)}</div> 
+                : <div> </div>}  
               </div>
-            </div>
+          </div>
           <div className={Style.HeroSection_box_input_arrow}>
             <div className={Style.HeroSection_box_input_down}>
                 <FaArrowDown/>
@@ -98,16 +103,18 @@ const HeroSection = ({accounts, tokenData}) => {
                   <FaAngleDown className={Style.HeroSection_box_input_body_tokenlist_icondown}/>
                 </div>
               </div>
+              {currentAccount ? <div className={Style.HeroSection_box_input_container_balance}>Balance: {dai.slice(0, 7)}</div> 
+              : <div> </div>}
             </div>
           </div>
         </div>
         {/* Footer */}
-        {accounts ? (
-            <div className={Style.HeroSection_box_footer}>
-              <button className={Style.HeroSection_box_btn}>Connect Wallet</button>
+        {currentAccount ? (
+            <div className={Style.HeroSection_box_footer} onClick={() => singleSwapToken()}>
+              <button className={Style.HeroSection_box_btn}>Swap</button>
             </div>
         ) : (
-            <div className={Style.HeroSection_box_footer}>
+            <div className={Style.HeroSection_box_footer} onClick={() => connectWallet()}>
               <button className={Style.HeroSection_box_btn}>Connect Wallet</button>
             </div>
         )}

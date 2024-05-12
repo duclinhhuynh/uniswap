@@ -12,8 +12,7 @@ describe("UniswapV3", function () {
 
     beforeEach(async function () {
       accounts = await ethers.getSigners();
-
-      dai = await ethers.getContractAt("IERC20", DAI);
+      dai = await ethers.getContractAt("ERC20", DAI);
       weth = await ethers.getContractAt("IWETH", WETH);
 
       const UniswapV3SingleHopSwap = await ethers.getContractFactory(
@@ -36,24 +35,19 @@ describe("UniswapV3", function () {
     //   const daiBalance = await dai.balanceOf(accounts[0].address);
     //   console.log("DAI balance after", daiBalance);
     // });
-    it("swapExactOutputSingle", async function () {
-      //swapExactOutputSingle
-      // 1ETH will be sent and we will try to get 1000DAI
-      const wethAmountInMax = BigNumber.from("0.1");
-      const daiAmountOut = BigNumber.from("1.1");
+    it("swapExactInputSingle", async function () {
+      const amountIn = 10n ** 18n;
 
-      await weth.deposit({ value: wethAmountInMax });
+      await weth.deposit({ value: amountIn });
 
-      await weth.approve(uniswapV3SingleHopSwap.address, wethAmountInMax);
+      await weth.approve(uniswapV3SingleHopSwap.address, amountIn);
 
-      await uniswapV3SingleHopSwap.swapExactOutputSingleHop(
-        daiAmountOut,
-        wethAmountInMax
-      );
-
+      await uniswapV3SingleHopSwap.swapExactInputSingleHop(amountIn, 1);
+      console.log("acc", accounts[0].address);
       const daiBalance = await dai.balanceOf(accounts[0].address);
-      // We se should have 100 dai
-      console.log("DAI balance after", daiBalance);
+      const TokenLeft = BigNumber.from(daiBalance).toString();
+      const tokenTokenBal = ethers.utils.formatEther(TokenLeft);
+      console.log("DAI balance after", tokenTokenBal);
     });
   });
 
@@ -63,7 +57,7 @@ describe("UniswapV3", function () {
   //   beforeEach(async function () {
   //     accounts = await ethers.getSigners();
 
-  //     dai = await ethers.getContractAt("IERC20", DAI);
+  //     dai = await ethers.getContractAt("ERC20", DAI);
   //     weth = await ethers.getContractAt("IWETH", WETH);
 
   //     const UniswapV3MultiHopSwap = await ethers.getContractFactory(
