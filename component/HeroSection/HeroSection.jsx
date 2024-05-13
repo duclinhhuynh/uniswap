@@ -77,7 +77,7 @@ const HeroSection = ({tokenData}) => {
                       <FaAngleDown className={Style.HeroSection_box_input_body_tokenlist_icondown} />                
                   </div>
                 </div>
-                {currentAccount ? <div className={Style.HeroSection_box_input_container_balance}>Balance: {ether.slice(0,7)}</div> 
+                {currentAccount ? <div className={Style.HeroSection_box_input_container_balance}>Balance: {ether ? ether.slice(0,7) : "0"}</div> 
                 : <div> </div>}  
               </div>
           </div>
@@ -103,7 +103,7 @@ const HeroSection = ({tokenData}) => {
                   <FaAngleDown className={Style.HeroSection_box_input_body_tokenlist_icondown}/>
                 </div>
               </div>
-              {currentAccount ? <div className={Style.HeroSection_box_input_container_balance}>Balance: {dai.slice(0, 7)}</div> 
+              {currentAccount ? <div className={Style.HeroSection_box_input_container_balance}>Balance: {dai ?  dai.slice(0, 7) : "0"}</div> 
               : <div> </div>}
             </div>
           </div>

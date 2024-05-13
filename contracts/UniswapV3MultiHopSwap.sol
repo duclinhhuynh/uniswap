@@ -17,6 +17,9 @@ contract UniswapV3MultiHopSwap {
 
     IWETH private constant weth = IWETH(WETH);
     IERC20 private constant dai = IERC20(DAI);
+    // This section specifies the contract's SPDX license identifier and pragma directives.
+    // It imports necessary interfaces for ERC20 tokens, WETH (Wrapped Ether), and the Uniswap V3 router.
+    // The contract then declares variables for the Uniswap V3 router (router) and the addresses of WETH, USDC, and DAI tokens.
 
     function swapExactInputMultiHop(uint amountIn, uint amountOutMin) external {
         weth.transferFrom(msg.sender, address(this), amountIn);
@@ -41,6 +44,9 @@ contract UniswapV3MultiHopSwap {
 
         router.exactInput(params);
     }
+    //  allows users to swap a specific amount of input token (WETH) 
+    // for an output token (DAI) with a minimum expected output.
+    // creates an ExactInputParams struct containing information about the swap.
 
     function swapExactOutputMultiHop(uint amountOut, uint amountInMax)
         external
@@ -72,4 +78,5 @@ contract UniswapV3MultiHopSwap {
             weth.transfer(msg.sender, amountInMax - amountIn);
         }
     }
+
 }
