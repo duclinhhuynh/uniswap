@@ -8,4 +8,5 @@ import Toggle from "./Toggle/Toggle";
 import Defi from "./Defi/Defi";
 import Footer from "./Footer/Footer";
 import Connect from "./Connect/Connect";
-export {HeroSection, Navbar, Model, SearchToken, Token, Footer, Defi, Connect, Trust};
+import NetWork from "./NetWork/NetWork";
+export {HeroSection, Navbar, Model, SearchToken, Token, Footer, Defi, Connect, Trust, NetWork};

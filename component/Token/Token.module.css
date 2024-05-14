@@ -1,0 +1,222 @@
+.Token {
+    width: 100%;
+    min-width: 320px;
+    padding: 48px 40px 0px;
+}
+.Token_box {
+   max-width: 1200px;
+   margin: 0px auto 16px;
+}
+.Token_title {
+    display: flex;
+    max-width: 1200px;
+    margin: 0px auto 16px;
+    color: rgb(206, 206, 206);
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding-top: 40px;
+}
+
+.Token_title_left_token {
+    display: flex;
+    gap: 32px;
+}
+
+.Token_title_left_token div {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    font-weight: 400;
+    font-size: 28px;
+}
+.Token_title_right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.Token_title_right_box {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    position: relative;
+    padding: .5rem;
+    height: 40px;
+    border-radius: 1rem;
+    color: black;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.Token_title_right_volume {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    position: relative;
+    padding: .5rem;
+    height: 40px;
+    border-radius: 1rem;
+    color: black;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.Token_title_right_search{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    position: relative;
+    padding: .5rem;
+    height: 40px;
+    border-radius: 1rem;
+    color: black;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+.Token_title_right_search:hover {
+    border: 1px solid #fd9bff;
+}
+.Token_title_right_search_icon {
+    font-size: 20px;
+}
+
+.Token_title_right_search input {
+    outline: none;
+    border: none;
+}
+
+.Token_box_table {
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+}
+.Token_head {
+    display: flex;
+    border: 1px solid rgba(34, 34, 34, 0.07);
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    overflow: auto;
+    width: unset;
+    min-height: 52px;
+    background: rgb(249, 249, 249);
+    scrollbar-width: none;
+    overscroll-behavior: none;
+}
+
+.Token_head div:nth-child(1) {
+    min-width: 44px;
+    flex: 0 1 0%;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    font-variant-numeric: lining-nums tabular-nums;
+    overflow: hidden;
+    padding: 12px 8px;
+}
+
+.Token_head div:nth-child(2){
+    width: 240px;
+    flex: 1 1 0%;
+    display: flex;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    align-items: center;
+    font-variant-numeric: lining-nums tabular-nums;
+    overflow: hidden;
+    padding: 12px 8px
+}
+
+.Token_head div {
+    min-width: 133px;
+    flex: 1 1 0%;
+    display: flex;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    -webkit-box-align: center;
+    align-items: center;
+    font-variant-numeric: lining-nums tabular-nums;
+    overflow: hidden;
+    padding: 12px 8px;
+}
+
+.Token_body {
+    width: 100%;
+    position: relative;
+    overflow-x: auto;
+    overscroll-behavior-x: none;
+    border-right: 1px solid rgba(34, 34, 34, 0.07);
+    border-bottom: 1px solid rgba(34, 34, 34, 0.07);
+    border-left: 1px solid rgba(34, 34, 34, 0.07);
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    scrollbar-width: none;
+}
+.Token_body_el {
+    width: fit-content;
+    min-width: 100%;
+    display: flex;
+    min-height: 64px;
+
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+
+    box-sizing: border-box;
+    margin: 0px;
+}
+.Token_body_el div {
+    
+}
+.Token_body_el div:nth-child(1) {
+    min-width: 44px;
+    flex: 0 1 0%;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    font-variant-numeric: lining-nums tabular-nums;
+    overflow: hidden;
+    padding: 12px 8px;
+}
+.Token_body_el div:nth-child(2) {
+    width: 240px;
+    flex: 1 1 0%;
+    display: flex;
+    gap: 8px;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    align-items: center;
+    font-variant-numeric: lining-nums tabular-nums;
+    overflow: hidden;
+    padding: 12px 8px
+}
+
+.Token_body_el div small:nth-child(2){
+    font-weight: 500;
+    text-align: left;
+    color: black;
+}
+
+.Token_body_el div small:nth-child(3){
+    color: #949494;
+}
+.Token_body_el div {
+    min-width: 133px;
+    gap: 1px;
+    flex: 1 1 0%;
+    display: flex;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    -webkit-box-align: center;
+    align-items: center;
+    font-variant-numeric: lining-nums tabular-nums;
+    overflow: hidden;
+    padding: 12px 8px;
+}

@@ -114,7 +114,9 @@ const Navbar = () => {
             {/* Navbar left */}
             <div className={Style.Navbar_box_left}>
               {/* Logo Image */}
-              <Image className={Style.Navbar_box_left_logo} width={32} alt='logo' height={32} src={image.uniswap}/>
+              <Link href={{pathname: `${"/"}`}}>
+                <Image className={Style.Navbar_box_left_logo} width={32} alt='logo' height={32} src={image.uniswap}/>
+              </Link>
               {/* menu navbar */}
               <div className={Style.Navbar_box_left_menu}> 
                 <div className={Style.Navbar_box_left_menu_box}>
