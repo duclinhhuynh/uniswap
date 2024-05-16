@@ -11,7 +11,7 @@
     -webkit-box-pack: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.6);
-    z-index: 4;
+    z-index: 11;
 }
 
 .SearchToken_box {

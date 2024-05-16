@@ -36,7 +36,7 @@ const Navbar = () => {
     {
       name: "NFTs",
       link: "/"
-    }
+    },
   ];
   const [openModel, setOpenModel] = useState(false);
   const [openWalet, setOpenWalet] = useState(false);
@@ -128,7 +128,7 @@ const Navbar = () => {
                     </Link>
                   ))}
                   <Link className={Style.Navbar_box_left_menu_box_pool} 
-                  href={{pathname: `/`, query: `/`}}>Pool</Link>
+                  href={{pathname: `Pools`, query: `/`}}>Pool</Link>
                 </div>
               </div>
               <div className={Style.Navbar_box_left_menu_mobile}> 

@@ -21,8 +21,11 @@
 .Token_title_left_token {
     display: flex;
     gap: 32px;
+    cursor: pointer;
 }
-
+.active {
+    color: black;
+}
 .Token_title_left_token div {
     box-sizing: border-box;
     margin: 0px;
@@ -92,6 +95,13 @@
     justify-content: flex-start;
 }
 .Token_head {
+    top: 72px;
+    position: sticky;
+    z-index: 9;
+    background: rgb(255, 255, 255);
+}
+
+.Token_head_box {
     display: flex;
     border: 1px solid rgba(34, 34, 34, 0.07);
     border-top-right-radius: 20px;
@@ -102,7 +112,15 @@
     background: rgb(249, 249, 249);
     scrollbar-width: none;
     overscroll-behavior: none;
+    padding: 0px 12px;
+    margin-right: auto;
+    
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
 }
+
 
 .Token_head div:nth-child(1) {
     min-width: 44px;
@@ -154,6 +172,7 @@
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
     scrollbar-width: none;
+    padding: 0px 12px;
 }
 .Token_body_el {
     width: fit-content;
@@ -219,4 +238,11 @@
     font-variant-numeric: lining-nums tabular-nums;
     overflow: hidden;
     padding: 12px 8px;
+}
+
+@media screen and (min-width:320px) and (max-width: 900px){
+    .Token_title {
+       flex-direction: column; 
+       gap: 1rem;
+    }
 }

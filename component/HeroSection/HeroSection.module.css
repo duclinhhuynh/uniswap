@@ -6,6 +6,8 @@
     margin: 100px auto;
     margin-bottom: 220px;
     z-index: 9;
+    height: 500px;
+    overflow: hidden;
 }
 .HeroSection_new {
     padding: 68px 8px 0px;
@@ -15,6 +17,7 @@
     margin: 100px auto;
     margin-bottom: 220px;
     z-index: 11;
+    overflow: hidden;
 }
 
 .HeroSection_box {

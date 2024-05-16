@@ -1,6 +1,7 @@
 .Model_box_head_address {
     display: flex;
     align-items: center;
+    overflow: hidden;
 }
 .Model_box_head {
     display: flex;

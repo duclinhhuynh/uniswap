@@ -64,7 +64,8 @@ const HeroSection = ({tokenData}) => {
               <div className={Style.HeroSection_box_input_container}>
                 <span className={Style.HeroSection_box_input_title}>You pay</span>
                 <div className={Style.HeroSection_box_input_body}> 
-                  <input type="text" placeholder='0'/>
+                  <input inputmode="decimal" autocomplete="off" autocorrect="off" minlength="1"
+                  type="text" pattern="^[0-9]*[.,]?[0-9]*$" maxlength="79" spellCheck="false"  placeholder='0' />
                   <div className={Style.HeroSection_box_input_body_tokenlist} onClick={() => setOpenToken(true)}>                 
                       <Image src={images.eth || images.uniswap}
                         width={20}
@@ -90,7 +91,7 @@ const HeroSection = ({tokenData}) => {
             <div className={Style.HeroSection_box_input_container}>
               <span className={Style.HeroSection_box_input_title}>You pay</span>
               <div className={Style.HeroSection_box_input_body}> 
-                <input type="text" placeholder='0'/>
+                <input type="text" pattern="^[0-9]*[.,]?[0-9]*$" placeholder='0'/>
                 <div className={Style.HeroSection_box_input_body_tokenlist} onClick={() => setOpenToken(true)}>
                   <Image src={images.uniswap || images.uniswap}
                     width={20}
