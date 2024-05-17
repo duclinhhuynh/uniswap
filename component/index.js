@@ -9,4 +9,5 @@ import Defi from "./Defi/Defi";
 import Footer from "./Footer/Footer";
 import Connect from "./Connect/Connect";
 import NetWork from "./NetWork/NetWork";
-export {HeroSection, Navbar, Model, SearchToken, Token, Footer, Defi, Connect, Trust, NetWork};
+import Nfts from "./NFTs/Nfts";
+export {HeroSection, Navbar, Model, SearchToken, Token, Footer, Defi, Connect, Trust, NetWork, Nfts};

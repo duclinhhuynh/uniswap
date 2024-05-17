@@ -188,9 +188,6 @@
     box-sizing: border-box;
     margin: 0px;
 }
-.Token_body_el div {
-    
-}
 .Token_body_el div:nth-child(1) {
     min-width: 44px;
     flex: 0 1 0%;

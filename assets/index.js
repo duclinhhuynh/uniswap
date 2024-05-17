@@ -27,10 +27,26 @@ import celo from './celo.jpg'
 import polygon from './polygon.png'
 import popular from './popular.webp'
 import unknown from './unknown.png'
+import slide1 from './slide1.png'
+import slide2 from './slide2.png'
+import slide3 from './slide3.png'
+import slide4 from './slide4.png'
+import slide5 from './slide5.png'
+import x2y2 from './x2y2.png'
+import opensea from './opensea.png'
+import lookrare from './lookrare.png'
 // dowload
 import dowload from './download.png'
 
 export default {
+    slide5,
+    x2y2,
+    opensea,
+    lookrare,
+    slide1,
+    slide2,
+    slide3,
+    slide4,
     unknown,
     uniswap,
     eth,
