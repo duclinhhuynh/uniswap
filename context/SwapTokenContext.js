@@ -1,6 +1,9 @@
 import React, {useEffect, useState, useContext} from 'react';
 import { ethers, BigNumber} from 'ethers';
 import Web3Modal from 'web3modal'; 
+import {Token, CurrencyAmount, TradeType, Percent} from "@uniswap/sdk-core";
+import { getPrice } from "../Utils/fetchingPrice";
+import { swapUpdatePrice} from "../Utils/swapUpdatePrice";
 import {
     checkIfWalletConnected,
     connectWallet,
@@ -29,9 +32,12 @@ export const SwapTokenContextProvider = ({ children }) => {
     const [tokenData, setTokenData]= useState([])
 
     const addToken = [
-        // "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-        "0x3Af511B1bdD6A0377e23796aD6B7391d8De68636",
-        "0x10537D7bD661C9c34F547b38EC662D6FD482Ae95"
+        "0x776D6996c8180838dC0587aE0DE5D614b1350f37",
+        "0x3A906C603F080D96dc08f81CF2889dAB6FF299dE",
+        "0x820638ecd57B55e51CE6EaD7D137962E7A201dD9",
+        "0x725314746e727f586E9FCA65AeD5dBe45aA71B99",
+        "0x987Aa6E80e995d6A76C4d061eE324fc760Ea9F61",
+        "0x6B9C4119796C80Ced5a3884027985Fd31830555b",
     ];
 
 
@@ -52,10 +58,10 @@ export const SwapTokenContextProvider = ({ children }) => {
             const balance = await provider.getBalance(userAccount);
             const ethValue = ethers.utils.formatEther(balance);
             setEther(ethValue);
-            console.log("eth Value", ethValue);
+            // console.log("eth Value", ethValue);
             // GET NETWORK
             const networks = await provider.getNetwork();
-            console.log(networks);
+            // console.log(networks);
             setnetWorkConnect(networks.name);
 
             // FETCH TOKEN DATA
@@ -69,12 +75,13 @@ export const SwapTokenContextProvider = ({ children }) => {
                 return {
                     name: name,
                     symbol: symbol,
-                    tokenBalance: tokenTokenBal
+                    tokenBalance: tokenTokenBal,
+                    tokenAddress: el,
                 };
             }));
             
             setTokenData(tempTokenData);
-            console.log(tempTokenData);
+            console.log("tokenData:", tempTokenData);
 
             // DAI TOKEN 
             const dai = await connectingWithDAIToken();
@@ -82,7 +89,7 @@ export const SwapTokenContextProvider = ({ children }) => {
             const TokenDai = BigNumber.from(daiBal).toString();
             const convertTotkendai = ethers.utils.formatEther(TokenDai);
             setDai(convertTotkendai);
-            console.log(convertTotkendai);
+            // console.log(convertTotkendai);
 
             // WETH token 
             const weth9 = await connectingWithIWETHToken();
@@ -90,7 +97,7 @@ export const SwapTokenContextProvider = ({ children }) => {
             const Tokeneth = BigNumber.from(ethBal).toString();
             const convertTotkeneth = ethers.utils.formatEther(Tokeneth);
             console.log("eth_balance", convertTotkeneth);
-            setWeth9(convertTotkeneth);
+            // setWeth9(convertTotkeneth);
 
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -101,7 +108,8 @@ export const SwapTokenContextProvider = ({ children }) => {
     }, []);
 
     // SINGLE SWAP TOKEN
-    const singleSwapToken = async () => {
+    const singleSwapToken = async ({token1, token2, swapAmount}) => {
+        console.log(token1.tokenAddress.tokenAddress,token2.tokenAddress.tokenAddress, swapAmount);
         try {
             let singleSwapContract;
             let weth;
@@ -118,15 +126,19 @@ export const SwapTokenContextProvider = ({ children }) => {
             dai = await connectingWithDAIToken();
             console.log("dai",dai);
             // Số lượng ETH muốn đổi
-            const amountIn = 10n ** 18n; 
+            const decimal = 18;
+            const inputAmount = swapAmount;
+            const amountIn = ethers.utils.parseEther(inputAmount.toString(), decimal);
+            console.log(amountIn);
             // nap vao hop dong eth
             await weth.deposit({ value: amountIn });
 
             await weth.approve(singleSwapContract.address, amountIn);
     
             // Thực hiện đổi ETH thành DAI thông qua hợp đồng SingleSwapToken
-            await singleSwapContract.swapExactInputSingleHop(amountIn, 1);
-
+            const transaction = await singleSwapContract.swapExactInputSingleHop(token1, token2, swapAmount, 1);
+            await transaction.waith();
+            console.log(transaction);
             console.log("thanh cong");
             // Lấy số lượng DAI sau khi đổi
             const daiBalance = await dai.balanceOf(currentAccount);// Giả sử biến account đã được khai báo và cung cấp giá trị
@@ -148,9 +160,12 @@ export const SwapTokenContextProvider = ({ children }) => {
         networkConnect, 
         ether, 
         currentAccount,
+        getPrice,
+        swapUpdatePrice,
         connectWallet, 
         singleSwapToken,
-        tokenData}}>
+        tokenData
+        }}>
         {children}
     </SwapTokenContext.Provider>
     )

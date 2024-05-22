@@ -12,8 +12,8 @@ import { CiSearch } from "react-icons/ci";
 import { IoChevronDown } from "react-icons/io5";
 import { IoIosArrowUp } from "react-icons/io";
 import NetWork from '../NetWork/NetWork';
-const SearchToken = ({openToken, tokens, setOpenToken}) => {
-    const {ether , currentAccount, networkConnect,connectWallet, tokenData} = useContext(SwapTokenContext)
+const SearchToken = ({openToken, tokens, setOpenToken,tokenData}) => {
+    const {ether , currentAccount, networkConnect,connectWallet} = useContext(SwapTokenContext)
     const [active, setActive] = useState(1);
     const [openNetWork, setOpenNetWork] = useState(false);
     const closeModalToken = () => {
@@ -22,33 +22,33 @@ const SearchToken = ({openToken, tokens, setOpenToken}) => {
     const handleOpenNetwork = () => {
         setOpenNetWork(!openNetWork);
     }
-    const coin = [
-        {
-            img: images.eth,
-            name: "ETH"
-        },
-        {
-            img: images.dai,
-            name: "DAI"
-        },
-        {
-            img: images.usdc,
-            name: "USDC"
-        },
-        {
-            img: images.usdt,
-            name: "USDT"
-        },
-        {
-            img: images.wbtc,
-            name: "WBTC"
-        },
-        {
-            img: images.weth,
-            name: "WETH"
-        },
+    // const coin = [
+    //     {
+    //         img: images.eth,
+    //         name: "ETH"
+    //     },
+    //     {
+    //         img: images.dai,
+    //         name: "DAI"
+    //     },
+    //     {
+    //         img: images.usdc,
+    //         name: "USDC"
+    //     },
+    //     {
+    //         img: images.usdt,
+    //         name: "USDT"
+    //     },
+    //     {
+    //         img: images.wbtc,
+    //         name: "WBTC"
+    //     },
+    //     {
+    //         img: images.weth,
+    //         name: "WETH"
+    //     },
 
-    ]
+    // ]
 
     const altCoin = [
         {
@@ -120,17 +120,20 @@ const SearchToken = ({openToken, tokens, setOpenToken}) => {
                 </div>
                 {/* List token */}
                 <div className={Style.SearchToken_box_listToken} onClick={() => setOpenNetWork(false)}>
-                    {coin.map((el,i) => (
+                    {tokenData.map((el,i) => (
                         <span key={i + 1}
                             className={active == i + 1 ? `${Style.active}` : ""}
-                            onClick={() => (setActive(i + 1), tokens({name:el.img, image: el.name}))}
+                            onClick={() => (setActive(i + 1), tokens({name:el.name, image: el.img, symbol:el.symbol,
+                                tokenBalance: el.tokenBalance,
+                                tokenAddress: el.tokenAddress
+                              }))}
                         >
                             <Image className={Style.SearchToken_box_listToken_img} src={el.img || images.eth}
                             alt='image'
                             width={30}
                             height={30}
                             />    
-                            <p className={Style.SearchToken_box_listToken_name}>{el.name}</p>
+                            <p className={Style.SearchToken_box_listToken_name}>{el.symbol}</p>
                         </span>
                     ))}
                 </div>
@@ -143,8 +146,8 @@ const SearchToken = ({openToken, tokens, setOpenToken}) => {
                 <div className={Style.SearchToken_box_body_list}>
                     {altCoin.map((el,i) => (
                         <div key={i + 1} 
-                        className={active == i + 1 ? `${Style.active}` : ""}
-                        onClick={() => (setActive(i + 1), tokens({name:el.img, image: el.name}))}
+                        // className={active == i + 1 ? `${Style.active}` : ""}
+                        // onClick={() => (setActive(i + 1), tokens({name:el.img, image: el.name}))}
                         >
                             <div className={Style.SearchToken_box_body_list_box}>
                                 <Image className={Style.SearchToken_box_body_list_img} src={el.img || images.eth}

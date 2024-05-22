@@ -229,7 +229,9 @@
     line-height: 16px;
     opacity: .6;
 }
-
+.active {
+    background-color: rgba(34, 34, 34, 0.07);
+}
 @media screen and (min-width:320px) and (max-width:768px) {
     .SearchToken_box{
         width: 350px;

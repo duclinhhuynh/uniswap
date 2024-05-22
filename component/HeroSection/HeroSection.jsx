@@ -14,14 +14,22 @@ import { FaAngleDown } from "react-icons/fa6";
 import NetWork from '../NetWork/NetWork';
 // CONTEXT 
 import { SwapTokenContext} from '../../context/SwapTokenContext';
-const HeroSection = ({tokenData}) => {
+import { swapUpdatePrice } from '@/Utils/swapUpdatePrice';
+const HeroSection = ({}) => {
   // USESTATE 
   const [openSetting, setOpenSetting] = useState(false);
   const [openToken, setOpenToken] = useState(false);
   const [openTokenTwo, setOpenTokenTwo] = useState(false);
-  const {singleSwapToken, connectWallet, currentAccount, ether, dai} = useContext(SwapTokenContext);
-  const zindex =  openToken ? Style.HeroSection_new : Style.HeroSection;
+  const [tokenSwapOutPut, setTokenSwapOutPut] = useState(0);
+  const [poolMessage, setpoolMessage] = useState('');
+  const [search, setSearch] = useState(false);
+  const [swapAmount, setSwapAmount] = useState(0);
+
+  const {singleSwapToken, connectWallet, currentAccount, ether, dai, tokenData, getPrice} = useContext(SwapTokenContext);
+  const zindex =  openToken||openTokenTwo ? Style.HeroSection_new : Style.HeroSection;
   const openSettingModal = () => {
+    console.log("tokenOne",tokenOne);
+    console.log(ether.slice(0.7));
     if(!openSetting){
       setOpenSetting(true);
     }
@@ -33,11 +41,41 @@ const HeroSection = ({tokenData}) => {
   const [tokenOne, setTokenOne] = useState({
     name: "",
     image: "",
+    symbol: "",
+    tokenBalance: "",
+    tokenAddress: ""
   });
   const [tokenTwo, setTokenTwo] = useState({
     name: "",
     image: "",
+    symbol: "",
+    tokenBalance: "",
+    tokenAddress: ""
   });
+
+  const callOutPut = async(value) => {
+    try {
+      const yourAccount = "0x97f991971a37D4Ca58064e6a98FC563F03A71E5c";
+      const deadline = 10;
+      const slippageAmount  = 25;
+      const data = await swapUpdatePrice(
+        value,
+        slippageAmount,
+        deadline,
+        yourAccount
+      );
+      console.log(data);
+      setTokenSwapOutPut(data[1])
+      setSearch(false)
+      const poolAddress = "0xc2e9f25be6257c210d7adf0d4cd6e3e881ba25f8"
+      const poolData = await getPrice(value, poolAddress);
+      const message = `${value} ${poolData[2]} = ${poolData[0]} ${poolData[1]}`
+      console.log("message", message);
+      setpoolMessage(message)
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className={`${zindex}`}>
@@ -65,7 +103,12 @@ const HeroSection = ({tokenData}) => {
                 <span className={Style.HeroSection_box_input_title}>You pay</span>
                 <div className={Style.HeroSection_box_input_body}> 
                   <input inputmode="decimal" autocomplete="off" autocorrect="off" minlength="1"
-                  type="text" pattern="^[0-9]*[.,]?[0-9]*$" maxlength="79" spellCheck="false"  placeholder='0' />
+                  type="text" pattern="^[0-9]*[.,]?[0-9]*$" maxlength="79" spellCheck="false"  placeholder='0' 
+                  onChange={(e) => 
+                    (callOutPut(e.target.value), 
+                    setSwapAmount(e.target.value), 
+                    setSearch(true))}
+                  />
                   <div className={Style.HeroSection_box_input_body_tokenlist} onClick={() => setOpenToken(true)}>                 
                       <Image src={images.eth || images.uniswap}
                         width={20}
@@ -73,13 +116,14 @@ const HeroSection = ({tokenData}) => {
                         alt='ether'
                       />
                       {
-                        tokenOne.name || "ETH"
+                        tokenOne.symbol || "ETH"
                       }
                       <FaAngleDown className={Style.HeroSection_box_input_body_tokenlist_icondown} />                
                   </div>
                 </div>
-                {currentAccount ? <div className={Style.HeroSection_box_input_container_balance}>Balance: {ether ? ether.slice(0,7) : "0"}</div> 
+                {currentAccount ? <div className={Style.HeroSection_box_input_container_balance}>Balance: {tokenOne.tokenBalance !== '' ? tokenOne.tokenBalance.slice(0,7) : ether.slice(0,7)}</div> 
                 : <div> </div>}  
+                {search ? (poolMessage) : ""}
               </div>
           </div>
           <div className={Style.HeroSection_box_input_arrow}>
@@ -89,29 +133,33 @@ const HeroSection = ({tokenData}) => {
           </div>
           <div className={Style.HeroSection_box_input}>
             <div className={Style.HeroSection_box_input_container}>
-              <span className={Style.HeroSection_box_input_title}>You pay</span>
+              <span className={Style.HeroSection_box_input_title}>You receive</span>
               <div className={Style.HeroSection_box_input_body}> 
-                <input type="text" pattern="^[0-9]*[.,]?[0-9]*$" placeholder='0'/>
-                <div className={Style.HeroSection_box_input_body_tokenlist} onClick={() => setOpenToken(true)}>
+                {search ? (<input type="text" pattern="^[0-9]*[.,]?[0-9]*$" placeholder='0' onChange={setSwapAmount}/>) : tokenSwapOutPut }
+                <div className={Style.HeroSection_box_input_body_tokenlist} onClick={() => setOpenTokenTwo(true)}>
                   <Image src={images.uniswap || images.uniswap}
                     width={20}
                     height={20}
                     alt='ether'
                   />
                   {
-                    tokenOne.name || "UNI"
+                    tokenTwo.symbol || "UNI"
                   }
                   <FaAngleDown className={Style.HeroSection_box_input_body_tokenlist_icondown}/>
                 </div>
               </div>
-              {currentAccount ? <div className={Style.HeroSection_box_input_container_balance}>Balance: {dai ?  dai.slice(0, 7) : "0"}</div> 
+              {currentAccount ? <div className={Style.HeroSection_box_input_container_balance}>Balance: {tokenTwo.tokenBalance !== '' ? tokenTwo.tokenBalance.slice(0, 7) : dai.slice(0,7)}</div> 
               : <div> </div>}
             </div>
           </div>
         </div>
         {/* Footer */}
         {currentAccount ? (
-            <div className={Style.HeroSection_box_footer} onClick={() => singleSwapToken()}>
+            <div className={Style.HeroSection_box_footer} onClick={() => singleSwapToken({
+              token1: tokenOne,
+              token2: tokenTwo,
+              swapAmount,
+            })}>
               <button className={Style.HeroSection_box_btn}>Swap</button>
             </div>
         ) : (
@@ -135,6 +183,7 @@ const HeroSection = ({tokenData}) => {
           setOpenToken = {setOpenTokenTwo}
           tokens = {setTokenTwo}
           tokenData = {tokenData}
+          openTokenTwo = {openTokenTwo}
           />
         )}
     </div>
