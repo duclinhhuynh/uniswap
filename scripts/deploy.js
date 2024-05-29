@@ -27,20 +27,23 @@ async function main() {
     const linhToken = await LinhToken.deploy();
     await linhToken.deployed();
     console.log("Linh Token deployed to:", linhToken.address);
-    // Boo
-    const BooToken = await ethers.getContractFactory("BooToken");
-    const booToken = await BooToken.deploy();
-    await booToken.deployed();
+    // // Boo
+    // const BooToken = await ethers.getContractFactory("BooToken");
+    // const booToken = await BooToken.deploy();
+    // await booToken.deployed();
 
-    console.log("BooToken deployed to:", booToken.address);
+    // console.log("BooToken deployed to:", booToken.address);
 
-    // life
-    const LifeToken = await ethers.getContractFactory("LifeToken");
-    const life = await LifeToken.deploy();
-    await life.deployed();
+    // // life
+    // const LifeToken = await ethers.getContractFactory("LifeToken");
+    // const life = await LifeToken.deploy();
+    // await life.deployed();
 
-    console.log("LifeToken to:", life.address);
+    // console.log("LifeToken to:", life.address);
 
+    // weth token
+
+    // single
     const UniswapV3SingleHopSwap = await ethers.getContractFactory("UniswapV3SingleHopSwap");
     const Single = await UniswapV3SingleHopSwap.deploy();
     await Single.deployed();

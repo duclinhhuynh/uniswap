@@ -37,8 +37,11 @@ import opensea from './opensea.png'
 import lookrare from './lookrare.png'
 // dowload
 import dowload from './download.png'
+// loading
+import giphy from './giphy.gif'
 
 export default {
+    giphy,
     slide5,
     x2y2,
     opensea,

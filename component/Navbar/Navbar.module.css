@@ -71,7 +71,15 @@
     background-color:rgb(245 245 245);
 }
 .Navbar_box_left_menu_box_pool {
+    border-radius: 15px;
+}
+.Navbar_box_left_menu_box_pool p {
     padding: 8px 12px;
+    color: #a5a5a5;
+    margin: 0;
+
+}
+.Navbar_box_left_menu_box_pool a {
     border-radius: 15px;
 }
 .Navbar_box_left_menu .Navbar_box_left_menu_box_pool:hover {
@@ -84,6 +92,9 @@
 }
 .Navbar_box_left_down:hover {
     background-color:rgb(245 245 245);
+}
+.Navbar_box_left_menu_item {
+    color: #a5a5a5;
 }
 /* navbar middle */
 .Navbar_box_middle {

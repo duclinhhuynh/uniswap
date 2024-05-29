@@ -296,6 +296,7 @@
   position: sticky;
   z-index: 9;
   background: rgb(255, 255, 255);
+  -webkit-box-pack: end;
 }
 
 .Token_head_box {
@@ -319,16 +320,24 @@
 }
 
 
-.Token_head div:nth-child(1) {
-  min-width: 44px;
-  flex: 0 1 0%;
-  display: flex;
+.Token_box {
+  max-width: 1200px;
   -webkit-box-pack: center;
   justify-content: center;
   -webkit-box-align: center;
   align-items: center;
+  margin: 0px auto 24px;
+}
+.Token_head div:nth-child(1) {
+  overflow-x: auto;
+  min-width: 44px;
+  flex: 0 1 0%;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  align-items: center;
   font-variant-numeric: lining-nums tabular-nums;
-  overflow: hidden;
   padding: 12px 8px;
 }
 
@@ -359,10 +368,8 @@
 }
 
 .Token_body {
+  overflow-y: auto;
   width: 100%;
-  position: relative;
-  overflow-x: auto;
-  overscroll-behavior-x: none;
   border-right: 1px solid rgba(34, 34, 34, 0.07);
   border-bottom: 1px solid rgba(34, 34, 34, 0.07);
   border-left: 1px solid rgba(34, 34, 34, 0.07);
@@ -436,3 +443,34 @@
   overflow: hidden;
   padding: 12px 8px;
 }
+
+@media screen and (min-width:768px) and (max-width: 1024px) {
+  .Nfts_box_hero_left{
+    font-size: 46px;
+  }
+  .Nfts_box_hero_right {
+    max-width: 500px;
+  }
+}
+@media screen and (min-width:320px) and (max-width: 768px) {
+  .Nfts_box_hero_left{
+    font-size: 46px;
+  }
+  .Nfts_box_hero {
+    flex-direction: column;
+  }
+  .slideArrowLeft {
+    display: none;
+  }
+  .slideArrowRight {
+    display: none;
+  }
+}
+
+@media screen and (min-width:320px) and (max-width: 615px) {
+  .Nfts_box_hero_right {
+    max-width: 400px;
+  }
+}
+
+

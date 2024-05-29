@@ -435,6 +435,7 @@ const Nfts = () => {
           {openToken 
           ? // Token
             <>
+            <div className={Style.Token_box}>
               <div className={Style.Token_head}>
                 <div className={Style.Token_head_box}>
                   <div></div>
@@ -464,6 +465,7 @@ const Nfts = () => {
                     <div>{el.owner}</div>
                   </div>
                 ))}
+              </div>
               </div>
             </>
             :// Pool

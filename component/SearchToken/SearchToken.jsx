@@ -128,7 +128,7 @@ const SearchToken = ({openToken, tokens, setOpenToken,tokenData}) => {
                                 tokenAddress: el.tokenAddress
                               }))}
                         >
-                            <Image className={Style.SearchToken_box_listToken_img} src={el.img || images.eth}
+                            <Image className={Style.SearchToken_box_listToken_img} src={el.image || images.eth}
                             alt='image'
                             width={30}
                             height={30}

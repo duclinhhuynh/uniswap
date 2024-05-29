@@ -37,6 +37,10 @@ const Navbar = () => {
       name: "NFTs",
       link: "/"
     },
+    // {
+    //   name: "Pools",
+    //   link: "/"
+    // }
   ];
   const [openModel, setOpenModel] = useState(false);
   const [openWalet, setOpenWalet] = useState(false);
@@ -48,8 +52,21 @@ const Navbar = () => {
   const [accounts, setAccounts] = useState(true);
   const [isMobile, setIsMobile] = useState(false); 
   const [search, setSearch] = useState(false);
+  const [active, setActive] = useState(1);
   const isOpensearchClass = search ? Style.Navbar_box_middle_search_fillter : Style.Navbar_box_middle_search;
   const {ether , currentAccount, networkConnect,connectWallet, tokenData} = useContext(SwapTokenContext)
+  const handleOpenSwap = ()=> {
+    setActive(1);
+  }
+  const handleOpenExplore = ()=> {
+    setActive(2);
+  }
+  const handleOpenNFTs = ()=> {
+    setActive(3);
+  }
+  const handleOpenPools = ()=> {
+    setActive(4);
+  }
   // open App 
   const handleOpenApp = () => {
     setOpenApp(!openApp)
@@ -120,15 +137,14 @@ const Navbar = () => {
               {/* menu navbar */}
               <div className={Style.Navbar_box_left_menu}> 
                 <div className={Style.Navbar_box_left_menu_box}>
-                  {MenuItems.map((el, i) => (
-                    <Link key={i + 1}
-                      href={{pathname: `${el.name}`, query: `${el.link}`}}
-                    >
-                    <p className={Style.Navbar_box_left_menu_item}>{el.name}</p>
-                    </Link>
-                  ))}
-                  <Link className={Style.Navbar_box_left_menu_box_pool} 
-                  href={{pathname: `Pools`, query: `/`}}>Pool</Link>
+                   <Link  
+                  href={{pathname: `Swap`, query: `/`}}><p onClick={() => handleOpenSwap()} className={`${active === 1 ? "" : Style.Navbar_box_left_menu_item }`}>Swap</p></Link>
+                   <Link  
+                  href={{pathname: `Explore`, query: `/`}}><p onClick={() => handleOpenExplore()} className={`${active === 2 ? "" : Style.Navbar_box_left_menu_item }`}>Explore</p></Link>
+                   <Link  
+                  href={{pathname: `NFTs`, query: `/`}}><p onClick={() => handleOpenNFTs()} className={`${active === 3 ? "" : Style.Navbar_box_left_menu_item }`}>NFTs</p></Link>
+                  <Link 
+                  href={{pathname: `Pools`, query: `/`}}><p onClick={() => handleOpenPools()} className={`${active === 4 ? Style.Navbar_box_left_menu_box_pool : Style.Navbar_box_left_menu_item }`}>Pools</p></Link>
                 </div>
               </div>
               <div className={Style.Navbar_box_left_menu_mobile}> 

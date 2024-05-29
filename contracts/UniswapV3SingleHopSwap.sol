@@ -19,7 +19,7 @@ contract UniswapV3SingleHopSwap {
     // Itoken1 private constant token1 = Itoken1(token1);
     // IERC20 private constant token2 = IERC20(token2);
 
-    function swapExactInputSingleHop(address token1, address token2, uint amountIn, uint amountOutMin)
+    function swapExactInputSingleHop(address token1, address token2, uint amountIn)
         external
     {
         TransferHelper.safeTransferFrom(token1,msg.sender, address(this), amountIn);
@@ -32,7 +32,7 @@ contract UniswapV3SingleHopSwap {
                 recipient: msg.sender,
                 deadline: block.timestamp,
                 amountIn: amountIn,
-                amountOutMinimum: amountOutMin,
+                amountOutMinimum: 0,
                 sqrtPriceLimitX96: 0
             });
         router.exactInputSingle(params);

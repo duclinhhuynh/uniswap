@@ -92,7 +92,7 @@
     height: 40px;
     -webkit-box-align: center;
     align-items: center;
-    width: 100%;
+    /* width: 100%; */
     white-space: nowrap;
     outline: none;
     border-radius: 12px;

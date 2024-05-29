@@ -14,7 +14,7 @@ import { FaAngleDown } from "react-icons/fa6";
 import NetWork from '../NetWork/NetWork';
 // CONTEXT 
 import { SwapTokenContext} from '../../context/SwapTokenContext';
-import { swapUpdatePrice } from '@/Utils/swapUpdatePrice';
+import { swapUpdatePrice } from '../../Utils/swapUpdatePrice';
 const HeroSection = ({}) => {
   // USESTATE 
   const [openSetting, setOpenSetting] = useState(false);
@@ -29,7 +29,8 @@ const HeroSection = ({}) => {
   const zindex =  openToken||openTokenTwo ? Style.HeroSection_new : Style.HeroSection;
   const openSettingModal = () => {
     console.log("tokenOne",tokenOne);
-    console.log(ether.slice(0.7));
+    console.log("tokenTwo",tokenTwo);
+    console.log("dai",dai.slice(0.7));
     if(!openSetting){
       setOpenSetting(true);
     }
@@ -55,7 +56,7 @@ const HeroSection = ({}) => {
 
   const callOutPut = async(value) => {
     try {
-      const yourAccount = "0x97f991971a37D4Ca58064e6a98FC563F03A71E5c";
+      const yourAccount = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
       const deadline = 10;
       const slippageAmount  = 25;
       const data = await swapUpdatePrice(
@@ -135,7 +136,9 @@ const HeroSection = ({}) => {
             <div className={Style.HeroSection_box_input_container}>
               <span className={Style.HeroSection_box_input_title}>You receive</span>
               <div className={Style.HeroSection_box_input_body}> 
-                {search ? (<input type="text" pattern="^[0-9]*[.,]?[0-9]*$" placeholder='0' onChange={setSwapAmount}/>) : tokenSwapOutPut }
+                {search ? <Image className={Style.HeroSection_box_input_body_img} src={images.giphy}/> : tokenSwapOutPut }
+                {/* (<input inputmode="decimal" autocomplete="off" autocorrect="off" minlength="1"
+                  type="text" pattern="^[0-9]*[.,]?[0-9]*$" maxlength="79" spellCheck="false"  placeholder='0'  onChange={setSwapAmount}/>) */}
                 <div className={Style.HeroSection_box_input_body_tokenlist} onClick={() => setOpenTokenTwo(true)}>
                   <Image src={images.uniswap || images.uniswap}
                     width={20}
