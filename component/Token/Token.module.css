@@ -254,6 +254,30 @@
 }.red {
     color: red;
 }
+
+.Token_box_chart {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+.Token_box_pagination {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+.Token_box_pagination button {
+    display: flex;
+    margin: 0 10px;
+    color: #fc7fff;
+    border: 1px solid #fc7fff;
+    background-color:  rgb(255 239 255) ;
+    cursor: pointer;
+    border-radius: 2rem;
+}
+.Token_box_pagination button:hover {
+    background-color: rgb(254, 192, 255);
+}
+
 @media screen and (min-width:320px) and (max-width: 900px){
     .Token_head div:nth-child(1){
         justify-content: flex-start;

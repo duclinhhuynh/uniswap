@@ -1,0 +1,17 @@
+.coin_box {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.coin_box_linechart {
+    display: flex;
+    padding-bottom: 100px;
+}
+.coin_box_heroSection {
+    display: flex;
+    margin-right:50px;
+    min-width: 380px;;
+    height: none;
+}

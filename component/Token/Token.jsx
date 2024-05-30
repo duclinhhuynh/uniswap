@@ -13,6 +13,8 @@ import { CiSearch } from "react-icons/ci";
 import { FaArrowDown } from "react-icons/fa6";
 import { FaCaretDown } from "react-icons/fa";
 import { FaCaretUp } from "react-icons/fa";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { FaArrowRightLong } from "react-icons/fa6";
 // swap 
 import SwapTokenContext from '../../context/SwapTokenContext'
 // chart
@@ -34,6 +36,29 @@ const Token = () => {
   const [copyTokenList, setCopyTokenList] = useState(allCoin);
   const [data, setData] = useState([['Date', 'prices']]);
   const [chartData, setChartData] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 15;
+  // page
+  useEffect(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    setAllTokenList(allCoin.slice(startIndex, endIndex));
+  }, [allCoin, currentPage]);
+    const totalPages = Math.ceil(allCoin.length / itemsPerPage);
+
+    const handlePreviousPage = () => {
+      if (currentPage > 1) {
+        setCurrentPage(currentPage - 1);
+      }
+    };
+  
+    const handleNextPage = () => {
+      if (currentPage < totalPages) {
+        setCurrentPage(currentPage + 1);
+      }
+    };
+  //page
+
   // search
   const onHandSearch = (value) => {
     const filteredTokens = allTokenList.filter(({name})=> 
@@ -92,7 +117,7 @@ const handleOpenTransaction = () => {
   const [loadingChartData, setLoadingChartData] = useState(true); // Thêm state mới
 
   useEffect(() => {
-    setAllTokenList(allCoin.slice(0, 20)); // Giới hạn chỉ 20 phần tử
+    setAllTokenList(allCoin.slice(0, 15)); // Giới hạn chỉ 15 phần tử
   }, [allCoin]);
   
   useEffect(() => {
@@ -108,6 +133,7 @@ const handleOpenTransaction = () => {
           ...prevChartData,
           [coinId]: dataCopy
         }));
+        console.log("charData",chartData['ethereum'][1]);
       } catch (error) {
         console.error('Error fetching historical data:', error);
       } finally {
@@ -127,36 +153,87 @@ const handleOpenTransaction = () => {
       return 'red'; // Nếu không thay đổi
     }
   };
-  // useEffect(() => {
-  //   const fetchChartData = async (coinId) => {
-  //     try {
-  //       const historicalData = await fetchHistoricalData(coinId);
-  //       const dataCopy = [['Date', 'prices']];
-  //       historicalData.forEach(item => {
-  //         const date = new Date(item[0]).toLocaleDateString().slice(0, -5);
-  //         dataCopy.push([date, item[1]]);
-  //       });
-  //       setChartData(prevChartData => ({
-  //         ...prevChartData,
-  //         [coinId]: dataCopy
-  //       }));
-  //     } catch (error) {
-  //       console.error('Error fetching historical data:', error);
-  //     } finally {
-  //       setLoadingChartData(false);
-  //     }
-  //   };
-
-  //   allTokenList.forEach(token => {
-  //     fetchChartData(token.id);
-  //   });
-  // }, [allTokenList, fetchHistoricalData]);
+  
 
   // các hàm xử lý mở/chỉnh sửa token, pool, transaction, network, và volume
   return (
     <>
     <div className={Style.Token}>
       <div className={Style.Token_box}>
+        <div className={Style.Token_box_chart}>
+          <div className={Style.Token_box_chart_area}>
+          <Chart
+            width={'600px'}
+            height={'400px'}
+            chartType="AreaChart"
+            data={chartData['ethereum', 'bitcoin']}
+            options={{
+              title: 'Bitcoin and Ethereum Stacked Area Chart',
+              // isStacked: true, // Thiết lập để lồng nhau
+              series: {
+                0: { 
+                  data : chartData['ethereum'],
+                  color: 'pink', // Màu cho Bitcoin
+                },
+                1: { 
+                  data : chartData['ethereum'],
+                  color: '#5a7dd9', // Màu cho Ethereum
+                }
+              },
+              areaOpacity: 0.3,
+              legend: { position: 'top' },
+              backgroundColor: 'transparent',
+              hAxis: {
+                gridlines: {
+                  color: 'none'
+                },
+                baselineColor: 'none',
+              },
+              vAxis: {
+                gridlines: {
+                  color: 'none'
+                },
+                baselineColor: 'none',
+                textPosition: 'none'
+              },
+              chartArea: {
+                width: '100%',
+                height: '80%',
+                backgroundColor: 'transparent'
+              },
+            }}
+          />
+
+          </div>
+          <div className={Style.Token_box_chart_column}>
+          <Chart
+            width={'600px'}
+            height={'420px'}
+            chartType="Bar"
+            loader={<div>Loading Chart</div>}
+            data={chartData['ethereum']}
+            options={{
+              series: [{
+                color: "pink"
+              }],
+              title: 'Bitcoin and Ethereum Stacked Bar Chart',
+              // isStacked: true,
+              legend: { position: 'top' },
+              backgroundColor: 'transparent',
+              hAxis: {
+                gridlines: { color: 'none' },
+                baselineColor: 'none',
+              },
+              vAxis: {
+                gridlines: { color: 'none' },
+                baselineColor: 'none',
+                textPosition: 'none'
+              },
+            }}
+            colors= 'pink'
+          />
+          </div>
+        </div>
         <div className={Style.Token_title}>
           <div className={Style.Token_title_left}>
             <div className={Style.Token_title_left_token}>
@@ -258,7 +335,7 @@ const handleOpenTransaction = () => {
                 )}
               </div>
               </div>
-          ))}
+              ))}
               </div>
             </>
             :// Pool
@@ -276,24 +353,62 @@ const handleOpenTransaction = () => {
                 <div>1 day APR</div>
               </div>
             </div>
-            <div className={Style.Token_body}>
+             <div className={Style.Token_body}>
               {allTokenList.map((el, i) => (
-                <div className={Style.Token_body_el}>
-                  <div>{el.id}</div>
-                  <div> 
-                    <Image src={el.img} width={30} height={30} className={Style.Token_body_el_img}/>
-                    <small>{el.name}</small>
-                    <small>{el.symbol}</small>
-                  </div>
-                  <div>{el.price}</div>
-                  <div>{el.hour}</div>
-                  <div>{el.day}</div>
-                  <div>{el.fdv}</div>
-                  <div>{el.volume}</div>
-                  <div></div>
+              <div key={el.id} className={Style.Token_body_flex}>
+              <Link  href={{ pathname: '/coin/', query: { id: el.id } }} className={Style.Token_body_el}>
+                <div>{el.market_cap_rank}</div>
+                <div> 
+                  <img src={el.image} width={30} height={30} className={Style.Token_body_el_img}/>
+                  <small>{el.id}</small>
+                  <small>{el.symbol}</small>
                 </div>
+                <div>${el.current_price}</div>
+                <div className={el.market_cap_change_percentage_24h > 0 ? Style.green : Style.red}>{el.market_cap_change_percentage_24h > 0 ? <FaCaretUp/> : <FaCaretDown/>} {Math.floor(el.market_cap_change_percentage_24h*100)/100 < 0 ? Math.floor(el.market_cap_change_percentage_24h*100)/100*-1 : Math.floor(el.market_cap_change_percentage_24h*100)/100}</div>
+                <div className={el.price_change_24h > 0 ? Style.green : Style.red}>{el.price_change_24h > 0 ? <FaCaretUp/> : <FaCaretDown/>}{Math.floor(el.price_change_24h*100)/100 < 0 ? Math.floor(el.price_change_24h*100)/100*-1 : Math.floor(el.price_change_24h*100)/100}</div>
+                <div>{el.total_supply ? el.total_supply.toString().slice(0,11) : ''}</div>
+                <div>{Math.floor(el.fully_diluted_valuation ? el.fully_diluted_valuation.toString().slice(0,2) : '')} B</div>
+              </Link>
+              <div className={Style.Token_body_el_chart}>
+                {!loadingChartData && chartData[el.id] && ( // Kiểm tra xem dữ liệu đã tải xong và hợp lệ chưa
+                  <Chart
+                    chartType="LineChart"
+                    width="100px"
+                    height="50px"
+                    data={chartData[el.id]}
+                    options={{
+                      title: '',
+                      backgroundColor: 'transparent',
+                      hAxis: {
+                        gridlines: {
+                          color: 'none'
+                        },
+                        baselineColor: 'none',
+                        textPosition: 'none'
+                      },
+                      vAxis: {
+                        gridlines: {
+                          color: 'none'
+                        },
+                        baselineColor: 'none',
+                        textPosition: 'none'
+                      },
+                      chartArea: {
+                        width: '100%',
+                        height: '100%',
+                        backgroundColor: 'transparent'
+                      },
+                      legend: {
+                        position: 'none'
+                      },
+                      colors: [renderChartColor(chartData[el.id][1], chartData[el.id][10])] // So sánh giá trị đầu tiên và cuối cùng để xác định màu sắc
+                    }}
+                  />
+                )}
+              </div>
+              </div>
               ))}
-            </div>
+              </div>
             </>
             :
             // Transaction
@@ -312,25 +427,74 @@ const handleOpenTransaction = () => {
             </div>
             <div className={Style.Token_body}>
               {allTokenList.map((el, i) => (
-                <div className={Style.Token_body_el}>
-                  <div>{el.id}</div>
-                  <div> 
-                    <Image src={el.img} width={30} height={30} className={Style.Token_body_el_img}/>
-                    <small>{el.name}</small>
-                    <small>{el.symbol}</small>
-                  </div>
-                  <div>{el.price}</div>
-                  <div>{el.hour}</div>
-                  <div>{el.day}</div>
-                  <div>{el.fdv}</div>
-                  <div>{el.volume}</div>
-                  <div></div>
+              <div key={el.id} className={Style.Token_body_flex}>
+              <Link  href={{ pathname: '/coin/', query: { id: el.id } }} className={Style.Token_body_el}>
+                <div>{el.market_cap_rank}</div>
+                <div> 
+                  <img src={el.image} width={30} height={30} className={Style.Token_body_el_img}/>
+                  <small>{el.id}</small>
+                  <small>{el.symbol}</small>
                 </div>
+                <div>${el.current_price}</div>
+                <div className={el.market_cap_change_percentage_24h > 0 ? Style.green : Style.red}>{el.market_cap_change_percentage_24h > 0 ? <FaCaretUp/> : <FaCaretDown/>} {Math.floor(el.market_cap_change_percentage_24h*100)/100 < 0 ? Math.floor(el.market_cap_change_percentage_24h*100)/100*-1 : Math.floor(el.market_cap_change_percentage_24h*100)/100}</div>
+                <div className={el.price_change_24h > 0 ? Style.green : Style.red}>{el.price_change_24h > 0 ? <FaCaretUp/> : <FaCaretDown/>}{Math.floor(el.price_change_24h*100)/100 < 0 ? Math.floor(el.price_change_24h*100)/100*-1 : Math.floor(el.price_change_24h*100)/100}</div>
+                <div>{el.total_supply ? el.total_supply.toString().slice(0,11) : ''}</div>
+                <div>{Math.floor(el.fully_diluted_valuation ? el.fully_diluted_valuation.toString().slice(0,2) : '')} B</div>
+              </Link>
+              <div className={Style.Token_body_el_chart}>
+                {!loadingChartData && chartData[el.id] && ( // Kiểm tra xem dữ liệu đã tải xong và hợp lệ chưa
+                  <Chart
+                    chartType="LineChart"
+                    width="100px"
+                    height="50px"
+                    data={chartData[el.id]}
+                    options={{
+                      title: '',
+                      backgroundColor: 'transparent',
+                      hAxis: {
+                        gridlines: {
+                          color: 'none'
+                        },
+                        baselineColor: 'none',
+                        textPosition: 'none'
+                      },
+                      vAxis: {
+                        gridlines: {
+                          color: 'none'
+                        },
+                        baselineColor: 'none',
+                        textPosition: 'none'
+                      },
+                      chartArea: {
+                        width: '100%',
+                        height: '100%',
+                        backgroundColor: 'transparent'
+                      },
+                      legend: {
+                        position: 'none'
+                      },
+                      colors: [renderChartColor(chartData[el.id][1], chartData[el.id][10])] // So sánh giá trị đầu tiên và cuối cùng để xác định màu sắc
+                    }}
+                  />
+                )}
+              </div>
+              </div>
               ))}
-            </div>
+              </div>
             </>
             : ""
           }
+        </div>
+        <div className={Style.Token_box_pagination}>
+          <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+            <FaArrowLeftLong/>
+          </button>
+          <span>
+            Page {currentPage} of {totalPages}
+          </span>
+          <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+            <FaArrowRightLong/>
+          </button>
         </div>
       </div>
     </div>
