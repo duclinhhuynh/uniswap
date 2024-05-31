@@ -10,5 +10,5 @@ import Footer from "./Footer/Footer";
 import Connect from "./Connect/Connect";
 import NetWork from "./NetWork/NetWork";
 import Nfts from "./NFTs/Nfts";
-import LineChart from "./LineChart/LineChart";
+import LineChart from "./Chart/LineChart/Chart";
 export {HeroSection, Navbar, Model, SearchToken, Token, Footer, Defi, Connect, Trust, NetWork, Nfts, LineChart};

@@ -1,11 +1,10 @@
-import React, {useContext, useState, useEffect, useRef} from 'react'
+import React, {useContext, useState, useEffect, useMemo} from 'react'
 import Style from './Token.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
 // internal import
 import image from '../../assets'
 import NetWork from '../NetWork/NetWork'
-import LineChart from '../LineChart/LineChart'
 // React icon 
 import { IoChevronDown } from "react-icons/io5";
 import { IoIosArrowUp } from "react-icons/io";
@@ -18,33 +17,46 @@ import { FaArrowRightLong } from "react-icons/fa6";
 // swap 
 import SwapTokenContext from '../../context/SwapTokenContext'
 // chart
-import { Chart } from "react-google-charts";
+import ChartLine from '../Chart/LineChart/ChartLine'
+import ChartBar from '../Chart/LineChart/ChartBar'
+import ChartArea from '../Chart/LineChart/ChartArea'
 const Token = () => {
-  const {ether , currentAccount, networkConnect,connectWallet, tokenData, allCoin, fetchHistoricalData} = useContext(SwapTokenContext)
+  const {networkConnect, allCoin, fetchHistoricalData} = useContext(SwapTokenContext)
+  //select
   const [netWork, setNetWork] = useState(false);
-  const [search, setSearch] = useState("");
-  const [searchItem, setSearchItem] = useState(search);
   const [volume, setVolume] = useState(true);
   const [openToken, setOpenToken] = useState(true);
   const [openPool, setOpenPool] = useState(false);
   const [openTransaction, setOpenTransaction] = useState(false);
   const [active, setActive] = useState(1);
-  useEffect(() => {
-    setAllTokenList(allCoin);
-  },[allCoin])
+  // select
+  //search
+  const [search, setSearch] = useState("");
+  const [searchItem, setSearchItem] = useState(search); 
   const [allTokenList, setAllTokenList] = useState([]); 
   const [copyTokenList, setCopyTokenList] = useState(allCoin);
-  const [data, setData] = useState([['Date', 'prices']]);
-  const [chartData, setChartData] = useState({});
+  // search
+
+  // chart
+  const [chartData, setChartData] = useState([]);
+  const [charToken, setChartToken] = useState([]);
+  const [chartColumn, setChartColumn] = useState([]);
+  const [loadingChartData, setLoadingChartData] = useState(true); 
+  // chart
+  
+  // page
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 15;
+  const totalPages = Math.ceil(allCoin.length / itemsPerPage);
+  // page
+
   // page
   useEffect(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     setAllTokenList(allCoin.slice(startIndex, endIndex));
   }, [allCoin, currentPage]);
-    const totalPages = Math.ceil(allCoin.length / itemsPerPage);
+
 
     const handlePreviousPage = () => {
       if (currentPage > 1) {
@@ -86,7 +98,7 @@ const Token = () => {
       onClearSearch();
     }
   }, [search])
-///
+// search
 
 // select
 const handleOpenToken = () => {
@@ -114,38 +126,73 @@ const handleOpenTransaction = () => {
   const handleOpenVolume = () => {
     setVolume(!volume)
   }
-  const [loadingChartData, setLoadingChartData] = useState(true); // Thêm state mới
-
+// select
   useEffect(() => {
     setAllTokenList(allCoin.slice(0, 15)); // Giới hạn chỉ 15 phần tử
   }, [allCoin]);
-  
   useEffect(() => {
-    const fetchChartData = async (coinId) => {
-      try {
-        const historicalData = await fetchHistoricalData(coinId);
-        const dataCopy = [['Date', 'prices']];
-        historicalData.forEach(item => {
-          const date = new Date(item[0]).toLocaleDateString().slice(0, -5);
-          dataCopy.push([date, item[1]]);
-        });
-        setChartData(prevChartData => ({
-          ...prevChartData,
-          [coinId]: dataCopy
+  const fetchChartData = async (coinId) => {
+    try {
+      const historicalData = await fetchHistoricalData(coinId);
+      console.log("historicalData",historicalData.prices);
+      const convertedData = historicalData.prices.map(item => ({
+        date: new Date(item[0]).toLocaleDateString(),
+        prices: item[1],
+      }));
+      return {
+        coinId,
+        data: convertedData, // Trả về convertedData thay vì object date và prices
+      };
+    } catch (error) {
+      console.error('Error fetching historical data:', error);
+      return null;
+    }
+  };
+  allTokenList.forEach(token => {
+    fetchChartData(token.id);
+  });
+  const fetchDataForBothCoins = async () => {
+    try {
+      const [tokenV3, tokenV2] = await Promise.all([
+        fetchChartData('internet-computer'),
+        fetchChartData('uniswap'),
+      ]);
+      if (tokenV3 && tokenV2) { // Chỉ gọi setChartColumn và setChartToken nếu dữ liệu tồn tại
+        const tokenV3Data = tokenV3.data.reduce((acc, { date, prices }) => {
+          if (!acc[date]) {
+            acc[date] = { date, TokenV3: prices };
+          }
+          return acc;
+        }, {});
+
+        const tokenV2Data = tokenV2.data.reduce((acc, { date, prices }) => {
+          if (acc[date]) {
+            acc[date].TokenV2 = prices;
+          } else {
+            acc[date] = { date, TokenV2: prices };
+          }
+          return acc;
+        }, tokenV3Data);
+
+        const mergedData = Object.values(tokenV2Data);
+        setChartColumn(mergedData);
+        const mergedTokenData = tokenV3.data.map(({ date, prices }) => ({
+          date,
+          TokenV3: prices,
+          TokenV2: tokenV2.data.find(item => item.date === date)?.prices || prices,
         }));
-        console.log("charData",chartData['ethereum'][1]);
-      } catch (error) {
-        console.error('Error fetching historical data:', error);
-      } finally {
-        setLoadingChartData(false);
+        setChartToken(mergedTokenData);
       }
-    };
-  
-    allTokenList.forEach(token => {
-      fetchChartData(token.id);
-    });
-  }, [allTokenList, fetchHistoricalData]);
-  
+    } catch (error) {
+      console.error('Error fetching historical data for both coins:', error);
+    } finally {
+      setLoadingChartData(false);
+    }
+  };
+ 
+  fetchDataForBothCoins();
+},[allTokenList, fetchHistoricalData]);
+
   const renderChartColor = (value, prevValue) => {
     if (value < prevValue) {
       return 'green';
@@ -153,85 +200,16 @@ const handleOpenTransaction = () => {
       return 'red'; // Nếu không thay đổi
     }
   };
-  
-
-  // các hàm xử lý mở/chỉnh sửa token, pool, transaction, network, và volume
   return (
     <>
     <div className={Style.Token}>
       <div className={Style.Token_box}>
         <div className={Style.Token_box_chart}>
           <div className={Style.Token_box_chart_area}>
-          <Chart
-            width={'600px'}
-            height={'400px'}
-            chartType="AreaChart"
-            data={chartData['ethereum', 'bitcoin']}
-            options={{
-              title: 'Bitcoin and Ethereum Stacked Area Chart',
-              // isStacked: true, // Thiết lập để lồng nhau
-              series: {
-                0: { 
-                  data : chartData['ethereum'],
-                  color: 'pink', // Màu cho Bitcoin
-                },
-                1: { 
-                  data : chartData['ethereum'],
-                  color: '#5a7dd9', // Màu cho Ethereum
-                }
-              },
-              areaOpacity: 0.3,
-              legend: { position: 'top' },
-              backgroundColor: 'transparent',
-              hAxis: {
-                gridlines: {
-                  color: 'none'
-                },
-                baselineColor: 'none',
-              },
-              vAxis: {
-                gridlines: {
-                  color: 'none'
-                },
-                baselineColor: 'none',
-                textPosition: 'none'
-              },
-              chartArea: {
-                width: '100%',
-                height: '80%',
-                backgroundColor: 'transparent'
-              },
-            }}
-          />
-
+          <ChartArea data={charToken}/>
           </div>
           <div className={Style.Token_box_chart_column}>
-          <Chart
-            width={'600px'}
-            height={'420px'}
-            chartType="Bar"
-            loader={<div>Loading Chart</div>}
-            data={chartData['ethereum']}
-            options={{
-              series: [{
-                color: "pink"
-              }],
-              title: 'Bitcoin and Ethereum Stacked Bar Chart',
-              // isStacked: true,
-              legend: { position: 'top' },
-              backgroundColor: 'transparent',
-              hAxis: {
-                gridlines: { color: 'none' },
-                baselineColor: 'none',
-              },
-              vAxis: {
-                gridlines: { color: 'none' },
-                baselineColor: 'none',
-                textPosition: 'none'
-              },
-            }}
-            colors= 'pink'
-          />
+          <ChartBar data={chartColumn}/>
           </div>
         </div>
         <div className={Style.Token_title}>
@@ -298,40 +276,8 @@ const handleOpenTransaction = () => {
                 <div>{Math.floor(el.fully_diluted_valuation ? el.fully_diluted_valuation.toString().slice(0,2) : '')} B</div>
               </Link>
               <div className={Style.Token_body_el_chart}>
-                {!loadingChartData && chartData[el.id] && ( // Kiểm tra xem dữ liệu đã tải xong và hợp lệ chưa
-                  <Chart
-                    chartType="LineChart"
-                    width="100px"
-                    height="50px"
-                    data={chartData[el.id]}
-                    options={{
-                      title: '',
-                      backgroundColor: 'transparent',
-                      hAxis: {
-                        gridlines: {
-                          color: 'none'
-                        },
-                        baselineColor: 'none',
-                        textPosition: 'none'
-                      },
-                      vAxis: {
-                        gridlines: {
-                          color: 'none'
-                        },
-                        baselineColor: 'none',
-                        textPosition: 'none'
-                      },
-                      chartArea: {
-                        width: '100%',
-                        height: '100%',
-                        backgroundColor: 'transparent'
-                      },
-                      legend: {
-                        position: 'none'
-                      },
-                      colors: [renderChartColor(chartData[el.id][1], chartData[el.id][10])] // So sánh giá trị đầu tiên và cuối cùng để xác định màu sắc
-                    }}
-                  />
+                {!loadingChartData && chartData[el.id] &&( // Kiểm tra xem dữ liệu đã tải xong và hợp lệ chưa
+                  <ChartLine data={chartData[el.id]} />
                 )}
               </div>
               </div>
@@ -371,39 +317,7 @@ const handleOpenTransaction = () => {
               </Link>
               <div className={Style.Token_body_el_chart}>
                 {!loadingChartData && chartData[el.id] && ( // Kiểm tra xem dữ liệu đã tải xong và hợp lệ chưa
-                  <Chart
-                    chartType="LineChart"
-                    width="100px"
-                    height="50px"
-                    data={chartData[el.id]}
-                    options={{
-                      title: '',
-                      backgroundColor: 'transparent',
-                      hAxis: {
-                        gridlines: {
-                          color: 'none'
-                        },
-                        baselineColor: 'none',
-                        textPosition: 'none'
-                      },
-                      vAxis: {
-                        gridlines: {
-                          color: 'none'
-                        },
-                        baselineColor: 'none',
-                        textPosition: 'none'
-                      },
-                      chartArea: {
-                        width: '100%',
-                        height: '100%',
-                        backgroundColor: 'transparent'
-                      },
-                      legend: {
-                        position: 'none'
-                      },
-                      colors: [renderChartColor(chartData[el.id][1], chartData[el.id][10])] // So sánh giá trị đầu tiên và cuối cùng để xác định màu sắc
-                    }}
-                  />
+                 <ChartLine data={chartData[el.id]}/>
                 )}
               </div>
               </div>
@@ -443,39 +357,7 @@ const handleOpenTransaction = () => {
               </Link>
               <div className={Style.Token_body_el_chart}>
                 {!loadingChartData && chartData[el.id] && ( // Kiểm tra xem dữ liệu đã tải xong và hợp lệ chưa
-                  <Chart
-                    chartType="LineChart"
-                    width="100px"
-                    height="50px"
-                    data={chartData[el.id]}
-                    options={{
-                      title: '',
-                      backgroundColor: 'transparent',
-                      hAxis: {
-                        gridlines: {
-                          color: 'none'
-                        },
-                        baselineColor: 'none',
-                        textPosition: 'none'
-                      },
-                      vAxis: {
-                        gridlines: {
-                          color: 'none'
-                        },
-                        baselineColor: 'none',
-                        textPosition: 'none'
-                      },
-                      chartArea: {
-                        width: '100%',
-                        height: '100%',
-                        backgroundColor: 'transparent'
-                      },
-                      legend: {
-                        position: 'none'
-                      },
-                      colors: [renderChartColor(chartData[el.id][1], chartData[el.id][10])] // So sánh giá trị đầu tiên và cuối cùng để xác định màu sắc
-                    }}
-                  />
+                 <ChartLine data={chartData[el.id]}/>
                 )}
               </div>
               </div>

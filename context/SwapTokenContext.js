@@ -55,10 +55,10 @@ export const SwapTokenContextProvider = ({ children }) => {
         };
       
         try {
-          await new Promise(resolve => setTimeout(resolve, 2000));
+          await new Promise(resolve => setTimeout(resolve, 1000));
           const response = await fetch(`https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=10`, options);
           const result = await response.json();
-          return result.prices;
+          return result;
         } catch (error) {
           console.error('Error fetching historical data:', error);
           return [];
