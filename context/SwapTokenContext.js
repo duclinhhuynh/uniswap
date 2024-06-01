@@ -51,13 +51,13 @@ export const SwapTokenContextProvider = ({ children }) => {
     const fetchHistoricalData = async (coinId) => {
         const options = {
           method: 'GET',
-          headers: { accept: 'application/json', 'x-cg-demo-api-key': 'CG-qPA1U4MtwyJnE2WUmBzPhaAv' }
+          headers: { accept: 'application/json', 'x-cg-demo-api-key': '	CG-RPy2du2nvRnE9s3dQuuBaYHQ' }
         };
       
         try {
-          await new Promise(resolve => setTimeout(resolve, 1000));
           const response = await fetch(`https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=10`, options);
           const result = await response.json();
+          console.log("prices", result.prices);
           return result;
         } catch (error) {
           console.error('Error fetching historical data:', error);
@@ -67,7 +67,7 @@ export const SwapTokenContextProvider = ({ children }) => {
     const fetchAllCoin = async () => {
         const options = {
             method: 'GET',
-            headers: {accept: 'application/json', 'x-cg-demo-api-key': 'CG-qPA1U4MtwyJnE2WUmBzPhaAv'}
+            headers: {accept: 'application/json', 'x-cg-demo-api-key': 'CG-RPy2du2nvRnE9s3dQuuBaYHQ'}
           };
           
           fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}`, options)

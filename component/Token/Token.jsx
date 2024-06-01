@@ -20,6 +20,7 @@ import SwapTokenContext from '../../context/SwapTokenContext'
 import ChartLine from '../Chart/LineChart/ChartLine'
 import ChartBar from '../Chart/LineChart/ChartBar'
 import ChartArea from '../Chart/LineChart/ChartArea'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 const Token = () => {
   const {networkConnect, allCoin, fetchHistoricalData} = useContext(SwapTokenContext)
   //select
@@ -131,68 +132,163 @@ const handleOpenTransaction = () => {
     setAllTokenList(allCoin.slice(0, 15)); // Giới hạn chỉ 15 phần tử
   }, [allCoin]);
   useEffect(() => {
-  const fetchChartData = async (coinId) => {
-    try {
-      const historicalData = await fetchHistoricalData(coinId);
-      console.log("historicalData",historicalData.prices);
-      const convertedData = historicalData.prices.map(item => ({
-        date: new Date(item[0]).toLocaleDateString(),
-        prices: item[1],
-      }));
-      return {
-        coinId,
-        data: convertedData, // Trả về convertedData thay vì object date và prices
-      };
-    } catch (error) {
-      console.error('Error fetching historical data:', error);
-      return null;
-    }
-  };
-  allTokenList.forEach(token => {
-    fetchChartData(token.id);
-  });
-  const fetchDataForBothCoins = async () => {
-    try {
-      const [tokenV3, tokenV2] = await Promise.all([
-        fetchChartData('internet-computer'),
-        fetchChartData('uniswap'),
-      ]);
-      if (tokenV3 && tokenV2) { // Chỉ gọi setChartColumn và setChartToken nếu dữ liệu tồn tại
-        const tokenV3Data = tokenV3.data.reduce((acc, { date, prices }) => {
-          if (!acc[date]) {
-            acc[date] = { date, TokenV3: prices };
-          }
-          return acc;
-        }, {});
-
-        const tokenV2Data = tokenV2.data.reduce((acc, { date, prices }) => {
-          if (acc[date]) {
-            acc[date].TokenV2 = prices;
-          } else {
-            acc[date] = { date, TokenV2: prices };
-          }
-          return acc;
-        }, tokenV3Data);
-
-        const mergedData = Object.values(tokenV2Data);
-        setChartColumn(mergedData);
-        const mergedTokenData = tokenV3.data.map(({ date, prices }) => ({
-          date,
-          TokenV3: prices,
-          TokenV2: tokenV2.data.find(item => item.date === date)?.prices || prices,
+    const fetchChartData = async (coinId) => {
+      try {
+        const historicalData = await fetchHistoricalData(coinId);
+        console.log("historicalData", historicalData.prices);
+        const convertedData = historicalData.prices.map(item => ({
+          date: new Date(item[0]).toLocaleDateString(),
+          prices: item[1],
         }));
-        setChartToken(mergedTokenData);
+        return {
+          coinId,
+          data: convertedData,
+        };
+      } catch (error) {
+        console.error('Error fetching historical data:', error);
+        return null;
       }
-    } catch (error) {
-      console.error('Error fetching historical data for both coins:', error);
-    } finally {
-      setLoadingChartData(false);
-    }
-  };
- 
-  fetchDataForBothCoins();
-},[allTokenList, fetchHistoricalData]);
+    };
 
+    const fetchDataForBothCoins = async () => {
+      try {
+        const [tokenV3, tokenV2] = await Promise.all([
+          fetchChartData('internet-computer'),
+          fetchChartData('uniswap'),
+        ]);
+
+        if (tokenV3 && tokenV2) {
+          const tokenV3Data = tokenV3.data.reduce((acc, { date, prices }) => {
+            if (!acc[date]) {
+              acc[date] = { date, TokenV3: prices };
+            }
+            return acc;
+          }, {});
+
+          const tokenV2Data = tokenV2.data.reduce((acc, { date, prices }) => {
+            if (acc[date]) {
+              acc[date].TokenV2 = prices;
+            } else {
+              acc[date] = { date, TokenV2: prices };
+            }
+            return acc;
+          }, tokenV3Data);
+
+          const mergedData = Object.values(tokenV2Data);
+          setChartColumn(mergedData);
+
+          const mergedTokenData = tokenV3.data.map(({ date, prices }) => ({
+            date,
+            TokenV3: prices,
+            TokenV2: tokenV2.data.find(item => item.date === date)?.prices || prices,
+          }));
+          setChartToken(mergedTokenData);
+        }
+
+        // Gộp dữ liệu cho từng token
+        const allChartData = {};
+        for (const token of allTokenList) {
+          const tokenData = await fetchChartData(token.id);
+          if (tokenData) {
+            allChartData[token.id] = tokenData.data;
+          }
+        }
+        setChartData(allChartData);
+
+      } catch (error) {
+        console.error('Error fetching historical data:', error);
+      } finally {
+        setLoadingChartData(false);
+      }
+    };
+
+    if (allTokenList && allTokenList.length > 0) {
+      fetchDataForBothCoins();
+    }
+  }, [allTokenList, fetchHistoricalData]);
+//   useEffect(() => {
+//   const fetchChartData = async (coinId) => {
+//     try {
+//       const historicalData = await fetchHistoricalData(coinId);
+//       console.log("historicalData",historicalData.prices);
+//       const convertedData = historicalData.prices.map(item => ({
+//         date: new Date(item[0]).toLocaleDateString(),
+//         prices: item[1],
+//       }));
+//       return {
+//         coinId,
+//         data: convertedData, // Trả về convertedData thay vì object date và prices
+//       };
+//     } catch (error) {
+//       console.error('Error fetching historical data:', error);
+//       return null;
+//     }
+//   };
+//   allTokenList.forEach(token => {
+//     fetchChartData(token.id);
+//   });
+//   const fetchDataForBothCoins = async () => {
+//     try {
+//       const [tokenV3, tokenV2] = await Promise.all([
+//         fetchChartData('internet-computer'),
+//         fetchChartData('uniswap'),
+//       ]);
+//       if (tokenV3 && tokenV2) { // Chỉ gọi setChartColumn và setChartToken nếu dữ liệu tồn tại
+//         const tokenV3Data = tokenV3.data.reduce((acc, { date, prices }) => {
+//           if (!acc[date]) {
+//             acc[date] = { date, TokenV3: prices };
+//           }
+//           return acc;
+//         }, {});
+
+//         const tokenV2Data = tokenV2.data.reduce((acc, { date, prices }) => {
+//           if (acc[date]) {
+//             acc[date].TokenV2 = prices;
+//           } else {
+//             acc[date] = { date, TokenV2: prices };
+//           }
+//           return acc;
+//         }, tokenV3Data);
+
+//         const mergedData = Object.values(tokenV2Data);
+//         setChartColumn(mergedData);
+//         const mergedTokenData = tokenV3.data.map(({ date, prices }) => ({
+//           date,
+//           TokenV3: prices,
+//           TokenV2: tokenV2.data.find(item => item.date === date)?.prices || prices,
+//         }));
+//         setChartToken(mergedTokenData);
+//       }
+//     } catch (error) {
+//       console.error('Error fetching historical data for both coins:', error);
+//     } finally {
+//       setLoadingChartData(false);
+//     }
+//   };
+ 
+//   fetchDataForBothCoins();
+// },[allTokenList, fetchHistoricalData]);
+//  useEffect(() => {
+//     const fetchChartData = async (coinId) => {
+//       try {
+//         const historicalData = await fetchHistoricalData(coinId);
+//         setChartData(prevChartData => ({
+//           ...prevChartData,
+//           [coinId]: historicalData.prices
+//         }));
+//       } catch (error) {
+//         console.error('Error fetching historical data:', error);
+//       } finally {
+//         setLoadingChartData(false);
+//       }
+//     };
+
+//     if (allTokenList && allTokenList.length > 0) {
+//       allTokenList.forEach(token => {
+//         fetchChartData(token.id);
+//       });
+//     }
+//   }, [allTokenList, fetchHistoricalData]);
   const renderChartColor = (value, prevValue) => {
     if (value < prevValue) {
       return 'green';
@@ -274,9 +370,10 @@ const handleOpenTransaction = () => {
                 <div className={el.price_change_24h > 0 ? Style.green : Style.red}>{el.price_change_24h > 0 ? <FaCaretUp/> : <FaCaretDown/>}{Math.floor(el.price_change_24h*100)/100 < 0 ? Math.floor(el.price_change_24h*100)/100*-1 : Math.floor(el.price_change_24h*100)/100}</div>
                 <div>{el.total_supply ? el.total_supply.toString().slice(0,11) : ''}</div>
                 <div>{Math.floor(el.fully_diluted_valuation ? el.fully_diluted_valuation.toString().slice(0,2) : '')} B</div>
+                {/* <div>{ console.log("hello",chartData)}</div> */}
               </Link>
               <div className={Style.Token_body_el_chart}>
-                {!loadingChartData && chartData[el.id] &&( // Kiểm tra xem dữ liệu đã tải xong và hợp lệ chưa
+                {!loadingChartData && chartData[el.id] &&( 
                   <ChartLine data={chartData[el.id]} />
                 )}
               </div>
@@ -316,9 +413,7 @@ const handleOpenTransaction = () => {
                 <div>{Math.floor(el.fully_diluted_valuation ? el.fully_diluted_valuation.toString().slice(0,2) : '')} B</div>
               </Link>
               <div className={Style.Token_body_el_chart}>
-                {!loadingChartData && chartData[el.id] && ( // Kiểm tra xem dữ liệu đã tải xong và hợp lệ chưa
-                 <ChartLine data={chartData[el.id]}/>
-                )}
+                
               </div>
               </div>
               ))}
@@ -356,9 +451,7 @@ const handleOpenTransaction = () => {
                 <div>{Math.floor(el.fully_diluted_valuation ? el.fully_diluted_valuation.toString().slice(0,2) : '')} B</div>
               </Link>
               <div className={Style.Token_body_el_chart}>
-                {!loadingChartData && chartData[el.id] && ( // Kiểm tra xem dữ liệu đã tải xong và hợp lệ chưa
-                 <ChartLine data={chartData[el.id]}/>
-                )}
+                
               </div>
               </div>
               ))}
