@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect, useMemo} from 'react'
+import React, {useContext, useState, useEffect, useRef} from 'react'
 import Style from './Token.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -14,13 +14,13 @@ import { FaCaretDown } from "react-icons/fa";
 import { FaCaretUp } from "react-icons/fa";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { FaArrowTurnUp } from "react-icons/fa6";
 // swap 
 import SwapTokenContext from '../../context/SwapTokenContext'
 // chart
 import ChartLine from '../Chart/LineChart/ChartLine'
 import ChartBar from '../Chart/LineChart/ChartBar'
 import ChartArea from '../Chart/LineChart/ChartArea'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 const Token = () => {
   const {networkConnect, allCoin, fetchHistoricalData} = useContext(SwapTokenContext)
   //select
@@ -50,7 +50,37 @@ const Token = () => {
   const itemsPerPage = 15;
   const totalPages = Math.ceil(allCoin.length / itemsPerPage);
   // page
+  // scroll
+  const tokenBodyRef = useRef(null);
+  const firstTokenRef = useRef(null);
+  const [showScrollButton, setShowScrollButton] = useState(false);
 
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const handleScroll = () => {
+    // Kiểm tra vị trí cuộn của trang
+    if (window.scrollY > 700) { // Chỉ hiển thị nút khi vị trí cuộn vượt qua 200px
+      setShowScrollButton(true);
+    } else {
+      setShowScrollButton(false);
+    }
+  };
+  useEffect(() => {
+    // Trigger lại handleScroll khi danh sách thay đổi
+    handleScroll();
+  }, [allTokenList]);
+
+  const scrollToTop = () => {
+    // Cuộn đến phần tử el.id đầu tiên khi nút được nhấp
+    if (firstTokenRef.current) {
+      firstTokenRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   // page
   useEffect(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -135,7 +165,6 @@ const handleOpenTransaction = () => {
     const fetchChartData = async (coinId) => {
       try {
         const historicalData = await fetchHistoricalData(coinId);
-        console.log("historicalData", historicalData.prices);
         const convertedData = historicalData.prices.map(item => ({
           date: new Date(item[0]).toLocaleDateString(),
           prices: item[1],
@@ -289,13 +318,6 @@ const handleOpenTransaction = () => {
 //       });
 //     }
 //   }, [allTokenList, fetchHistoricalData]);
-  const renderChartColor = (value, prevValue) => {
-    if (value < prevValue) {
-      return 'green';
-    } else {
-      return 'red'; // Nếu không thay đổi
-    }
-  };
   return (
     <>
     <div className={Style.Token}>
@@ -346,18 +368,22 @@ const handleOpenTransaction = () => {
               <div className={Style.Token_head}>
                 <div className={Style.Token_head_box}>
                   <div>#</div>
-                  <div>TokenName</div>
+                  <div>Token Name</div>
                   <div>Price</div>
                   <div>1 hour</div>
                   <div>1 day</div>
                   <div>FDV</div>
                   <div><FaArrowDown/>&nbsp;Volume</div>
-                  <div></div>
+                  <div>10 day</div>
                 </div>
               </div>
-              <div className={Style.Token_body}>
+              <div className={Style.Token_body} >
               {allTokenList.map((el, i) => (
-              <div key={el.id} className={Style.Token_body_flex}>
+              <div key={el.id}
+              className={Style.Token_body_flex}
+              // ref={(element) => (tokenRefs.current[i] = element)}
+              ref={i === 0 ? firstTokenRef : null} 
+              >
               <Link  href={{ pathname: '/coin/', query: { id: el.id } }} className={Style.Token_body_el}>
                 <div>{el.market_cap_rank}</div>
                 <div> 
@@ -370,7 +396,6 @@ const handleOpenTransaction = () => {
                 <div className={el.price_change_24h > 0 ? Style.green : Style.red}>{el.price_change_24h > 0 ? <FaCaretUp/> : <FaCaretDown/>}{Math.floor(el.price_change_24h*100)/100 < 0 ? Math.floor(el.price_change_24h*100)/100*-1 : Math.floor(el.price_change_24h*100)/100}</div>
                 <div>{el.total_supply ? el.total_supply.toString().slice(0,11) : ''}</div>
                 <div>{Math.floor(el.fully_diluted_valuation ? el.fully_diluted_valuation.toString().slice(0,2) : '')} B</div>
-                {/* <div>{ console.log("hello",chartData)}</div> */}
               </Link>
               <div className={Style.Token_body_el_chart}>
                 {!loadingChartData && chartData[el.id] &&( 
@@ -379,6 +404,16 @@ const handleOpenTransaction = () => {
               </div>
               </div>
               ))}
+              <div className={Style.Scroll} >
+              {showScrollButton &&
+               <button
+                  className={`${Style.scroll_to_top_button} ${showScrollButton ? Style.show : Style.hide}`}
+                  onClick={scrollToTop} // Cuộn đến phần tử đầu tiên
+                >
+                  <span><FaArrowTurnUp/>  Return to top </span>
+                </button>
+              }
+              </div>
               </div>
             </>
             :// Pool
@@ -451,7 +486,6 @@ const handleOpenTransaction = () => {
                 <div>{Math.floor(el.fully_diluted_valuation ? el.fully_diluted_valuation.toString().slice(0,2) : '')} B</div>
               </Link>
               <div className={Style.Token_body_el_chart}>
-                
               </div>
               </div>
               ))}
