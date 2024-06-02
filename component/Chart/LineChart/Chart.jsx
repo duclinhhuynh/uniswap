@@ -3,6 +3,13 @@ import { useRouter } from 'next/router';
 import {LineChart,Line, AreaChart,Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import Style from './LineChart.module.css'
 
+// react icon
+import { FaXTwitter } from "react-icons/fa6";
+import { SiWebmoney } from "react-icons/si";
+import { FaShare } from "react-icons/fa";
+import { BiQrScan } from "react-icons/bi";
+import { MdChevronRight } from "react-icons/md";
+
 function CustomTooltip({ payload, label, active, currency = "usd" }) {
   if (active && payload && payload.length) {
     return (
@@ -60,7 +67,6 @@ const Chart = () => {
         .then((res) => res.json())
         .then((json) => json);
         console.log("chartData", response);
-        
         let convertedData = response.prices.map(item => 
           {
             return{
@@ -81,6 +87,19 @@ const Chart = () => {
 
   return (
     <div className={Style.chart}>
+      <div className={Style.chart_title}>
+      <div className={Style.chart_title_left}>
+        <div>Explore<MdChevronRight/></div>
+        <div>Tokens<MdChevronRight/></div>
+        <div>{coinId.charAt(0).toUpperCase() + coinId.slice(1).toLowerCase()}</div>
+      </div>
+        <div className={Style.chart_title_right}>
+          <div className={Style.chart_network}><BiQrScan className={Style.chart_network_icon}/><span className={Style.tooltip}>Explore</span></div>
+          <div className={Style.chart_network}><SiWebmoney className={Style.chart_network_icon}/><span className={Style.tooltip}>Website</span></div>
+          <div className={Style.chart_network}><FaXTwitter className={Style.chart_network_icon}/><span className={Style.tooltip}>Twitter</span></div>
+          <div className={Style.chart_network}><FaShare className={Style.chart_network_icon}/><span className={Style.tooltip}>Share</span></div>
+        </div>
+      </div>
       <ChartComponent data = {data}/>
     </div>
   );

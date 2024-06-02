@@ -320,7 +320,7 @@ const handleOpenTransaction = () => {
 //   }, [allTokenList, fetchHistoricalData]);
   return (
     <>
-    <div className={Style.Token}>
+    <div className={Style.Token} ref={firstTokenRef} >
       <div className={Style.Token_box}>
         <div className={Style.Token_box_chart}>
           <div className={Style.Token_box_chart_area}>
@@ -374,7 +374,7 @@ const handleOpenTransaction = () => {
                   <div>1 day</div>
                   <div>FDV</div>
                   <div><FaArrowDown/>&nbsp;Volume</div>
-                  <div>10 day</div>
+                  <div>last 10 day</div>
                 </div>
               </div>
               <div className={Style.Token_body} >
@@ -382,7 +382,6 @@ const handleOpenTransaction = () => {
               <div key={el.id}
               className={Style.Token_body_flex}
               // ref={(element) => (tokenRefs.current[i] = element)}
-              ref={i === 0 ? firstTokenRef : null} 
               >
               <Link  href={{ pathname: '/coin/', query: { id: el.id } }} className={Style.Token_body_el}>
                 <div>{el.market_cap_rank}</div>

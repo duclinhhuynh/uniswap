@@ -1,0 +1,92 @@
+.chart_title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.chart_title_right {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.chart_network {
+    display: flex;
+    align-items: center;
+    -webkit-box-align: center;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: none;
+    background-color: rgb(249, 249, 249);
+    width: max-content;
+    text-decoration: none;
+    cursor: pointer;
+    transition-duration: 125ms;
+
+    position: relative;
+    display: inline-block;
+}
+
+.chart_network .tooltip {
+    visibility: hidden;
+    width: 60px;
+    background-color: #fff;
+    color: black;
+    box-shadow: 0px 2px 5px rgba(82, 81, 81, 0.3);
+    text-align: center;
+    border-radius: 10px;
+    padding: 7.5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -20px; 
+    font-size: 12px;
+    font-weight: 400;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+  .chart_network .tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -20px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #fff transparent transparent transparent;
+  }
+  .chart_network:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+.chart_title_left {
+    display: flex;
+    align-items: center;
+}
+.chart_title_left div:nth-child(1){
+    color: #8c8c8c;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+.chart_title_left div:nth-child(1):hover{
+    opacity: .7;
+    cursor: pointer;
+}
+.chart_title_left div:nth-child(2){
+    color: #8c8c8c;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+.chart_title_left div:nth-child(2):hover{
+    opacity: .7;
+    cursor: pointer;
+}
+.chart_network:hover:hover .chart_network_icon{
+    opacity: 0.4;
+}

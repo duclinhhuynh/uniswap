@@ -5,7 +5,6 @@ const ChartArea = ({ data }) => {
   if (!data || data.length === 0) return <div>Loading Chart...</div>;
   return (
     <>
-      <p>Uniswap TVL{}</p>
       <AreaChart width={600} height={400} data={data}>
         <CartesianGrid stroke=""/>
         <XAxis dataKey="date" />
