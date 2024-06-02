@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    gap: 3rem;
 }
 .coin_box_linechart {
     display: flex;
@@ -12,6 +13,6 @@
 .coin_box_heroSection {
     display: flex;
     margin-right:50px;
-    min-width: 380px;;
+    max-width: 370px;;
     height: none;
 }
