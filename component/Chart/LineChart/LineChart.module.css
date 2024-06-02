@@ -34,7 +34,7 @@
     color: black;
 }
 
-.chart_network .tooltip {
+.tooltip {
     visibility: hidden;
     width: 60px;
     background-color: #fff;
@@ -54,7 +54,7 @@
     transition: opacity 0.3s;
 }
 
-  .chart_network .tooltip::after {
+.tooltip::after {
     content: "";
     position: absolute;
     top: 100%;
@@ -114,9 +114,25 @@
     opacity: 0.4;
 }
 .chart_network:hover {
-    background-color: #efefef;
+    background-color: #ebeaea;
 }
-
+.chart_network_share_active {
+    display: flex;
+    align-items: center;
+    -webkit-box-align: center;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: none;
+    width: max-content;
+    text-decoration: none;
+    cursor: pointer;
+    transition-duration: 125ms;
+    position: relative;
+    display: inline-block;
+    background-color: #ebeaea;
+}
 .chart_box_day_left,.chart_box_day_right_analyst,.chart_box_day_right_price {
     display: flex;
     border: 1px solid rgba(34, 34, 34, 0.07);
@@ -211,5 +227,9 @@
 }
 
 .chart_network_share span:hover {
+    background-color: #f4f5f9;
+}
+
+.chart_network_share_active {
     background-color: #f4f5f9;
 }

@@ -171,7 +171,6 @@ const HeroSection = ({}) => {
             </div>
         )}
       </div>
-       {openSetting && <Token openSetting={openSetting}/>}
         {openToken && (
           <SearchToken 
           setOpenToken = {setOpenToken}

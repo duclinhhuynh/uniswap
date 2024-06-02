@@ -1,5 +1,5 @@
 .coin_box {
-    margin: auto;
+    padding-top: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,8 +11,51 @@
     padding-bottom: 100px;
 }
 .coin_box_heroSection {
-    display: flex;
     margin-right:50px;
     max-width: 370px;;
     height: none;
+    margin-top: -100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.coin_box_heroSection_compo {
+    display: flex;
+    align-items: center;
+}
+.coin_box_heroSection_title {
+    font-size: 20px;
+    font-weight: 400;
+    padding: 5px;
+    margin-top: 3rem;
+}
+.coin_box_heroSection_social {
+    margin-top: 1rem;
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    padding: 0px;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+}
+.coin_box_heroSection_social div{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 20px;
+    color: rgb(34, 34, 34);
+    background-color: rgb(249, 249, 249);
+    font-size: 14px;
+    font-weight: 435;
+    line-height: 16px;
+    width: max-content;
+    text-decoration: none;
+    cursor: pointer;
+    transition-duration: 125ms;
+}
+.coin_box_heroSection_social div:hover {
+    opacity: 0.6;
 }

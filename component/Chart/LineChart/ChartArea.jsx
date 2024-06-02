@@ -7,8 +7,14 @@ const ChartArea = ({ data }) => {
     <>
       <AreaChart width={600} height={400} data={data}>
         <CartesianGrid stroke=""/>
-        <XAxis dataKey="date" />
-        <YAxis domain={["auto", "auto"]}hide/>
+        <XAxis dataKey="date" 
+        axisLine={false} //ẩn trục
+        tickLine={false}
+        />
+        <YAxis domain={["auto", "auto"]}hide
+        axisLine={false}// ẩn trục 
+          tickLine={false}
+        />
         <Legend />
         <Tooltip content={<CustomTooltip/>} cursor={true} wrapperStyle={{ outline: 'none' }}/>
         <Area fillOpacity={1} type="monotone" dataKey="TokenV3" stroke="#677de6" strokeWidth={2}  dot={false} fill="#b2bef5"  curve="monotoneX"/>

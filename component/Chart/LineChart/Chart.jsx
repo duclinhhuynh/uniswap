@@ -187,7 +187,7 @@ const copyAddressShare = () => {
   // close model
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (!event.target.closest(`.${Style.chart_network_share}`) && !event.target.closest(`.${Style.chart_network}`)) {
+      if (!event.target.closest(`.${Style.chart_network_share}`) && !event.target.closest(`.${Style.chart_network_share_active}`)) {
         setOpenShare(false);
       }
     };
@@ -234,7 +234,7 @@ const copyAddressShare = () => {
           <div className={Style.chart_network}><a target='_blank' href="https://etherscan.io/"><BiQrScan className={Style.chart_network_icon}/><span className={Style.tooltip}>Explore</span></a></div>
           <div className={Style.chart_network}><a target='_blank' href="https://etherscan.io/"><SiWebmoney className={Style.chart_network_icon}/><span className={Style.tooltip}>Website</span></a></div>
           <div className={Style.chart_network}><a target='_blank' href="https://etherscan.io/"><FaXTwitter className={Style.chart_network_icon}/><span className={Style.tooltip}>Twitter</span></a></div>
-          <div className={Style.chart_network}
+          <div className={`${ openShare ? Style.chart_network_share_active : Style.chart_network}`}
           onClick={handleOpenShare}><FaShare className={Style.chart_network_icon}/>
           {hovering && <span className={Style.tooltip}>Share</span>}
             {

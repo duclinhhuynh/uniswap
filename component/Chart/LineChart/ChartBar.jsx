@@ -8,8 +8,14 @@ const ChartBar = ({ data }) => {
     <>
       <BarChart width={600} height={400} data={data}>
         <CartesianGrid stroke=""/>
-        <XAxis dataKey="date" />
-        <YAxis domain={["auto", "auto"]} hide />
+        <XAxis dataKey="date" 
+        axisLine={false}// ẩn trục 
+        tickLine={false}
+        />
+        <YAxis domain={["auto", "auto"]} hide 
+        axisLine={false}// ẩn trục 
+        tickLine={false}
+        />
         <Legend />
         <Tooltip content={<CustomTooltip />} cursor={true} wrapperStyle={{ outline: 'none' }} />
         <Bar dataKey="TokenV3" barSize={20} fill="rgb(252 114 255)" />

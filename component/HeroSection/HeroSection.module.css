@@ -3,10 +3,10 @@
     max-width: 480px;
     width: 100%;
     position: relative;
-    margin: 100px auto;
-    margin-bottom: 220px;
+    margin:auto ;
+    margin-top: 100px;
     z-index: 9;
-    height: 500px;
+    /* height: auto; */
     overflow: hidden;
 }
 .HeroSection_new {
