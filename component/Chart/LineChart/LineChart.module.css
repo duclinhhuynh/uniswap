@@ -2,6 +2,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-top: 8px;
+    margin-bottom: 20px;
 }
 .chart_title_right {
     display: flex;
@@ -24,9 +26,12 @@
     text-decoration: none;
     cursor: pointer;
     transition-duration: 125ms;
-
     position: relative;
     display: inline-block;
+}
+
+.chart_network a{
+    color: black;
 }
 
 .chart_network .tooltip {
@@ -66,6 +71,18 @@
 .chart_title_left {
     display: flex;
     align-items: center;
+    margin-bottom: 20px;
+}
+.chart_title_left_left {
+    display: flex;
+    align-items: center;
+}
+.chart_title_left_left div:nth-child(1){
+    font-size: 20px;
+}
+.chart_title_left_left div:nth-child(2){
+    font-size: 20px;
+    color: #8c8c8c;
 }
 .chart_title_left div:nth-child(1){
     color: #8c8c8c;
@@ -87,6 +104,67 @@
     opacity: .7;
     cursor: pointer;
 }
+.chart_title_left div:nth-child(4){
+    color: #8c8c8c;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
 .chart_network:hover:hover .chart_network_icon{
     opacity: 0.4;
+}
+
+.chart_box_day_left,.chart_box_day_right_analyst,.chart_box_day_right_price {
+    display: flex;
+    border: 1px solid rgba(34, 34, 34, 0.07);
+    border-radius: 2rem;
+    padding: 4px;
+    gap: 12px;
+}
+.chart_box_day_left div{
+    display: flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: opacity 250ms ease 0s;
+    color: rgb(163 163 163);
+}
+
+.activeDay {
+  border-radius: 1rem;
+  background: rgba(34, 34, 34, 0.07);
+  cursor: pointer;
+  color: black !important;
+  transition: opacity 250ms ease 0s;
+}
+
+.chart_box_day_box {
+    display: flex;
+    justify-content: space-between;
+}
+.chart_box_day_right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.chart_box_day_right div {
+    display: flex;
+    align-items: center;
+}
+.chart_box_day_right_analyst div {
+    display: flex;
+    gap: 4px;
+    padding: 6px 14px;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: opacity 250ms ease 0s;
+}
+.chart_box_day_right_price div {
+    display: flex;
+    gap: 4px;
+    padding: 4px 4px;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: opacity 250ms ease 0s;
 }
