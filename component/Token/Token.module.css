@@ -62,6 +62,65 @@
     color: black;
     border: 1px solid #ccc;
     cursor: pointer;
+    min-width: 100px;
+}
+.Token_title_right_volume_active {
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    position: relative;
+    padding: .5rem;
+    height: 40px;
+    border-radius: 1rem;
+    color: black;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background-color: #efefef;
+}
+.active_volume_check {
+    color: #fc7fff;
+}
+.Token_title_right_volume_box {
+    min-width: 150px;
+    overflow: auto;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(51, 53, 72, 0.04) 8px 12px 20px, rgba(51, 53, 72, 0.02) 4px 6px 12px, rgba(51, 53, 72, 0.04) 4px 4px 8px;
+    border: 0.5px solid rgba(34, 34, 34, 0.07);
+    border-radius: 12px;
+    padding: 8px;
+    font-size: 16px;
+    position: absolute;
+    top: 48px;
+    z-index: 1000;
+    animation: 125ms ease-in-out 0s 1 normal none running hYPVna;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(34, 34, 34, 0.07) transparent;
+    max-height: 300px;
+    left: 0px;
+}
+
+.Token_title_right_volume_box div {
+    display: flex;
+    flex: 1 1 0%;
+    padding: 12px 8px;
+    gap: 12px;
+    color: rgb(34, 34, 34);
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.Token_title_right_volume_box div:hover {
+    background-color: #efefef;
+}
+
+.Token_title_right_volume_box_item_active {
+    
 }
 
 .Token_title_right_search{
@@ -119,6 +178,11 @@
     align-items: center;
     -webkit-box-pack: start;
     justify-content: flex-start;
+}
+
+.Token_head_box_price:hover {
+    cursor: pointer;
+    opacity: 0.4;
 }
 .Token_head div:nth-child(7) {
     justify-content: center;

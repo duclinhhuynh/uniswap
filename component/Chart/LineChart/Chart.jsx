@@ -6,7 +6,6 @@ import StyleWallet from '../../Model/Wallet/Wallet.module.css'
 
 // react icon
 import { FaXTwitter } from "react-icons/fa6";
-import { SiWebmoney } from "react-icons/si";
 import { FaShare } from "react-icons/fa";
 import { BiQrScan } from "react-icons/bi";
 import { MdChevronRight } from "react-icons/md";
@@ -14,6 +13,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { FaChartSimple } from "react-icons/fa6";
 import {FiCopy} from 'react-icons/fi';
 import { FaRegCheckCircle } from "react-icons/fa";
+import { SiGoogleearth } from "react-icons/si";
 
 function CustomTooltip({ payload, label, active, currency = "usd" }) {
   if (active && payload && payload.length) {
@@ -68,6 +68,7 @@ const Chart = () => {
   const [currentAccount, setCurrenAccount] = useState('0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266');
   const [addressMyWeb, setAddressMyWeb] = useState('https://www.youtube.com/watch?v=5vcB-EUwbJU');
   const [showCheck, setShowCheck] = useState(false);
+  const [showCheckShare, setShowCheckShare] = useState(false);
   const [openShare, setOpenShare] = useState(false);
   const [hovering, setHovering] = useState(false);
   const onHandleADay = () => {
@@ -171,7 +172,13 @@ const copyAddressShare = () => {
     setShowCheck(true); 
     setTimeout(() => {
       setShowCheck(false);
-    }, 1200);
+    }, 700);
+  };
+  const handleMouseDownShare = (event) => {
+    setShowCheckShare(true); 
+    setTimeout(() => {
+      setShowCheckShare(false);
+    }, 700);
   };
 
   // share on twitter
@@ -232,7 +239,7 @@ const copyAddressShare = () => {
       </div>
         <div className={Style.chart_title_right}>
           <div className={Style.chart_network}><a target='_blank' href="https://etherscan.io/"><BiQrScan className={Style.chart_network_icon}/><span className={Style.tooltip}>Explore</span></a></div>
-          <div className={Style.chart_network}><a target='_blank' href="https://etherscan.io/"><SiWebmoney className={Style.chart_network_icon}/><span className={Style.tooltip}>Website</span></a></div>
+          <div className={Style.chart_network}><a target='_blank' href="https://etherscan.io/"><SiGoogleearth className={Style.chart_network_icon}/><span className={Style.tooltip}>Website</span></a></div>
           <div className={Style.chart_network}><a target='_blank' href="https://etherscan.io/"><FaXTwitter className={Style.chart_network_icon}/><span className={Style.tooltip}>Twitter</span></a></div>
           <div className={`${ openShare ? Style.chart_network_share_active : Style.chart_network}`}
           onClick={handleOpenShare}><FaShare className={Style.chart_network_icon}/>
@@ -244,13 +251,13 @@ const copyAddressShare = () => {
               onMouseLeave={() => setHovering(true)}
               >
               <span onClick={() => copyAddressShare()}
-                  onMouseDown={handleMouseDown}>
+                  onMouseDown={handleMouseDownShare}>
                 <input type="text" 
                     hidden
                     value={addressMyWeb}
                     id='myWeb'
                 />
-                {showCheck ? <FaRegCheckCircle className={StyleWallet.Model_box_head_address_check}/>
+                {showCheckShare ? <FaRegCheckCircle className={StyleWallet.Model_box_head_address_check}/>
                   : <FiCopy className={StyleWallet.Model_box_head_address_icon}
                   /> 
                 }

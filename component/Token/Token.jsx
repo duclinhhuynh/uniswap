@@ -10,11 +10,13 @@ import { IoChevronDown } from "react-icons/io5";
 import { IoIosArrowUp } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import { FaArrowDown } from "react-icons/fa6";
+import { FaArrowUp } from "react-icons/fa6";
 import { FaCaretDown } from "react-icons/fa";
 import { FaCaretUp } from "react-icons/fa";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaArrowTurnUp } from "react-icons/fa6";
+import { FaCheck } from "react-icons/fa6";
 // swap 
 import SwapTokenContext from '../../context/SwapTokenContext'
 // chart
@@ -50,11 +52,43 @@ const Token = () => {
   const itemsPerPage = 15;
   const totalPages = Math.ceil(allCoin.length / itemsPerPage);
   // page
-  // scroll
-  const tokenBodyRef = useRef(null);
   const firstTokenRef = useRef(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
+  // sort by
+  const [sortOrder, setSortOrder] = useState('asc'); 
+  const [sortCriterion, setSortCriterion] = useState('volume'); 
+  //
+  const [volumeDay, setVolumeDay] = useState([
+    '1H Volume'
+  ]);  
+  const [openVolumeDay, setOpenVolumeDay] = useState(false);
+  const [activeVolume, setActiveVolume] = useState(1);
 
+  // volume day
+  const handleOpenVolumeDay = () => {
+    setOpenVolumeDay(!openVolumeDay);
+  }
+  const handle1hourVolume = () => {
+    setActiveVolume(1);
+    setVolumeDay('1H Volume');
+  }
+  const handle1dayVolume = () => {
+    setActiveVolume(2);
+    setVolumeDay('1D Volume');
+  }
+  const handle1weekVolume = () => {
+    setActiveVolume(3);
+    setVolumeDay('1W Volume');
+  }
+  const handle1mounthVolume = () => {
+    setActiveVolume(4);
+    setVolumeDay('1M Volume');
+  }
+  const handle1yearVolume = () => {
+    setActiveVolume(5);
+    setVolumeDay('1Y Volume');
+  }
+ // scroll
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => {
@@ -157,7 +191,7 @@ const handleOpenTransaction = () => {
   const handleOpenVolume = () => {
     setVolume(!volume)
   }
-// select
+// fetch chart data
   useEffect(() => {
     setAllTokenList(allCoin.slice(0, 15)); // Giới hạn chỉ 15 phần tử
   }, [allCoin]);
@@ -235,89 +269,51 @@ const handleOpenTransaction = () => {
       fetchDataForBothCoins();
     }
   }, [allTokenList, fetchHistoricalData]);
-//   useEffect(() => {
-//   const fetchChartData = async (coinId) => {
-//     try {
-//       const historicalData = await fetchHistoricalData(coinId);
-//       console.log("historicalData",historicalData.prices);
-//       const convertedData = historicalData.prices.map(item => ({
-//         date: new Date(item[0]).toLocaleDateString(),
-//         prices: item[1],
-//       }));
-//       return {
-//         coinId,
-//         data: convertedData, // Trả về convertedData thay vì object date và prices
-//       };
-//     } catch (error) {
-//       console.error('Error fetching historical data:', error);
-//       return null;
-//     }
-//   };
-//   allTokenList.forEach(token => {
-//     fetchChartData(token.id);
-//   });
-//   const fetchDataForBothCoins = async () => {
-//     try {
-//       const [tokenV3, tokenV2] = await Promise.all([
-//         fetchChartData('internet-computer'),
-//         fetchChartData('uniswap'),
-//       ]);
-//       if (tokenV3 && tokenV2) { // Chỉ gọi setChartColumn và setChartToken nếu dữ liệu tồn tại
-//         const tokenV3Data = tokenV3.data.reduce((acc, { date, prices }) => {
-//           if (!acc[date]) {
-//             acc[date] = { date, TokenV3: prices };
-//           }
-//           return acc;
-//         }, {});
 
-//         const tokenV2Data = tokenV2.data.reduce((acc, { date, prices }) => {
-//           if (acc[date]) {
-//             acc[date].TokenV2 = prices;
-//           } else {
-//             acc[date] = { date, TokenV2: prices };
-//           }
-//           return acc;
-//         }, tokenV3Data);
-
-//         const mergedData = Object.values(tokenV2Data);
-//         setChartColumn(mergedData);
-//         const mergedTokenData = tokenV3.data.map(({ date, prices }) => ({
-//           date,
-//           TokenV3: prices,
-//           TokenV2: tokenV2.data.find(item => item.date === date)?.prices || prices,
-//         }));
-//         setChartToken(mergedTokenData);
-//       }
-//     } catch (error) {
-//       console.error('Error fetching historical data for both coins:', error);
-//     } finally {
-//       setLoadingChartData(false);
-//     }
-//   };
- 
-//   fetchDataForBothCoins();
-// },[allTokenList, fetchHistoricalData]);
-//  useEffect(() => {
-//     const fetchChartData = async (coinId) => {
-//       try {
-//         const historicalData = await fetchHistoricalData(coinId);
-//         setChartData(prevChartData => ({
-//           ...prevChartData,
-//           [coinId]: historicalData.prices
-//         }));
-//       } catch (error) {
-//         console.error('Error fetching historical data:', error);
-//       } finally {
-//         setLoadingChartData(false);
-//       }
-//     };
-
-//     if (allTokenList && allTokenList.length > 0) {
-//       allTokenList.forEach(token => {
-//         fetchChartData(token.id);
-//       });
-//     }
-//   }, [allTokenList, fetchHistoricalData]);
+//  sort by price
+const sortTokens = () => {
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const sortedTokens = [...allTokenList]
+    .slice(startIndex, endIndex)
+    .sort((a, b) => {
+    if (sortCriterion === 'volume') {
+      if (sortOrder === 'asc') {
+        return a.total_volume - b.total_volume;
+      } else {
+        return b.total_volume - a.total_volume;
+      }
+    } else if (sortCriterion === 'price') {
+      if (sortOrder === 'asc') {
+        return a.current_price - b.current_price;
+      } else {
+        return b.current_price - a.current_price;
+      }
+    } else if (sortCriterion === 'day') {
+      if (sortOrder === 'asc') {
+        return Math.abs(a.day_change) - Math.abs(b.day_change);
+      } else {
+        return Math.abs(b.day_change) - Math.abs(a.day_change);
+      }
+    } 
+    else if (sortCriterion === 'hour') {
+      if (sortOrder === 'asc') {
+        return a.hour_change - b.hour_change;
+      } else {
+        return b.hour_change - a.hour_change;
+      }
+    }    else if (sortCriterion === 'FDV') {
+      if (sortOrder === 'asc') {
+        return a.day_FDV - b.day_FDV;
+      } else {
+        return b.day_FDV - a.day_FDV;
+      }
+    }
+    return 0;
+  });
+  setAllTokenList(sortedTokens);
+  setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+};
   return (
     <>
     <div className={Style.Token} ref={firstTokenRef} >
@@ -348,9 +344,19 @@ const handleOpenTransaction = () => {
               {netWork && 
               <NetWork/>}
             </div>
-            <div className={Style.Token_title_right_volume} onClick={() => handleOpenVolume()}>
-              <div>1D Volume</div>
-              {volume ? <IoIosArrowUp/> : <IoChevronDown/> }
+            <div className={`${ openVolumeDay ?  Style.Token_title_right_volume_active : Style.Token_title_right_volume}`} onClick={() => handleOpenVolumeDay()}>
+              <div className={Style.Token_title_right_volume_box_value}>{volumeDay}
+                {openVolumeDay && 
+                  <div className={Style.Token_title_right_volume_box}>
+                    <div onClick={()=>handle1hourVolume()}>1H Volume {activeVolume === 1 ? <FaCheck className={Style.active_volume_check}/> : ""}</div>
+                    <div onClick={()=>handle1dayVolume()}>1D Volume {activeVolume === 2 ? <FaCheck className={Style.active_volume_check}/> : ""}</div>
+                    <div onClick={()=>handle1weekVolume()}>1W Volume {activeVolume === 3 ? <FaCheck className={Style.active_volume_check}/> : ""}</div>
+                    <div onClick={()=>handle1mounthVolume()}>1M Volume {activeVolume === 4 ? <FaCheck className={Style.active_volume_check}/> : ""}</div>
+                    <div onClick={()=>handle1yearVolume()}>1Y Volume {activeVolume === 5 ? <FaCheck className={Style.active_volume_check}/> : ""}</div>
+                  </div>
+                } 
+              </div>
+              {openVolumeDay ? <IoIosArrowUp/> : <IoChevronDown/> }
             </div>
             <div className={Style.Token_title_right_search}>
               <CiSearch className={Style.Token_title_right_search_icon}/>
@@ -369,11 +375,31 @@ const handleOpenTransaction = () => {
                 <div className={Style.Token_head_box}>
                   <div>#</div>
                   <div>Token Name</div>
-                  <div>Price</div>
-                  <div>1 hour</div>
-                  <div>1 day</div>
-                  <div>FDV</div>
-                  <div><FaArrowDown/>&nbsp;Volume</div>
+                  <div className={Style.Token_head_box_price} 
+                  onClick={()=> { 
+                    setSortCriterion('price');
+                    sortTokens();
+                    }}> {sortCriterion === 'price' && (sortOrder === 'asc' ? <FaArrowDown /> : <FaArrowUp />)}&nbsp;Price </div>
+                  <div className={Style.Token_head_box_price} 
+                  onClick={()=> { 
+                    setSortCriterion('hour');
+                    sortTokens();
+                    }}> {sortCriterion === 'hour' && (sortOrder === 'asc' ? <FaArrowDown /> : <FaArrowUp />)}&nbsp;1 hour</div>
+                  <div className={Style.Token_head_box_price} 
+                  onClick={()=> { 
+                    setSortCriterion('day');
+                    sortTokens();
+                    }}>{sortCriterion === 'day' && (sortOrder === 'asc' ? <FaArrowDown /> : <FaArrowUp />)}&nbsp;1 day</div>
+                  <div className={Style.Token_head_box_price}  
+                  onClick={()=> { 
+                    setSortCriterion('FDV');
+                    sortTokens();
+                    }}>{sortCriterion === 'FDV' && (sortOrder === 'asc' ? <FaArrowDown /> : <FaArrowUp />)}&nbsp;FDV</div>
+                  <div className={Style.Token_head_box_price}  
+                  onClick={() => {
+                    setSortCriterion('volume');
+                    sortTokens();
+                  }}>{sortCriterion === 'volume' && (sortOrder === 'asc' ? <FaArrowDown /> : <FaArrowUp />)}&nbsp;Volume</div>
                   <div>last 10 day</div>
                 </div>
               </div>
