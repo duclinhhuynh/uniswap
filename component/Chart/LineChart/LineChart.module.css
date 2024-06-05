@@ -139,6 +139,7 @@
     border-radius: 2rem;
     padding: 4px;
     gap: 12px;
+    position: relative;
 }
 .chart_box_day_left div{
     display: flex;
@@ -169,9 +170,8 @@
 }
 .chart_box_day_right div {
     display: flex;
-    align-items: center;
 }
-.chart_box_day_right_analyst div {
+.chart_box_day_right_analyst_title {
     display: flex;
     gap: 4px;
     padding: 6px 14px;
@@ -232,4 +232,107 @@
 
 .chart_network_share_active {
     background-color: #f4f5f9;
+}
+
+.chart_box_day_right_changechart {
+    overflow: auto;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(51, 53, 72, 0.04) 8px 12px 20px, rgba(51, 53, 72, 0.02) 4px 6px 12px, rgba(51, 53, 72, 0.04) 4px 4px 8px;
+    border: 0.5px solid rgba(34, 34, 34, 0.07);
+    padding: 8px;
+    font-size: 16px;
+    position: absolute;
+    top: 48px;
+    z-index: 1000;
+    animation: 125ms ease-in-out 0s 1 normal none running hYPVna;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(34, 34, 34, 0.07) transparent;
+    min-width: 130px;
+    border-radius: 16px;
+    right: 0px;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+}
+.chart_box_day_right_changechart div {
+    display: flex;
+    flex: 1 1 0%;
+    padding: 12px 8px;
+    gap: 12px;
+    color: rgb(34, 34, 34);
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: flex-start;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 8px;
+}
+.chart_box_day_right_changechart div:hover {
+    background-color: #efefef;
+}
+
+.chart_box_day_right_price_item {
+    overflow: auto;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(51, 53, 72, 0.04) 8px 12px 20px, rgba(51, 53, 72, 0.02) 4px 6px 12px, rgba(51, 53, 72, 0.04) 4px 4px 8px;
+    border: 0.5px solid rgba(34, 34, 34, 0.07);
+    padding: 8px;
+    font-size: 16px;
+    position: absolute;
+    top: 48px;
+    z-index: 1000;
+    animation: 125ms ease-in-out 0s 1 normal none running hYPVna;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(34, 34, 34, 0.07) transparent;
+    min-width: 130px;
+    border-radius: 16px;
+    right: 0px;
+
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+}
+
+.chart_box_day_right_price_item div {
+    display: flex;
+    flex: 1 1 0%;
+    padding: 12px 8px;
+    gap: 12px;
+    color: rgb(34, 34, 34);
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 8px;
+}
+.chart_box_day_right_changechart_icon {
+    color: #677de6;
+}
+.chart_box_day_right_price_item div:hover{
+    background-color: #efefef;
+}
+.chart_box_market_price_title {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    font-weight: 485;
+    font-size: 28px !important;
+    padding-top: 40px;
+}
+.chart_box_market_price_box {
+    display: flex;
+    flex-wrap: wrap;
+}
+.chart_box_market_price_box div {
+    color: rgb(125, 125, 125);
+    font-size: 14px;
+    min-width: 121px;
+    flex: 1 1 0%;
+    padding-top: 24px;
+    padding-bottom: 0px;
 }

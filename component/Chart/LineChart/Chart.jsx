@@ -14,7 +14,9 @@ import { FaChartSimple } from "react-icons/fa6";
 import {FiCopy} from 'react-icons/fi';
 import { FaRegCheckCircle } from "react-icons/fa";
 import { SiGoogleearth } from "react-icons/si";
-
+import { MdOutlineShowChart } from "react-icons/md";
+import { FaCheck } from "react-icons/fa6";
+import { IoIosArrowUp } from "react-icons/io";
 function CustomTooltip({ payload, label, active, currency = "usd" }) {
   if (active && payload && payload.length) {
     return (
@@ -71,6 +73,47 @@ const Chart = () => {
   const [showCheckShare, setShowCheckShare] = useState(false);
   const [openShare, setOpenShare] = useState(false);
   const [hovering, setHovering] = useState(false);
+  const [lineChart, setLineChart] = useState(true);
+  const [candlestick, setCandlestick] = useState(false);
+  const [changechart, setChangeChart] = useState(false);
+  const [changePrice, setChangeChartPrice] = useState(false);
+  const [pricecheck, setPricecheck] = useState(true);
+  const [volumecheck, setVolumecheck] = useState(false);
+  const [tvlcheck, setTvlcheck] = useState(false);
+  // check chart
+  const handleclickanalyst = () => {
+    setChangeChart(!changechart)
+    setChangeChartPrice(false)
+  }
+  const handleclickprice = () => {
+    setChangeChartPrice(!changePrice)
+    setChangeChart(false)
+  }
+  const handlelineChart = () => {
+    setLineChart(true);
+    setCandlestick(false)
+  }
+  const handlecandlestick = () => {
+    setCandlestick(true);
+    setLineChart(false)
+  }
+  const handlePriceCheck = () => {
+    setPricecheck(true);
+    setVolumecheck(false);
+    setTvlcheck(false);
+  }
+  const handleVolumeCheck = () => {
+    setPricecheck(false);
+    setVolumecheck(true);
+    setTvlcheck(false);
+  }
+  const handleTvlCheck = () => {
+    setPricecheck(false);
+    setVolumecheck(false);
+    setTvlcheck(true);
+  }
+
+  //
   const onHandleADay = () => {
     setActiveDay(1);
     setOpen1day(true);
@@ -279,15 +322,41 @@ const copyAddressShare = () => {
               <div onClick={() => onHandle1All()} className={`${activeDay === 4 ? Style.activeDay : ""}`}>All</div>
             </div>
             <div className={Style.chart_box_day_right}>
-              <div className={Style.chart_box_day_right_analyst}>
-                <div><FaChartSimple/><IoIosArrowDown/></div>
-              </div>
-              <div className={Style.chart_box_day_right_price}>
-                <div>
-                  Prices<IoIosArrowDown/>
+              {pricecheck && 
+              <div className={Style.chart_box_day_right_analyst} onClick={() => handleclickanalyst()}>
+                <div className={Style.chart_box_day_right_analyst_title}>
+                  {lineChart ? <><MdOutlineShowChart/></> : <FaChartSimple/> }
+                  {changechart ? <IoIosArrowUp/> : <IoIosArrowDown/>}
                 </div>
+                {changechart &&
+                <div className={Style.chart_box_day_right_changechart}>
+                    <div onClick={() => handlelineChart()}><MdOutlineShowChart/>Linechart <span>{lineChart && <FaCheck className={Style.chart_box_day_right_changechart_icon}/>}</span></div>
+                    <div onClick={() => handlecandlestick()}><FaChartSimple/>Candlestick <span>{candlestick && <FaCheck className={Style.chart_box_day_right_changechart_icon}/>}</span></div>
+                </div>  
+                }
+              </div>}
+              <div className={Style.chart_box_day_right_price} onClick={() => handleclickprice()}>
+                <div>
+                  {pricecheck ? 'Prices' : volumecheck ? 'Volume' : tvlcheck ? 'Tvl' : "Price"} {changePrice ? <IoIosArrowUp/> : <IoIosArrowDown/>}
+                </div>
+                {changePrice &&
+                  <div className={Style.chart_box_day_right_price_item}>
+                      <div onClick={handlePriceCheck}>Price {pricecheck &&<FaCheck className={Style.chart_box_day_right_changechart_icon}/>}</div>
+                      <div onClick={handleVolumeCheck}>Volume {volumecheck && <FaCheck className={Style.chart_box_day_right_changechart_icon}/>}</div>
+                      <div onClick={handleTvlCheck}>TVL {tvlcheck &&<FaCheck className={Style.chart_box_day_right_changechart_icon}/>}</div>
+                  </div>  
+                }
               </div>
             </div>
+      </div>
+      <div className={Style.chart_box_market_price}>
+          <div className={Style.chart_box_market_price_title}>Stats</div>
+          <div className={Style.chart_box_market_price_box}>
+            <div>x</div>
+            <div>x</div>
+            <div>x</div>
+            <div>x</div>
+          </div>
       </div>
       </div>
     </div>

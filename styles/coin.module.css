@@ -3,7 +3,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
     gap: 3rem;
 }
 .coin_box_linechart {
